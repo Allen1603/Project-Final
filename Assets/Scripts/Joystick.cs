@@ -42,17 +42,13 @@ public class Joystick : MonoBehaviour
     {
         Vector2 input = moveAction.ReadValue<Vector2>();
 
-        if (input.sqrMagnitude > 0.01f) // joystick is being moved
+        if (input.sqrMagnitude > 0.01f)
         {
-            // Convert joystick input into a 3D direction (XZ plane)
             Vector3 direction = new Vector3(input.x, 0, input.y);
-
-            // Get target rotation
             Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-
-            // Smooth rotate character
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+
     }
 
     private void OnJoystickReleased(InputAction.CallbackContext context)

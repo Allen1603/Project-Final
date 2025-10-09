@@ -6,7 +6,6 @@ public class HookMechanism : MonoBehaviour
     public float speed;
     public float maxDistance;
 
-    private Vector3 targetDirection;
     private Vector3 startPoint;
     private Vector3 targetPoint;
     private float hookProgress = 0f;
@@ -39,28 +38,12 @@ public class HookMechanism : MonoBehaviour
         speed = PlayerController.instance.hookSpeed;
         maxDistance = PlayerController.instance.hookRange;
 
-        Vector3 mousePos = Input.mousePosition;
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
-        Plane ground = new Plane(Vector3.up, Vector3.zero); // Assume Y-up
+        // 👉 Use player forward (joystick direction) instead of mouse
+        targetPoint = startPoint + player.forward * maxDistance;
 
-        if (ground.Raycast(ray, out float distance))
-        {
-            targetPoint = ray.GetPoint(distance);
-        }
-        else
-        {
-            targetPoint = player.position + player.forward * maxDistance;
-        }
-
-        // Limit max distance
-        if (Vector3.Distance(startPoint, targetPoint) > maxDistance)
-        {
-            targetPoint = startPoint + (targetPoint - startPoint).normalized * maxDistance;
-        }
-
-        targetDirection = (targetPoint - startPoint).normalized;
         hookProgress = 0f;
     }
+
 
     void Update()
 {
