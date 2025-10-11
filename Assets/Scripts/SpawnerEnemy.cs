@@ -1,23 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class SpawnerEnemy : MonoBehaviour
 {
-    [Header("----- Enemy Prefabs -----")]
-    //public List<GameObject> enemies = new List<GameObject>();
-    public GameObject[] enemies;
-    public GameObject enemyBoss;
+    [Header("----- Enemy Prefabs & Tags -----")]
+    [Tooltip("Enemy tags that exist in EnemyPool (ex: Bug1, Bug2, Bug3, Bug4)")]
+    public string[] enemyTags; // should have 4 tags here
 
     [Header("----- Spawner Points -----")]
-    //public List<Transform> spawner = new List<Transform>();
-    public Transform[] spawner;
+    public Transform[] spawner; // assign multiple spawn points in inspector
 
     [Header("----- Spawn Settings -----")]
-    public float spawnInterval = 3f;
-    public float spawnDecrement = 0.2f;
-    public float limitDecrement = 1f;
+    public float spawnInterval = 3f;     // initial time between spawns
+    public float spawnDecrement = 0.2f;  // reduces spawn interval per wave
+    public float limitDecrement = 1f;    // min allowed interval
 
     [Header("----- Wave Settings -----")]
     public int startingEnemiesPerWave = 10;
@@ -31,16 +28,41 @@ public class SpawnerEnemy : MonoBehaviour
     [Header("----- Wave UI -----")]
     public GameObject wavePanel;
     public TextMeshProUGUI waveTXT;
-
     public float waveTextDisplayTime = 3f;
 
-    void Start()
+    private void Start()
     {
+        StartCoroutine(InitializeSpawner());
+    }
+
+    private IEnumerator InitializeSpawner()
+    {
+        // wait 1 frame so EnemyPool.Instance can initialize
+        yield return null;
+
+        if (EnemyPool.Instance == null)
+        {
+            Debug.LogError("SpawnerEnemy: EnemyPool.Instance not found in scene!");
+            yield break;
+        }
+
+        if (spawner == null || spawner.Length == 0)
+        {
+            Debug.LogError("SpawnerEnemy: No spawner points assigned!");
+            yield break;
+        }
+
+        if (enemyTags == null || enemyTags.Length == 0)
+        {
+            Debug.LogError("SpawnerEnemy: No enemy tags assigned!");
+            yield break;
+        }
+
         spawnInterval = Mathf.Max(spawnInterval, limitDecrement);
         StartWave();
     }
 
-    void StartWave()
+    private void StartWave()
     {
         enemiesToSpawnInWave = startingEnemiesPerWave + enemyIncrementPerWave * (currentWave - 1);
         enemiesSpawnedThisWave = 0;
@@ -48,18 +70,16 @@ public class SpawnerEnemy : MonoBehaviour
         StartCoroutine(ShowWaveText());
         StartCoroutine(SpawnWave());
 
-        if (bossActivate)
+        if (bossActivate && EnemyPool.Instance != null)
         {
-            Transform bossSpawnPoint = spawner[1];
-            Instantiate(enemyBoss, bossSpawnPoint.position, bossSpawnPoint.rotation);
-
+            Transform bossSpawnPoint = spawner.Length > 1 ? spawner[1] : spawner[0];
+            EnemyPool.Instance.SpawnFromPool("Boss", bossSpawnPoint.position, Quaternion.identity);
             bossActivate = false;
         }
     }
 
-    IEnumerator SpawnWave()
+    private IEnumerator SpawnWave()
     {
-
         while (enemiesSpawnedThisWave < enemiesToSpawnInWave)
         {
             SpawnEnemy();
@@ -68,71 +88,41 @@ public class SpawnerEnemy : MonoBehaviour
         }
 
         currentWave++;
-
-        spawnInterval -= spawnDecrement;
-        spawnInterval = Mathf.Clamp(spawnInterval, limitDecrement, 999f);
+        spawnInterval = Mathf.Clamp(spawnInterval - spawnDecrement, limitDecrement, 999f);
 
         if (currentWave >= 2)
-        {
             bossActivate = true;
-        }
 
-        // Optional: Add delay between waves
         yield return new WaitForSeconds(10f);
-
         StartWave();
     }
 
-    void SpawnEnemy()
+    private void SpawnEnemy()
     {
-        if (enemies.Length == 0 || spawner.Length == 0)
+        // Random enemy + random spawn point
+        int enemyIndex = Random.Range(0, enemyTags.Length);
+        int spawnerIndex = Random.Range(0, spawner.Length);
+
+        string enemyTag = enemyTags[enemyIndex];
+        Transform spawnPoint = spawner[spawnerIndex];
+
+        if (!EnemyPool.Instance.HasTag(enemyTag))
         {
-            Debug.LogWarning("No enemies or spawners assigned!");
+            Debug.LogWarning($"SpawnerEnemy: Pool does not have enemy tag '{enemyTag}'");
             return;
         }
 
-        GameObject enemyPrefab = null;
-        Transform spawnPoint = null;
-
-        if (enemiesSpawnedThisWave == 0)
-        {
-            // First enemy = enemies[0] -> spawner[0]
-            enemyPrefab = enemies[0];
-            spawnPoint = spawner[0];
-        }
-        else if (enemiesSpawnedThisWave == 1)
-        {
-            // Second enemy = enemies[1] -> spawner[1]
-            enemyPrefab = enemies[1];
-            spawnPoint = spawner[1];
-        }
-        else
-        {
-            // Other enemies = enemies[2] or enemies[3] -> spawner[2] only
-            int enemyIndex = Random.Range(2, enemies.Length);
-
-            // If you want them to spawn ONLY in spawner[2]:
-            int spawnerIndex = 2;
-
-            enemyPrefab = enemies[enemyIndex];
-            spawnPoint = spawner[spawnerIndex];
-        }
-
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
 
     }
 
-
-
-    IEnumerator ShowWaveText()
+    private IEnumerator ShowWaveText()
     {
         if (wavePanel != null)
         {
             wavePanel.SetActive(true);
             waveTXT.text = $"WAVE {currentWave}";
-
             yield return new WaitForSeconds(waveTextDisplayTime);
-
             wavePanel.SetActive(false);
         }
     }

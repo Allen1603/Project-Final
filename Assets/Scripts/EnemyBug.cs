@@ -4,37 +4,50 @@ using System.Collections;
 public class EnemyBug : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float speed = 2f; // Normal speed
-    public float dashSpeedMultiplier = 3f; // How much faster during dash
-    public float dashDuration = 1f; // How long dash lasts
-    public float dashCooldown = 3f; // Time between dashes
+    public float speed = 2f;                  // Normal movement speed
+    public float dashSpeedMultiplier = 3f;    // Speed multiplier during dash
+    public float dashDuration = 1f;           // How long dash lasts
+    public float dashCooldown = 3f;           // Time between dashes
 
-    [Header("Debug")]
+    [Header("Status")]
+    //private bool isStunned = false;
     private float originalSpeed;
+
+    //[Header("Visuals")]
+    //private Renderer modelRenderer;
+    //private Color originalColor;
+
+    //[Header("Effects")]
+    //public GameObject stunEffectPrefab;
+    //private GameObject stunEffectInstance;
+
+    public bool isHooked = false;
     private Coroutine dashCoroutine;
+    //private GameObject player;
 
-    private bool isStunned = false;
-
-
-    private Renderer modelRenderer;
-    private Color originalColor;
-    public GameObject stunEffectPrefab;      // Prefab ng visual effect
-    private GameObject stunEffectInstance;
+    // -------------------- START --------------------
     void Start()
     {
+        //player = GameObject.FindGameObjectWithTag("Player");
         originalSpeed = speed;
-        StartCoroutine(DashRoutine());
-        modelRenderer = GetComponentInChildren<Renderer>();
-        if (modelRenderer != null)
-            originalColor = modelRenderer.material.color;
+
+        //modelRenderer = GetComponentInChildren<Renderer>();
+        //if (modelRenderer != null)
+        //    originalColor = modelRenderer.material.color;
+
+        dashCoroutine = StartCoroutine(DashRoutine());
     }
 
     void Update()
     {
-        // Basic movement (faster when dashing)
+        if (isHooked) return; // Skip movement if stunned or hooked
+        //if (player == null) return;
+
+        // Normal movement (left) — simple dash speed handled by coroutine
         transform.position += Vector3.left * speed * Time.deltaTime;
     }
 
+    // -------------------- DASH LOGIC --------------------
     IEnumerator DashRoutine()
     {
         while (true)
@@ -46,110 +59,111 @@ public class EnemyBug : MonoBehaviour
 
     IEnumerator BugDashSkill()
     {
-        // Start dash
         speed *= dashSpeedMultiplier;
-
         yield return new WaitForSeconds(dashDuration);
-
-        // End dash
         speed = originalSpeed;
     }
 
-    public void OnTriggerEnter(Collider other)
+    // -------------------- COLLISIONS --------------------
+    private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Hook"))
+        {
+            isHooked = true;
+        }
         if (other.CompareTag("Player"))
         {
-            Destroy(gameObject);
-
-            if (PlayerController.instance != null)
-            {
-                PlayerController.instance.TakeExp(10);
-                PlayerController.instance.TakeBar(10);
-            }
+            PlayerController.instance.TakeBar(10);
+            PlayerController.instance.TakeExp(10);
+            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
         }
-        else if (other.CompareTag("Base"))
+        if (other.CompareTag("Base"))
         {
-            Destroy(gameObject);
+            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
         }
     }
 
-    void OnDestroy()
+    // -------------------- STATUS EFFECTS --------------------
+    //public void SlowEffect(float newSpeed, float duration)
+    //{
+    //    if (!isStunned)
+    //    {
+    //        float currentSpeed = speed;
+    //        speed = newSpeed;
+    //        StartCoroutine(BlinkEffect(duration));
+    //        StartCoroutine(ResetSpeedAfter(duration, currentSpeed));
+    //    }
+    //}
+
+    //private IEnumerator ResetSpeedAfter(float duration, float originalSpeed)
+    //{
+    //    yield return new WaitForSeconds(duration);
+    //    speed = originalSpeed;
+
+    //    if (modelRenderer != null)
+    //        modelRenderer.material.color = originalColor;
+    //}
+
+    //private IEnumerator BlinkEffect(float duration)
+    //{
+    //    if (modelRenderer == null) yield break;
+
+    //    float elapsed = 0f;
+    //    bool toggle = false;
+    //    Color slowColor = Color.blue;
+
+    //    while (elapsed < duration)
+    //    {
+    //        modelRenderer.material.color = toggle ? slowColor : originalColor;
+    //        toggle = !toggle;
+    //        elapsed += 0.2f;
+    //        yield return new WaitForSeconds(0.2f);
+    //    }
+
+    //    modelRenderer.material.color = originalColor;
+    //}
+
+    //// -------------------- STUN --------------------
+    //public void Stun(float duration)
+    //{
+    //    if (!isStunned)
+    //        StartCoroutine(StunCoroutine(duration));
+    //}
+
+    //private IEnumerator StunCoroutine(float duration)
+    //{
+    //    isStunned = true;
+
+    //    float prevSpeed = speed;
+    //    speed = 0f; // stop movement
+
+    //    // Spawn stun effect
+    //    if (stunEffectPrefab != null && stunEffectInstance == null)
+    //    {
+    //        stunEffectInstance = Instantiate(stunEffectPrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
+    //        stunEffectInstance.transform.SetParent(transform);
+    //    }
+
+    //    yield return new WaitForSeconds(duration);
+
+    //    // Restore
+    //    isStunned = false;
+    //    speed = prevSpeed;
+
+    //    if (stunEffectInstance != null)
+    //    {
+    //        Destroy(stunEffectInstance);
+    //        stunEffectInstance = null;
+    //    }
+    //}
+
+    // -------------------- CLEANUP --------------------
+    private void OnDisable()
     {
         if (dashCoroutine != null)
         {
             StopCoroutine(dashCoroutine);
-        }
-    }
-    public void SlowEffect(float newSpeed, float duration)
-    {
-        if (!isStunned)
-        {
-            //isSlowed = true;
-            float currentSpeed = speed;
-            speed = newSpeed;
-            StartCoroutine(BlinkEffect(duration));
-            StartCoroutine(ResetSpeedAfter(duration, currentSpeed));
-        }
-    }
-    private IEnumerator ResetSpeedAfter(float duration, float originalSpeed)
-    {
-        yield return new WaitForSeconds(duration);
-        speed = originalSpeed;
-        //isSlowed = false;
-
-        if (modelRenderer != null)
-            modelRenderer.material.color = originalColor;
-    }
-
-    private IEnumerator BlinkEffect(float duration)
-    {
-        if (modelRenderer == null) yield break;
-
-        float elapsed = 0f;
-        bool toggle = false;
-        Color slowColor = Color.blue;
-
-        while (elapsed < duration)
-        {
-            modelRenderer.material.color = toggle ? slowColor : originalColor;
-            toggle = !toggle;
-            elapsed += 0.2f;
-            yield return new WaitForSeconds(0.2f);
-        }
-
-        modelRenderer.material.color = originalColor;
-    }
-    public void Stun(float duration)
-    {
-        if (!isStunned)
-        {
-            StartCoroutine(StunCoroutine(duration));
-        }
-    }
-
-    private IEnumerator StunCoroutine(float duration)
-    {
-        isStunned = true;
-
-        float originalSpeed = speed;
-        speed = 0f; // 🛑 Stop movement
-
-        // 🔆 Mag-spawn ng visual effect (optional)
-        if (stunEffectPrefab != null && stunEffectInstance == null)
-        {
-            stunEffectInstance = Instantiate(stunEffectPrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
-            stunEffectInstance.transform.SetParent(transform); // Para sumunod sa enemy
-        }
-
-        yield return new WaitForSeconds(duration);
-
-        // ✅ Restore
-        isStunned = false;
-        speed = originalSpeed;
-
-        if (stunEffectInstance != null)
-        {
-            Destroy(stunEffectInstance);
+            dashCoroutine = null;
         }
     }
 }

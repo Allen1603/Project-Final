@@ -14,35 +14,49 @@ public class EnemyHopper : MonoBehaviour
     private float jumpStartTime;
     private Vector3 jumpStartPos;
 
-    private bool isStunned = false;
+    public bool isHooked = false;
     private float originalSpeed;
 
-    [Header("Visuals")]
-    private Renderer modelRenderer;
-    private Color originalColor;
+    //[Header("Visuals")]
+    //private Renderer modelRenderer;
+    //private Color originalColor;
 
-    public GameObject stunEffectPrefab;
-    private GameObject stunEffectInstance;
+    //public GameObject stunEffectPrefab;
+    //private GameObject stunEffectInstance;
+
+    void OnEnable()
+    {
+        // Reset when spawned from pool
+        //isStunned = false;
+        speed = originalSpeed;
+        jumpTimer = jumpInterval;
+
+        //if (stunEffectInstance != null)
+        //    Destroy(stunEffectInstance);
+
+        //if (modelRenderer != null)
+        //    modelRenderer.material.color = originalColor;
+    }
 
     void Start()
     {
-        jumpTimer = jumpInterval;
         originalSpeed = speed;
+        jumpTimer = jumpInterval;
 
-        modelRenderer = GetComponentInChildren<Renderer>();
-        if (modelRenderer != null)
-            originalColor = modelRenderer.material.color;
+        //modelRenderer = GetComponentInChildren<Renderer>();
+        //if (modelRenderer != null)
+        //    originalColor = modelRenderer.material.color;
     }
 
     void Update()
     {
-        if (isStunned) return;
+        if (isHooked) return;
 
-        // Move left towards the base
+        // Move left
         transform.position += Vector3.left * speed * Time.deltaTime;
 
+        // Handle jumping
         jumpTimer -= Time.deltaTime;
-
         if (!isJumping && jumpTimer <= 0f)
         {
             isJumping = true;
@@ -71,87 +85,94 @@ public class EnemyHopper : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Hook"))
+        {
+            isHooked = true;
+        }
         if (other.CompareTag("Player"))
         {
-            Destroy(gameObject);
-           
-            PlayerController.instance.TakeExp(10);
             PlayerController.instance.TakeBar(10);
-           
+            PlayerController.instance.TakeExp(10);
+            EnemyPool.Instance.ReturnToPool("Enemy1", gameObject);
         }
-        else if (other.CompareTag("Base"))
+        if (other.CompareTag("Base"))
         {
-            Destroy(gameObject);
+            EnemyPool.Instance.ReturnToPool("Enemy1", gameObject);
         }
     }
 
-    public void SlowEffect(float newSpeed, float duration)
-    {
-        if (isStunned) return; // Ignore slow when stunned
+    // Slow Effect
+    //public void SlowEffect(float newSpeed, float duration)
+    //{
+    //    if (isStunned) return;
+    //    StopCoroutine(nameof(SlowCoroutine));
+    //    StartCoroutine(SlowCoroutine(newSpeed, duration));
+    //}
 
-        StartCoroutine(SlowCoroutine(newSpeed, duration));
-    }
+    //private IEnumerator SlowCoroutine(float newSpeed, float duration)
+    //{
+    //    float prevSpeed = speed;
+    //    speed = newSpeed;
 
-    private IEnumerator SlowCoroutine(float newSpeed, float duration)
-    {
-        float prevSpeed = speed;
-        speed = newSpeed;
+    //    if (modelRenderer != null)
+    //        StartCoroutine(BlinkEffect(duration));
 
-        if (modelRenderer != null)
-            StartCoroutine(BlinkEffect(duration));
+    //    yield return new WaitForSeconds(duration);
 
-        yield return new WaitForSeconds(duration);
+    //    speed = originalSpeed;
 
-        speed = originalSpeed;
+    //    if (modelRenderer != null)
+    //        modelRenderer.material.color = originalColor;
+    //}
 
-        if (modelRenderer != null)
-            modelRenderer.material.color = originalColor;
-    }
+    //// Blink visual when slowed
+    //private IEnumerator BlinkEffect(float duration)
+    //{
+    //    if (modelRenderer == null) yield break;
 
-    private IEnumerator BlinkEffect(float duration)
-    {
-        if (modelRenderer == null) yield break;
+    //    float elapsed = 0f;
+    //    bool toggle = false;
+    //    Color slowColor = Color.blue;
 
-        float elapsed = 0f;
-        bool toggle = false;
-        Color slowColor = Color.blue;
+    //    while (elapsed < duration)
+    //    {
+    //        modelRenderer.material.color = toggle ? slowColor : originalColor;
+    //        toggle = !toggle;
+    //        elapsed += 0.2f;
+    //        yield return new WaitForSeconds(0.2f);
+    //    }
 
-        while (elapsed < duration)
-        {
-            modelRenderer.material.color = toggle ? slowColor : originalColor;
-            toggle = !toggle;
-            elapsed += 0.2f;
-            yield return new WaitForSeconds(0.2f);
-        }
+    //    modelRenderer.material.color = originalColor;
+    //}
 
-        modelRenderer.material.color = originalColor;
-    }
+    //// Stun logic
+    //public void Stun(float duration)
+    //{
+    //    if (!isStunned)
+    //    {
+    //        StopAllCoroutines(); // Stop movement-related effects
+    //        StartCoroutine(StunCoroutine(duration));
+    //    }
+    //}
 
-    public void Stun(float duration)
-    {
-        if (!isStunned)
-            StartCoroutine(StunCoroutine(duration));
-    }
+    //private IEnumerator StunCoroutine(float duration)
+    //{
+    //    isStunned = true;
+    //    float prevSpeed = speed;
+    //    speed = 0f;
 
-    private IEnumerator StunCoroutine(float duration)
-    {
-        isStunned = true;
+    //    if (stunEffectPrefab != null && stunEffectInstance == null)
+    //    {
+    //        stunEffectInstance = Instantiate(stunEffectPrefab, transform.position + Vector3.up, Quaternion.identity);
+    //        stunEffectInstance.transform.SetParent(transform);
+    //    }
 
-        float prevSpeed = speed;
-        speed = 0f;
+    //    yield return new WaitForSeconds(duration);
 
-        if (stunEffectPrefab != null && stunEffectInstance == null)
-        {
-            stunEffectInstance = Instantiate(stunEffectPrefab, transform.position + Vector3.up, Quaternion.identity);
-            stunEffectInstance.transform.SetParent(transform);
-        }
+    //    isStunned = false;
+    //    speed = originalSpeed;
 
-        yield return new WaitForSeconds(duration);
-
-        isStunned = false;
-        speed = originalSpeed;
-
-        if (stunEffectInstance != null)
-            Destroy(stunEffectInstance);
-    }
+    //    if (stunEffectInstance != null)
+    //        Destroy(stunEffectInstance);
+    //}
 }

@@ -388,10 +388,10 @@ GameObject:
   - component: {fileID: 2390089880128083152}
   - component: {fileID: 3716492884089753214}
   - component: {fileID: 3300990371183416573}
-  - component: {fileID: 9184769636766512892}
+  - component: {fileID: -3160934016558614696}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: EnemyAttack
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -490,7 +490,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &9184769636766512892
+--- !u!114 &-3160934016558614696
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -499,21 +499,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 222142102558164817}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eb37b9fa16d84c47a32e14ac59df11e, type: 3}
+  m_Script: {fileID: 11500000, guid: a3fafbf88ab3e6b4b88b1fbeaa1f0205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  moveSpeed: 2
   enemyPrefabs:
   - {fileID: 3466001043924928108, guid: 540319504e84a124f801136b88ebc64a, type: 3}
-  minSummonCount: 3
-  maxSummonCount: 5
-  summonInterval: 5
+  enemyTags:
+  - Enemy1
+  enemySummon: 5
+  summonInterval: 3
   summonRadius: 3
-  isHooked: 0
-  summonEffectPrefab: {fileID: 1582639895311219992, guid: 6f5beb08f23d818439f9d902f74d3c68, type: 3}
-  maxHealth: 500
-  currentHealth: 0
-  hookDamage: 50
+  currentBossHealth: 300
 --- !u!1001 &3605303531192520359
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,45 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 public class Base : MonoBehaviour
 {
-    public TextMeshProUGUI limittext;
+    [Header("----- Base Settings -----")]
     public float maxLimit = 15f;
     public float currentLimit = 0;
 
-    // Start is called before the first frame update
+    [Header("----- UI -----")]
+    public TextMeshProUGUI limitText;
+    public GameObject gameOverPanel; // Optional: assign in Inspector
+
     void Start()
     {
         currentLimit = 0;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
             currentLimit++;
-            UpdateLimit();
+
+            other.gameObject.SetActive(false);
+
             if (currentLimit >= maxLimit)
             {
                 currentLimit = maxLimit;
-                Destroy(gameObject);
+                GameOver();
             }
-           
         }
     }
 
-    public void UpdateLimit()
+    void GameOver()
     {
-        limittext.text = currentLimit + "/15";
+        Time.timeScale = 0f; // pause game
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
     }
-
-
 }

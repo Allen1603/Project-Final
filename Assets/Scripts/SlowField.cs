@@ -15,34 +15,28 @@ public class SlowField : MonoBehaviour
     IEnumerator SlowAllEnemies()
     {
         // Hanapin lahat ng enemies na merong SlowEffect method
-        EnemySlime[] slimes = FindObjectsOfType<EnemySlime>();
         EnemyFly[] flies = FindObjectsOfType<EnemyFly>();
         EnemyBug[] bugs = FindObjectsOfType<EnemyBug>();
         EnemyHopper[] hoppers = FindObjectsOfType<EnemyHopper>();
         EnemyBee[] bees = FindObjectsOfType<EnemyBee>();
 
-        foreach (EnemySlime slime in slimes)
-        {
-            slime.SlowEffect(newSlowSpeed, slowDuration);
-        }
+        //foreach (EnemyFly fly in flies)
+        //{
+        //    fly.SlowEffect(newSlowSpeed, slowDuration);
+        //}
 
-        foreach (EnemyFly fly in flies)
-        {
-            fly.SlowEffect(newSlowSpeed, slowDuration);
-        }
-
-        foreach (EnemyBee bee in bees)
-        {
-            bee.SlowEffect(newSlowSpeed, slowDuration);
-        }
-        foreach (EnemyBug bug in bugs)
-        {
-            bug.SlowEffect(newSlowSpeed, slowDuration);
-        }
-        foreach (EnemyHopper hopper in hoppers)
-        {
-            hopper.SlowEffect(newSlowSpeed, slowDuration);
-        }
+        //foreach (EnemyBee bee in bees)
+        //{
+        //    bee.SlowEffect(newSlowSpeed, slowDuration);
+        //}
+        //foreach (EnemyBug bug in bugs)
+        //{
+        //    bug.SlowEffect(newSlowSpeed, slowDuration);
+        //}
+        //foreach (EnemyHopper hopper in hoppers)
+        //{
+        //    hopper.SlowEffect(newSlowSpeed, slowDuration);
+        //}
 
         yield return null;
     }

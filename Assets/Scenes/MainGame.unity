@@ -3615,7 +3615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 787808541489b0a44acee871aa6e854c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 787808541489b0a44acee871aa6e854c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3684,7 +3684,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647018904}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.5, y: 0.30743408, z: 9.018829}
+  m_LocalPosition: {x: 16.5, y: 0.30743408, z: 11.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1910447919}
@@ -9239,6 +9239,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675025259}
   m_CullTransparentMesh: 1
+--- !u!1 &1703203037
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703203039}
+  - component: {fileID: 1703203038}
+  m_Layer: 0
+  m_Name: HookPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1703203038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703203037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60332c0a53d5a34c8613960f9a10d6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hookPrefab: {fileID: 138315151237188031, guid: f591e256a4bda8848becbae5cbe41dbf, type: 3}
+  poolSize: 2
+--- !u!4 &1703203039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703203037}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.4425914, y: 3.618828, z: -3.054251}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1703254736
 GameObject:
   m_ObjectHideFlags: 0
@@ -10189,7 +10234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 787808541489b0a44acee871aa6e854c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.75
+      value: 2.51
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 787808541489b0a44acee871aa6e854c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10463,12 +10508,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb0e918cbc17054c8a278abc5529213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 6914501723994668801, guid: 2320f742a637bc54fa4eee4823a493bf, type: 3}
-  - {fileID: 7261276584578322178, guid: f10341d7459d983469825f470b542fff, type: 3}
-  - {fileID: 3466001043924928108, guid: 540319504e84a124f801136b88ebc64a, type: 3}
-  - {fileID: 1555855959286000914, guid: 87cb0c4b1cde3b6448f27f88008f58f2, type: 3}
-  enemyBoss: {fileID: 222142102558164817, guid: 183335838fc5fcf49a51bd9db38908e1, type: 3}
+  enemyTags:
+  - Enemy1
+  - Enemy2
+  - Enemy3
+  - Enemy4
   spawner:
   - {fileID: 667071191}
   - {fileID: 2037862744}
@@ -10746,9 +10790,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2b672c4358bf249ad7a293a83fbce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limittext: {fileID: 172687528}
   maxLimit: 15
   currentLimit: 0
+  limitText: {fileID: 172687528}
+  gameOverPanel: {fileID: 0}
 --- !u!54 &1952163352
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11166,7 +11211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2037862743}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.5, y: 0.30743408, z: 4.5188293}
+  m_LocalPosition: {x: 16.5, y: 0.30743408, z: 4.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1910447919}
@@ -11619,6 +11664,65 @@ Transform:
   - {fileID: 1814429084}
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2117487433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2117487435}
+  - component: {fileID: 2117487434}
+  m_Layer: 0
+  m_Name: EnemyPooling
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2117487434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117487433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 896bcbf617ad47a4f88449e99676ea59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: Enemy1
+    prefab: {fileID: 7261276584578322178, guid: f10341d7459d983469825f470b542fff, type: 3}
+    size: 10
+  - tag: Enemy2
+    prefab: {fileID: 1555855959286000914, guid: 87cb0c4b1cde3b6448f27f88008f58f2, type: 3}
+    size: 10
+  - tag: Enemy3
+    prefab: {fileID: 6914501723994668801, guid: 2320f742a637bc54fa4eee4823a493bf, type: 3}
+    size: 10
+  - tag: Enemy4
+    prefab: {fileID: 3466001043924928108, guid: 540319504e84a124f801136b88ebc64a, type: 3}
+    size: 10
+  - tag: Boss
+    prefab: {fileID: 222142102558164817, guid: 183335838fc5fcf49a51bd9db38908e1, type: 3}
+    size: 2
+--- !u!4 &2117487435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117487433}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.4425914, y: 3.618828, z: -3.054251}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2133589647
 GameObject:

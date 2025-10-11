@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1555855959286000915}
   m_Layer: 0
   m_Name: EnemyFly
-  m_TagString: Enemy
+  m_TagString: Enemy2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,7 +130,6 @@ MonoBehaviour:
   zigzagFrequency: 1
   zigzagWidth: 7
   isHooked: 0
-  stunEffectPrefab: {fileID: 1447822933094729849, guid: 6f3562715ec3d7a4e8387bf9c4b6bafe, type: 3}
 --- !u!1001 &2050004164270102653
 PrefabInstance:
   m_ObjectHideFlags: 0
