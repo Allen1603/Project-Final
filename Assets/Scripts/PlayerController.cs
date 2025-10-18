@@ -46,28 +46,28 @@ public class PlayerController : MonoBehaviour
     public Image hpFill;
     public Gradient hpGradient;
 
-    [Header("Skill Unlock System")]
-    public Button slowButton;
-    public Button stunButton;
-    public Button healButton;
-    public Button cloneButton;
+    //[Header("Skill Unlock System")]
+    //public Button slowButton;
+    //public Button stunButton;
+    //public Button healButton;
+    //public Button cloneButton;
 
-    private List<Button> skillButtons = new List<Button>();
-    private Button unlockedSkill = null;
+   // private List<Button> skillButtons = new List<Button>();
+    //private Button unlockedSkill = null;
 
     private Coroutine barDecreaseCoroutine;
 
     public GameObject skillUpgradePanel;
 
-    [Header("Skill System")]
-    public int slowLevel = 0;
-    public int stunLevel = 0;
-    public int cloneLevel = 0;
-    public int healLevel = 0;
+    //[Header("Skill System")]
+    //public int slowLevel = 0;
+    //public int stunLevel = 0;
+    //public int cloneLevel = 0;
+    //public int healLevel = 0;
 
-    public float hookRange = 6f;
-    public float hookSpeed = 20f;
-    private bool isSkillReady = false;
+    //public float hookRange = 5f;
+    //public float hookSpeed = 20f;
+    //private bool isSkillReady = false;
 
     private void Awake()
     {
@@ -88,12 +88,12 @@ public class PlayerController : MonoBehaviour
         currentBar = 0f;
 
         //Initialize skill buttons list
-        skillButtons.Clear();
-        skillButtons.Add(slowButton);
-        skillButtons.Add(stunButton);
-        skillButtons.Add(healButton);
-        skillButtons.Add(cloneButton);
-        LockAllSkills();
+        //skillButtons.Clear();
+        //skillButtons.Add(slowButton);
+        //skillButtons.Add(stunButton);
+        //skillButtons.Add(healButton);
+        //skillButtons.Add(cloneButton);
+        //LockAllSkills();
 
         barDecreaseCoroutine = StartCoroutine(DecreaseBarOverTime());
 
@@ -154,64 +154,64 @@ public class PlayerController : MonoBehaviour
         currentBar = Mathf.Clamp(currentBar, 0, MaxBar);
         UpdateUIBar();
 
-        if (currentBar >= MaxBar && !isSkillReady && unlockedSkill == null)
-        {
-            isSkillReady = true;
-            UnlockRandomSkill();
-        }
+        //if (currentBar >= MaxBar && !isSkillReady && unlockedSkill == null)
+        //{
+        //    isSkillReady = true;
+        //    UnlockRandomSkill();
+        //}
     }
 
     #endregion
 
     #region UI Updates
-    public void LockAllSkills()
-    {
-        foreach (Button btn in skillButtons)
-        {
-            if (btn != null)
-                btn.interactable = false;
-        }
-        unlockedSkill = null;
-    }
-    public void UnlockRandomSkill()
-    {
-        List<Button> validButtons = new List<Button>();
-        foreach (Button btn in skillButtons)
-        {
-            if (btn != null)
-                validButtons.Add(btn);
-        }
+    //public void LockAllSkills()
+    //{
+    //    foreach (Button btn in skillButtons)
+    //    {
+    //        if (btn != null)
+    //            btn.interactable = false;
+    //    }
+    //    unlockedSkill = null;
+    //}
+    //public void UnlockRandomSkill()
+    //{
+    //    List<Button> validButtons = new List<Button>();
+    //    foreach (Button btn in skillButtons)
+    //    {
+    //        if (btn != null)
+    //            validButtons.Add(btn);
+    //    }
 
-        if (validButtons.Count > 0)
-        {
-            int rand = Random.Range(0, validButtons.Count);
-            unlockedSkill = validButtons[rand];
-            unlockedSkill.interactable = true;
+    //    if (validButtons.Count > 0)
+    //    {
+    //        int rand = Random.Range(0, validButtons.Count);
+    //        unlockedSkill = validButtons[rand];
+    //        unlockedSkill.interactable = true;
 
-            unlockedSkill.onClick.RemoveAllListeners();
-            unlockedSkill.onClick.AddListener(OnSkillUsed);
-        }
-    }
-    public void OnSkillUsed()
-    {
-        if (unlockedSkill == slowButton) ApplySlowEffect();
-        else if (unlockedSkill == stunButton) ApplyStunEffect();
-        else if (unlockedSkill == healButton) ApplyHealEffect();
-        else if (unlockedSkill == cloneButton) ApplyCloneEffect();
+    //        unlockedSkill.onClick.RemoveAllListeners();
+    //        unlockedSkill.onClick.AddListener(OnSkillUsed);
+    //    }
+    //}
+    //public void OnSkillUsed()
+    //{
+    //    if (unlockedSkill == slowButton) ApplySlowEffect();
+    //    else if (unlockedSkill == stunButton) ApplyStunEffect();
+    //    else if (unlockedSkill == healButton) ApplyHealEffect();
+    //    else if (unlockedSkill == cloneButton) ApplyCloneEffect();
 
-        LockAllSkills();
-        currentBar = 0;
-        isSkillReady = false;
-        UpdateUIBar();
-    }
+    //    LockAllSkills();
+    //    currentBar = 0;
+    //    isSkillReady = false;
+    //    UpdateUIBar();
+    //}
 
     #endregion
 
     #region Skill Effects
-    private void ApplySlowEffect() { }
-    private void ApplyStunEffect() { }
-    private void ApplyHealEffect() { Heal(20 + (healLevel * 5)); }
-    private void ApplyCloneEffect() { }
+    //private void ApplySlowEffect() { }
+    //private void ApplyStunEffect() { }
+    //private void ApplyHealEffect() { Heal(20 + (healLevel * 5)); }
+    //private void ApplyCloneEffect() { }
 
     public void UpdateUIHealth()
     {
@@ -247,7 +247,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("EnemyAttack"))
+        if (other.CompareTag("Enemy4"))
         {
             EnemyBee enemy = other.GetComponent<EnemyBee>();
             if (enemy != null && !enemy.isHooked)

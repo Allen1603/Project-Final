@@ -5,13 +5,13 @@ public class EnemyBug : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float speed = 2f;                  // Normal movement speed
-    public float dashSpeedMultiplier = 3f;    // Speed multiplier during dash
+    public float dashSpeedMultiplier = 2f;    // Speed multiplier during dash
     public float dashDuration = 1f;           // How long dash lasts
     public float dashCooldown = 3f;           // Time between dashes
 
     [Header("Status")]
     //private bool isStunned = false;
-    private float originalSpeed;
+    //private float originalSpeed;
 
     //[Header("Visuals")]
     //private Renderer modelRenderer;
@@ -22,46 +22,39 @@ public class EnemyBug : MonoBehaviour
     //private GameObject stunEffectInstance;
 
     public bool isHooked = false;
-    private Coroutine dashCoroutine;
     //private GameObject player;
 
-    // -------------------- START --------------------
-    void Start()
-    {
-        //player = GameObject.FindGameObjectWithTag("Player");
-        originalSpeed = speed;
-
-        //modelRenderer = GetComponentInChildren<Renderer>();
-        //if (modelRenderer != null)
-        //    originalColor = modelRenderer.material.color;
-
-        dashCoroutine = StartCoroutine(DashRoutine());
-    }
+    private bool isDashing = false;
+    private bool canDash = true;
 
     void Update()
     {
-        if (isHooked) return; // Skip movement if stunned or hooked
-        //if (player == null) return;
+        if (isHooked) return; // Stop moving if hooked
 
-        // Normal movement (left) — simple dash speed handled by coroutine
+        // Move left continuously
         transform.position += Vector3.left * speed * Time.deltaTime;
+
+        // Start dash if allowed
+        if (canDash && !isDashing)
+            StartCoroutine(DashRoutine());
     }
 
     // -------------------- DASH LOGIC --------------------
-    IEnumerator DashRoutine()
+    private IEnumerator DashRoutine()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(dashCooldown);
-            yield return StartCoroutine(BugDashSkill());
-        }
-    }
+        canDash = false;       // prevent new dashes
+        isDashing = true;      // currently dashing
 
-    IEnumerator BugDashSkill()
-    {
-        speed *= dashSpeedMultiplier;
+        float originalSpeed = speed;
+        speed = originalSpeed * dashSpeedMultiplier;  // speed boost
         yield return new WaitForSeconds(dashDuration);
-        speed = originalSpeed;
+
+        speed = originalSpeed; // reset to normal
+        isDashing = false;
+
+        // cooldown before next dash
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 
     // -------------------- COLLISIONS --------------------
@@ -158,12 +151,12 @@ public class EnemyBug : MonoBehaviour
     //}
 
     // -------------------- CLEANUP --------------------
-    private void OnDisable()
-    {
-        if (dashCoroutine != null)
-        {
-            StopCoroutine(dashCoroutine);
-            dashCoroutine = null;
-        }
-    }
+    //private void OnDisable()
+    //{
+    //    if (dashCoroutine != null)
+    //    {
+    //        StopCoroutine(dashCoroutine);
+    //        dashCoroutine = null;
+    //    }
+    //}
 }

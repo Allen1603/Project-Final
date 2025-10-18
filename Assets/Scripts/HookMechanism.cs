@@ -2,17 +2,18 @@
 
 public class HookMechanism : MonoBehaviour
 {
-    [Header("Hook Settings")]
-    public float speed;
-    public float maxDistance;
-
     private Vector3 startPoint;
     private Vector3 targetPoint;
     private float hookProgress = 0f;
 
-    private Transform playerTransform;
     private GameObject hookedEnemy;
     private LineRenderer lineRenderer;
+    private Collider hookCollider;   // we'll manage this
+    public Transform tongueHook;
+
+    [Header("Hook Settings")]
+    public float hookRange = 5f;
+    public float hookSpeed = 20f;
 
     // States
     public bool IsReturning { get; private set; }
@@ -24,11 +25,11 @@ public class HookMechanism : MonoBehaviour
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        hookCollider = GetComponent<Collider>(); // make sure your prefab has a collider
     }
 
     private void OnEnable()
     {
-        // Reset all states when reactivated from pool
         IsMovingForward = true;
         IsReturning = false;
         HasCaughtEnemy = false;
@@ -36,21 +37,21 @@ public class HookMechanism : MonoBehaviour
         hookProgress = 0f;
 
         if (lineRenderer != null)
-        {
             lineRenderer.positionCount = 2;
-        }
+
+        if (hookCollider != null)
+            hookCollider.enabled = true; // enable collider when hook starts
     }
 
-    public void SetUpHook(Transform player)
+    public void SetUpHook(Transform tongue)
     {
-        playerTransform = player;
-        startPoint = player.position;
-        speed = PlayerController.instance.hookSpeed;
-        maxDistance = PlayerController.instance.hookRange;
+        tongueHook = tongue;
 
-        // Aim hook forward (in joystick direction)
-        targetPoint = startPoint + player.forward * maxDistance;
+        startPoint = tongueHook.position;
+        targetPoint = startPoint + tongueHook.forward * hookRange;
         hookProgress = 0f;
+
+        transform.position = startPoint;
 
         if (lineRenderer != null)
         {
@@ -61,24 +62,19 @@ public class HookMechanism : MonoBehaviour
 
     private void Update()
     {
-        if (playerTransform == null) return;
+        if (tongueHook == null) return;
 
         if (IsMovingForward)
-        {
             MoveForward();
-        }
         else if (IsReturning)
-        {
             MoveBack();
-        }
 
         UpdateLine();
     }
 
-    //Move forward until reaching maxDistance
     private void MoveForward()
     {
-        hookProgress += Time.deltaTime * (speed / Vector3.Distance(startPoint, targetPoint));
+        hookProgress += Time.deltaTime * (hookSpeed / Vector3.Distance(startPoint, targetPoint));
         float easedProgress = Mathf.SmoothStep(0f, 1f, hookProgress);
         transform.position = Vector3.Lerp(startPoint, targetPoint, easedProgress);
 
@@ -86,36 +82,38 @@ public class HookMechanism : MonoBehaviour
         {
             IsMovingForward = false;
             IsReturning = true;
+
+            // Disable collider when it starts returning (no enemy caught)
+            if (!HasCaughtEnemy && hookCollider != null)
+                hookCollider.enabled = false;
         }
     }
 
-    // Move back to player, dragging hooked enemy
     private void MoveBack()
     {
-        Vector3 returnDir = (playerTransform.position - transform.position).normalized;
-        transform.position += returnDir * speed * Time.deltaTime;
+        Vector3 returnDir = (tongueHook.position - transform.position).normalized;
+        transform.position += returnDir * hookSpeed * Time.deltaTime;
 
         if (hookedEnemy != null)
             hookedEnemy.transform.position = transform.position;
 
-        if (Vector3.Distance(transform.position, playerTransform.position) < 1f)
+        // Re-enable collider once hook finishes returning
+        if (Vector3.Distance(transform.position, tongueHook.position) < 0.3f)
         {
+            if (hookCollider != null)
+                hookCollider.enabled = true; // ready for next throw
+
             onHookReturn?.Invoke();
-
-            if (HookPool.Instance != null)
-                HookPool.Instance.ReturnToPool(this);
-            else
-                gameObject.SetActive(false); // fallback safe
-
+            gameObject.SetActive(false);
             hookedEnemy = null;
         }
     }
 
     private void UpdateLine()
     {
-        if (lineRenderer == null || playerTransform == null) return;
+        if (lineRenderer == null || tongueHook == null) return;
 
-        lineRenderer.SetPosition(0, playerTransform.position);
+        lineRenderer.SetPosition(0, tongueHook.position);
         lineRenderer.SetPosition(1, transform.position);
     }
 
@@ -123,25 +121,11 @@ public class HookMechanism : MonoBehaviour
     {
         if (IsReturning) return; // ignore collisions while returning
 
-        if (other.CompareTag("Enemy1"))
+        if (other.CompareTag("Enemy1") || other.CompareTag("Enemy2") ||
+            other.CompareTag("Enemy3") || other.CompareTag("Enemy4"))
         {
             CatchEnemy(other.gameObject);
             PlayerController.instance?.TakeBar(10);
-        }
-        if (other.CompareTag("Enemy2"))
-        {
-            CatchEnemy(other.gameObject);
-            PlayerController.instance?.TakeBar(10);
-        }
-        if (other.CompareTag("Enemy3"))
-        {
-            CatchEnemy(other.gameObject);
-            PlayerController.instance?.TakeBar(10);
-        }
-        else if (other.CompareTag("Enemy4"))
-        {
-            CatchEnemy(other.gameObject);
-            PlayerController.instance?.TakeExp(10);
         }
     }
 
@@ -152,13 +136,17 @@ public class HookMechanism : MonoBehaviour
         IsMovingForward = false;
         IsReturning = true;
 
-        // Mark as hooked for behavior control
+        //Disable collider once it catches something (no multiple hits)
+        if (hookCollider != null)
+            hookCollider.enabled = false;
+
+        // Mark enemy as hooked
         var bee = enemyObject.GetComponent<EnemyBee>();
         if (bee != null) bee.isHooked = true;
 
         var fly = enemyObject.GetComponent<EnemyFly>();
         if (fly != null) fly.isHooked = true;
-        
+
         var bug = enemyObject.GetComponent<EnemyBug>();
         if (bug != null) bug.isHooked = true;
 

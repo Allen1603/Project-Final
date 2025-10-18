@@ -15,7 +15,7 @@ public class EnemyHopper : MonoBehaviour
     private Vector3 jumpStartPos;
 
     public bool isHooked = false;
-    private float originalSpeed;
+    //private float originalSpeed;
 
     //[Header("Visuals")]
     //private Renderer modelRenderer;
@@ -28,8 +28,8 @@ public class EnemyHopper : MonoBehaviour
     {
         // Reset when spawned from pool
         //isStunned = false;
-        speed = originalSpeed;
-        jumpTimer = jumpInterval;
+        //speed = originalSpeed;
+        //jumpTimer = jumpInterval;
 
         //if (stunEffectInstance != null)
         //    Destroy(stunEffectInstance);
@@ -40,7 +40,7 @@ public class EnemyHopper : MonoBehaviour
 
     void Start()
     {
-        originalSpeed = speed;
+        //originalSpeed = speed;
         jumpTimer = jumpInterval;
 
         //modelRenderer = GetComponentInChildren<Renderer>();

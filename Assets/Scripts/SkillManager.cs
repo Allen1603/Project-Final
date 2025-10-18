@@ -40,11 +40,11 @@ public class SkillManager : MonoBehaviour
             GameObject clone = Instantiate(clonePrefab, spawnPoint, playerTransform.rotation);
 
             // Add upgrades
-            CloneSkill hooker = clone.GetComponent<CloneSkill>();
-            if (hooker != null)
-            {
-                hooker.maxHooks += PlayerController.instance.cloneLevel;
-            }
+            //CloneSkill hooker = clone.GetComponent<CloneSkill>();
+            //if (hooker != null)
+            //{
+            //    hooker.maxHooks += PlayerController.instance.cloneLevel;
+            //}
         }
     }
     #endregion
@@ -139,16 +139,16 @@ public class SkillManager : MonoBehaviour
 
     public void HealPlayer()
     {
-        PlayerController player = FindObjectOfType<PlayerController>();
-        if (player != null)
-        {
-            int bonusHeal = currentHealValue + (PlayerController.instance.healLevel * 10);
-            player.Heal(bonusHeal);
-        }
-        else
-        {
-            Debug.LogWarning("No PlayerController found!");
-        }
+        //PlayerController player = FindObjectOfType<PlayerController>();
+        //if (player != null)
+        //{
+        //    int bonusHeal = currentHealValue + (PlayerController.instance.healLevel * 10);
+        //    player.Heal(bonusHeal);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("No PlayerController found!");
+        //}
     }
     #endregion
 

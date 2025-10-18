@@ -1,5 +1,4 @@
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Joystick : MonoBehaviour
@@ -9,32 +8,26 @@ public class Joystick : MonoBehaviour
     private InputAction moveAction;
 
     [Header("Hook Settings")]
-    private HookMechanism hook;
     public GameObject hookPrefab;
-    private Transform cachedTransform;
+    public Transform tongueHook;
     private bool isFishing = false;
 
     [Header("Settings")]
-    public float rotationSpeed = 10f; // smooth turning speed
+    public float rotationSpeed = 10f;
 
     private void Awake()
     {
-        // Get PlayerInput
         playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.actions["attack"]; // <-- use Move (Vector2), not attack
-
-        cachedTransform = transform;
+        moveAction = playerInput.actions["attack"];
     }
 
     private void OnEnable()
     {
-        // Subscribe to joystick release event
         moveAction.canceled += OnJoystickReleased;
     }
 
     private void OnDisable()
     {
-        // Unsubscribe when disabled
         moveAction.canceled -= OnJoystickReleased;
     }
 
@@ -48,12 +41,11 @@ public class Joystick : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
-
     }
 
     private void OnJoystickReleased(InputAction.CallbackContext context)
     {
-        if (!isFishing) // only attack if not already casting
+        if (!isFishing)
         {
             LaunchHook();
         }
@@ -61,16 +53,18 @@ public class Joystick : MonoBehaviour
 
     private void LaunchHook()
     {
-        var hookObject = Instantiate(hookPrefab, cachedTransform.position, Quaternion.identity);
-        hook = hookObject.GetComponent<HookMechanism>();
-        hook.SetUpHook(cachedTransform);
-        isFishing = true;
+        // Instantiate at tongue position and direction
+        GameObject hookObject = Instantiate(hookPrefab, tongueHook.position, tongueHook.rotation);
+        HookMechanism hook = hookObject.GetComponent<HookMechanism>();
 
-        // Callback when hook returns
+        // Setup hook to use tongueHook as origin
+        hook.SetUpHook(tongueHook);
+
+        isFishing = true;
         hook.onHookReturn = HookReturned;
     }
 
-    public void HookReturned()
+    private void HookReturned()
     {
         isFishing = false;
     }

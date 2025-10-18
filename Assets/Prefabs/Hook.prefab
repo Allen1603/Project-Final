@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138315151237188031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.394536, y: 3.8639636, z: 20.997326}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -109,8 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8ee7a1ae5d280408e1509521078642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
-  maxDistance: 10
+  tongueHook: {fileID: 7686227458819527645, guid: 0aa2d7ff097b36b4485dca5b0ea94dcd, type: 3}
+  hookRange: 18
+  hookSpeed: 20
 --- !u!120 &-6199786692563154392
 LineRenderer:
   m_ObjectHideFlags: 0

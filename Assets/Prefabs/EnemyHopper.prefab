@@ -96,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.4165144, y: 0.69602746, z: 1}
+  m_Center: {x: -0.2082572, y: 0.027677387, z: 0}
 --- !u!54 &7261276584578322176
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
   jumpHeight: 1
   jumpDuration: 0.5
   jumpInterval: 3
-  stunEffectPrefab: {fileID: 1447822933094729849, guid: 6f3562715ec3d7a4e8387bf9c4b6bafe, type: 3}
+  isHooked: 0
 --- !u!1001 &2309747053381596766
 PrefabInstance:
   m_ObjectHideFlags: 0

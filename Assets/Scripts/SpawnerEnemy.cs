@@ -40,24 +40,6 @@ public class SpawnerEnemy : MonoBehaviour
         // wait 1 frame so EnemyPool.Instance can initialize
         yield return null;
 
-        if (EnemyPool.Instance == null)
-        {
-            Debug.LogError("SpawnerEnemy: EnemyPool.Instance not found in scene!");
-            yield break;
-        }
-
-        if (spawner == null || spawner.Length == 0)
-        {
-            Debug.LogError("SpawnerEnemy: No spawner points assigned!");
-            yield break;
-        }
-
-        if (enemyTags == null || enemyTags.Length == 0)
-        {
-            Debug.LogError("SpawnerEnemy: No enemy tags assigned!");
-            yield break;
-        }
-
         spawnInterval = Mathf.Max(spawnInterval, limitDecrement);
         StartWave();
     }
@@ -105,12 +87,6 @@ public class SpawnerEnemy : MonoBehaviour
 
         string enemyTag = enemyTags[enemyIndex];
         Transform spawnPoint = spawner[spawnerIndex];
-
-        if (!EnemyPool.Instance.HasTag(enemyTag))
-        {
-            Debug.LogWarning($"SpawnerEnemy: Pool does not have enemy tag '{enemyTag}'");
-            return;
-        }
 
         EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
 

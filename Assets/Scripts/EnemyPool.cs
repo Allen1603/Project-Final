@@ -41,11 +41,6 @@ public class EnemyPool : MonoBehaviour
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
-        if (!poolDictionary.ContainsKey(tag))
-        {
-            Debug.LogWarning($"⚠️ Pool with tag '{tag}' not found!");
-            return null;
-        }
 
         GameObject objToSpawn = poolDictionary[tag].Dequeue();
 

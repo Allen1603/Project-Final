@@ -11,36 +11,21 @@ public class EnemyBee : MonoBehaviour
     public float chargeDelay = 1f;
 
     private GameObject player;
-    private bool isCharging = false;
-    private bool isWaitingToCharge = false;
-    private float chargeTimer = 0f;
+    private float chargeTimer = 2f;
     public bool isHooked = false;
 
-    private float originalSpeed;
-
-    private Renderer modelRenderer;
-    private Color originalColor;
+    //private float originalSpeed;
 
     void OnEnable()
     {
-        // Reset all states when pulled from the pool
-        isCharging = false;
-        isWaitingToCharge = false;
         isHooked = false;
-        speed = originalSpeed;
-
-        if (modelRenderer != null)
-            modelRenderer.material.color = originalColor;
-
+        //speed = originalSpeed;
     }
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        originalSpeed = speed;
-        modelRenderer = GetComponentInChildren<Renderer>();
-        if (modelRenderer != null)
-            originalColor = modelRenderer.material.color;
+        //originalSpeed = speed;
     }
 
     void Update()
@@ -48,33 +33,15 @@ public class EnemyBee : MonoBehaviour
         if (isHooked) return;
         if (player == null) return;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-        if (isCharging)
+        chargeTimer -= Time.deltaTime;
+        if (chargeTimer <= 0f)
         {
-            Vector3 direction = (player.transform.position - transform.position).normalized;
-            transform.position += direction * chargeSpeed * Time.deltaTime;
-        }
-        else if (distanceToPlayer <= detectionRange)
-        {
-            if (!isWaitingToCharge)
-            {
-                isWaitingToCharge = true;
-                chargeTimer = chargeDelay;
-            }
-            else
-            {
-                chargeTimer -= Time.deltaTime;
-                if (chargeTimer <= 0f)
-                {
-                    isCharging = true;
-                    isWaitingToCharge = false;
-                }
-            }
+            transform.position += Vector3.left * speed * Time.deltaTime;
         }
         else
         {
-            transform.position += Vector3.left * speed * Time.deltaTime;
+            Vector3 direction = (player.transform.position - transform.position).normalized;
+            transform.position += direction * chargeSpeed * Time.deltaTime;
         }
     }
 

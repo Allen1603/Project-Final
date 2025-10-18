@@ -96,8 +96,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.74811023, z: 1}
+  m_Center: {x: 0, y: -0.021611482, z: 0}
 --- !u!114 &6914501723994668826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   dashSpeedMultiplier: 2
   dashDuration: 1
   dashCooldown: 1
-  stunEffectPrefab: {fileID: 1447822933094729849, guid: 6f3562715ec3d7a4e8387bf9c4b6bafe, type: 3}
+  isHooked: 0
 --- !u!54 &6914501723994668827
 Rigidbody:
   m_ObjectHideFlags: 0

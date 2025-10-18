@@ -131,7 +131,6 @@ MonoBehaviour:
   detectionRange: 20
   chargeDelay: 1
   isHooked: 0
-  stunEffectPrefab: {fileID: 1447822933094729849, guid: 6f3562715ec3d7a4e8387bf9c4b6bafe, type: 3}
 --- !u!1001 &8188500409558626611
 PrefabInstance:
   m_ObjectHideFlags: 0
