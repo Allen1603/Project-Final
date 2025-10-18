@@ -13,10 +13,6 @@ public class EnemyFly : MonoBehaviour
     public bool isHooked = false;
     //private bool isStunned = false;
 
-    //[Header("Visuals")]
-    //private Renderer modelRenderer;
-    //private Color originalColor;
-
     private GameObject player;
 
     void OnEnable()
@@ -26,30 +22,16 @@ public class EnemyFly : MonoBehaviour
         //isStunned = false;
 
         zigzagTimer = 0f;
-        if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player");
-
-        //if (modelRenderer == null)
-        //    modelRenderer = GetComponentInChildren<Renderer>();
-
-        //if (modelRenderer != null)
-        //    modelRenderer.material.color = originalColor;
     }
 
     void Start()
     {
-        //modelRenderer = GetComponentInChildren<Renderer>();
-        //if (modelRenderer != null)
-        //    originalColor = modelRenderer.material.color;
-
         zigzagTimer = 0f;
     }
 
     void Update()
     {
         if (isHooked) return;
-        if (player == null) return;
-        
 
         // Zigzag motion
         zigzagTimer += Time.deltaTime * zigzagFrequency;

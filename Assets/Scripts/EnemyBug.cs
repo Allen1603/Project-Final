@@ -149,14 +149,4 @@ public class EnemyBug : MonoBehaviour
     //        stunEffectInstance = null;
     //    }
     //}
-
-    // -------------------- CLEANUP --------------------
-    //private void OnDisable()
-    //{
-    //    if (dashCoroutine != null)
-    //    {
-    //        StopCoroutine(dashCoroutine);
-    //        dashCoroutine = null;
-    //    }
-    //}
 }
