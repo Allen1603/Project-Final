@@ -9,7 +9,7 @@ public class HookPool : MonoBehaviour
     public GameObject hookPrefab;
     public int poolSize = 5;
 
-    private Queue<HookMechanism> hookPool = new Queue<HookMechanism>();
+    private List<HookMechanism> hookPool = new List<HookMechanism>();
 
     void Awake()
     {
@@ -27,42 +27,37 @@ public class HookPool : MonoBehaviour
     {
         for (int i = 0; i < poolSize; i++)
         {
-            CreateAndEnqueueHook();
+            GameObject hookObj = Instantiate(hookPrefab, transform);
+            hookObj.SetActive(false);
+
+            HookMechanism hook = hookObj.GetComponent<HookMechanism>();
+
+            hookPool.Add(hook);
         }
-    }
-
-    private void CreateAndEnqueueHook()
-    {
-        GameObject hookObj = Instantiate(hookPrefab, transform);
-        hookObj.SetActive(false);
-        HookMechanism hook = hookObj.GetComponent<HookMechanism>();
-
-        hookPool.Enqueue(hook);
     }
 
     public HookMechanism GetHook()
     {
-        if (hookPool.Count == 0)
+        // Find an inactive hook in the pool
+        foreach (HookMechanism hook in hookPool)
         {
-            // Auto-expand pool safely
-            CreateAndEnqueueHook();
+            if (!hook.gameObject.activeInHierarchy)
+            {
+                hook.gameObject.SetActive(true);
+                hook.transform.SetParent(null); // detach from pool
+                return hook;
+            }
         }
-
-        HookMechanism hook = hookPool.Dequeue();
-        hook.gameObject.SetActive(true);
-
-        // Optionally reset hook position or state
-        hook.transform.SetParent(null);
-
-        return hook;
+        return null;
     }
 
     public void ReturnToPool(HookMechanism hook)
     {
+        if (hook == null) return;
+
         hook.gameObject.SetActive(false);
         hook.transform.SetParent(transform);
-
-        // Optionally reset velocity or state here
-        hookPool.Enqueue(hook);
+        hook.transform.localPosition = Vector3.zero;
+        hook.transform.localRotation = Quaternion.identity;
     }
 }

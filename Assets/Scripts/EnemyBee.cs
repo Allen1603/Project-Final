@@ -34,7 +34,7 @@ public class EnemyBee : MonoBehaviour
         if (player == null) return;
 
         chargeTimer -= Time.deltaTime;
-        if (chargeTimer <= 0f)
+        if (chargeTimer >= 0f)
         {
             transform.position += Vector3.left * speed * Time.deltaTime;
         }

@@ -472,8 +472,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.0909655, y: 1.5492358, z: 1}
-  m_Center: {x: -0.5039581, y: 0.2746179, z: 0}
+  m_Size: {x: 3.0909655, y: 1.9041227, z: 1}
+  m_Center: {x: -0.5039581, y: 0.097174466, z: 0}
 --- !u!54 &3300990371183416573
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -488,7 +488,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &-3160934016558614696
 MonoBehaviour:
@@ -511,6 +511,9 @@ MonoBehaviour:
   summonInterval: 3
   summonRadius: 3
   currentBossHealth: 300
+  BossHealth: 300
+  tongueDamage: 20
+  isHooked: 0
 --- !u!1001 &3605303531192520359
 PrefabInstance:
   m_ObjectHideFlags: 0

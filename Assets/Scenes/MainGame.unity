@@ -4024,7 +4024,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 04785d3e8cfac8f45807cfe4429f68cf, type: 3}
+  m_Texture: {fileID: 2800000, guid: 714b9ac28d2634e4ab861f3990f9afc3, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -6866,7 +6866,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 66fb464e965225d489f38e0f49d36a3d, type: 3}
+  m_Texture: {fileID: 2800000, guid: ba23143fcd003a74eb923262d7853972, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -11698,7 +11698,7 @@ MonoBehaviour:
     size: 10
   - tag: Enemy4
     prefab: {fileID: 3466001043924928108, guid: 540319504e84a124f801136b88ebc64a, type: 3}
-    size: 10
+    size: 15
   - tag: Boss
     prefab: {fileID: 222142102558164817, guid: 183335838fc5fcf49a51bd9db38908e1, type: 3}
     size: 2

@@ -1,31 +1,43 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class EnemyBoss : MonoBehaviour
 {
-    public float moveSpeed;
+    [Header("Movement")]
+    public float moveSpeed = 1.5f;
+
+    [Header("Summoning")]
     public GameObject[] enemyPrefabs;
-    public string[] enemyTags; // tags must match EnemyPool tags
+    public string[] enemyTags; // must match EnemyPool tags
     public int enemySummon = 5;
     public float summonInterval = 3f;
     public float summonRadius = 3f;
     private float summonTimer;
 
-    public float currentBossHealth = 300f;
+    [Header("Health")]
+    public float BossHealth = 300f;
+    private float currentBossHealth;
 
-    void Start()
+    [Header("Combat")]
+    public float tongueDamage = 20f;
+    public bool isHooked = false;
+
+    private void OnEnable()
     {
+        isHooked = false;
+        currentBossHealth = BossHealth;
         summonTimer = summonInterval;
     }
 
-    void Update()
+    private void Update()
     {
-        // Move boss horizontally only
-        float fixedYPosition = transform.position.y;
-        transform.position = new Vector3(transform.position.x - moveSpeed * Time.deltaTime, fixedYPosition, transform.position.z);
+        if (isHooked) return;
 
+        // Movement (keeps Y constant)
+        transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+
+        // Summon countdown
         summonTimer -= Time.deltaTime;
         if (summonTimer <= 0f)
         {
@@ -40,15 +52,43 @@ public class EnemyBoss : MonoBehaviour
 
         for (int i = 0; i < enemySummon; i++)
         {
-            // Pick a random enemy type
-            int randomIndex = Random.Range(0, enemyTags.Length);
-            string tag = enemyTags[randomIndex];
-
-            // Random position around the boss
             Vector3 spawnPos = transform.position + (Vector3)(Random.insideUnitCircle * summonRadius);
-
-            // Get enemy from pool (no Instantiate = no lag)
-            EnemyPool.Instance.SpawnFromPool("Boss", transform.position, Quaternion.identity);
+            EnemyPool.Instance.SpawnFromPool("Enemy4", transform.position, Quaternion.identity);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //Damage only from active Hook
+        if (other.CompareTag("Hook"))
+        {
+            TakeDamage(tongueDamage);
+        }
+
+        if (other.CompareTag("Base"))
+        {
+            EnemyPool.Instance.ReturnToPool("Boss", gameObject);
+        }
+    }
+
+    public void TakeDamage(float amount)
+    {
+        currentBossHealth -= amount;
+        Debug.LogError("Boss damaged! Current HP: " + currentBossHealth);
+
+        if (currentBossHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        isHooked = true;
+        PlayerController.instance.TakeBar(100);
+        PlayerController.instance.TakeExp(100);
+
+        // Return to pool safely
+        EnemyPool.Instance.ReturnToPool("Boss", gameObject);
     }
 }

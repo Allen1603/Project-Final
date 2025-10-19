@@ -14,6 +14,7 @@ public class HookMechanism : MonoBehaviour
     [Header("Hook Settings")]
     public float hookRange = 5f;
     public float hookSpeed = 20f;
+    public float returnSpeed = 25f;
 
     // States
     public bool IsReturning { get; private set; }
@@ -92,7 +93,7 @@ public class HookMechanism : MonoBehaviour
     private void MoveBack()
     {
         Vector3 returnDir = (tongueHook.position - transform.position).normalized;
-        transform.position += returnDir * hookSpeed * Time.deltaTime;
+        transform.position += returnDir * returnSpeed * Time.deltaTime;
 
         if (hookedEnemy != null)
             hookedEnemy.transform.position = transform.position;
@@ -104,7 +105,7 @@ public class HookMechanism : MonoBehaviour
                 hookCollider.enabled = true; // ready for next throw
 
             onHookReturn?.Invoke();
-            gameObject.SetActive(false);
+            HookPool.Instance.ReturnToPool(this);
             hookedEnemy = null;
         }
     }

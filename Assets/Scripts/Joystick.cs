@@ -53,10 +53,7 @@ public class Joystick : MonoBehaviour
 
     private void LaunchHook()
     {
-        // Instantiate at tongue position and direction
-        GameObject hookObject = Instantiate(hookPrefab, tongueHook.position, tongueHook.rotation);
-        HookMechanism hook = hookObject.GetComponent<HookMechanism>();
-
+        HookMechanism hook = HookPool.Instance.GetHook();
         // Setup hook to use tongueHook as origin
         hook.SetUpHook(tongueHook);
 
