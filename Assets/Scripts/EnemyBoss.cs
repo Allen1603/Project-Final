@@ -48,8 +48,6 @@ public class EnemyBoss : MonoBehaviour
 
     private void EnemySummon()
     {
-        if (EnemyPool.Instance == null) return;
-
         for (int i = 0; i < enemySummon; i++)
         {
             Vector3 spawnPos = transform.position + (Vector3)(Random.insideUnitCircle * summonRadius);

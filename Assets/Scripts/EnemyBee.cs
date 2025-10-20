@@ -54,7 +54,6 @@ public class EnemyBee : MonoBehaviour
             isHooked = true;
             PlayerController.instance.TakeBar(10f);
             PlayerController.instance.TakeExp(10f);
-
         }
         if (other.CompareTag("Player"))
         {
@@ -62,7 +61,7 @@ public class EnemyBee : MonoBehaviour
 
             if (isAttacking && !isHooked)
             {
-                PlayerController.instance.TakeDamage(10);
+                PlayerController.instance.TakeDamage(10f);
             }
         }
 
