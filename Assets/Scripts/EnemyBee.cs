@@ -13,6 +13,7 @@ public class EnemyBee : MonoBehaviour
     private GameObject player;
     private float chargeTimer = 2f;
     public bool isHooked = false;
+    private bool isAttacking = false;
 
     //private float originalSpeed;
 
@@ -40,6 +41,7 @@ public class EnemyBee : MonoBehaviour
         }
         else
         {
+            isAttacking = true;
             Vector3 direction = (player.transform.position - transform.position).normalized;
             transform.position += direction * chargeSpeed * Time.deltaTime;
         }
@@ -50,13 +52,20 @@ public class EnemyBee : MonoBehaviour
         if (other.CompareTag("Hook"))
         {
             isHooked = true;
+            PlayerController.instance.TakeBar(10f);
+            PlayerController.instance.TakeExp(10f);
+
         }
         if (other.CompareTag("Player"))
         {
-            PlayerController.instance.TakeBar(10);
-            PlayerController.instance.TakeExp(10);
             EnemyPool.Instance.ReturnToPool("Enemy4", gameObject);
+
+            if (isAttacking && !isHooked)
+            {
+                PlayerController.instance.TakeDamage(10);
+            }
         }
+
         if (other.CompareTag("Base"))
         {
             EnemyPool.Instance.ReturnToPool("Enemy4", gameObject);

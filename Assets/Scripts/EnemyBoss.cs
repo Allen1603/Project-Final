@@ -85,8 +85,8 @@ public class EnemyBoss : MonoBehaviour
     private void Die()
     {
         isHooked = true;
-        PlayerController.instance.TakeBar(100);
-        PlayerController.instance.TakeExp(100);
+        PlayerController.instance.TakeBar(100f);
+        PlayerController.instance.TakeExp(100f);
 
         // Return to pool safely
         EnemyPool.Instance.ReturnToPool("Boss", gameObject);

@@ -66,8 +66,8 @@ public class EnemyBug : MonoBehaviour
         }
         if (other.CompareTag("Player"))
         {
-            PlayerController.instance.TakeBar(10);
-            PlayerController.instance.TakeExp(10);
+            PlayerController.instance.TakeBar(10f);
+            PlayerController.instance.TakeExp(10f);
             EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
         }
         if (other.CompareTag("Base"))
