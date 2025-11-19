@@ -20,23 +20,23 @@ public class SlowField : MonoBehaviour
         EnemyHopper[] hoppers = FindObjectsOfType<EnemyHopper>();
         EnemyBee[] bees = FindObjectsOfType<EnemyBee>();
 
-        //foreach (EnemyFly fly in flies)
-        //{
-        //    fly.SlowEffect(newSlowSpeed, slowDuration);
-        //}
+        foreach (EnemyFly fly in flies)
+        {
+            fly.SlowEffect(newSlowSpeed, slowDuration);
+        }
 
-        //foreach (EnemyBee bee in bees)
-        //{
-        //    bee.SlowEffect(newSlowSpeed, slowDuration);
-        //}
-        //foreach (EnemyBug bug in bugs)
-        //{
-        //    bug.SlowEffect(newSlowSpeed, slowDuration);
-        //}
-        //foreach (EnemyHopper hopper in hoppers)
-        //{
-        //    hopper.SlowEffect(newSlowSpeed, slowDuration);
-        //}
+        foreach (EnemyBee bee in bees)
+        {
+            bee.SlowEffect(newSlowSpeed, slowDuration);
+        }
+        foreach (EnemyBug bug in bugs)
+        {
+            bug.SlowEffect(newSlowSpeed, slowDuration);
+        }
+        foreach (EnemyHopper hopper in hoppers)
+        {
+            hopper.SlowEffect(newSlowSpeed, slowDuration);
+        }
 
         yield return null;
     }

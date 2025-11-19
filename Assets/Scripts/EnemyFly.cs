@@ -11,15 +11,13 @@ public class EnemyFly : MonoBehaviour
 
     [Header("Status")]
     public bool isHooked = false;
-    //private bool isStunned = false;
-
-    private GameObject player;
+    private bool isStunned = false;
 
     void OnEnable()
     {
         // Reset state for pooling
         isHooked = false;
-        //isStunned = false;
+        isStunned = false;
 
         zigzagTimer = 0f;
     }
@@ -64,61 +62,39 @@ public class EnemyFly : MonoBehaviour
 
     // --- STATUS EFFECTS BELOW ---
 
-    //public void SlowEffect(float newSpeed, float duration)
-    //{
-    //    if (!isStunned)
-    //    {
-    //        float currentSpeed = speed;
-    //        speed = newSpeed;
-    //        StartCoroutine(BlinkEffect(duration));
-    //        StartCoroutine(ResetSpeedAfter(duration, currentSpeed));
-    //    }
-    //}
+    public void SlowEffect(float newSpeed, float duration)
+    {
+        if (!isStunned)
+        {
+            float currentSpeed = speed;
+            speed = newSpeed;
+            StartCoroutine(ResetSpeedAfter(duration, currentSpeed));
+        }
+    }
 
-//    private IEnumerator ResetSpeedAfter(float duration, float originalSpeed)
-//    {
-//        yield return new WaitForSeconds(duration);
-//        speed = originalSpeed;
+    private IEnumerator ResetSpeedAfter(float duration, float originalSpeed)
+    {
+        yield return new WaitForSeconds(duration);
+        speed = originalSpeed;
+    }
 
-//        if (modelRenderer != null)
-//            modelRenderer.material.color = originalColor;
-//    }
+    //----------Stun--------
+    public void Stun(float duration)
+    {
+        if (!isStunned)
+            StartCoroutine(StunCoroutine(duration));
+    }
 
-//    private IEnumerator BlinkEffect(float duration)
-//    {
-//        if (modelRenderer == null) yield break;
+    private IEnumerator StunCoroutine(float duration)
+    {
+        isStunned = true;
 
-//        float elapsed = 0f;
-//        bool toggle = false;
-//        Color slowColor = Color.blue;
+        float prevSpeed = speed;
+        speed = 0f;
 
-//        while (elapsed < duration)
-//        {
-//            modelRenderer.material.color = toggle ? slowColor : originalColor;
-//            toggle = !toggle;
-//            elapsed += 0.2f;
-//            yield return new WaitForSeconds(0.2f);
-//        }
+        yield return new WaitForSeconds(duration);
 
-//        modelRenderer.material.color = originalColor;
-//    }
-
-//    public void Stun(float duration)
-//    {
-//        if (!isStunned)
-//            StartCoroutine(StunCoroutine(duration));
-//    }
-
-//    private IEnumerator StunCoroutine(float duration)
-//    {
-//        isStunned = true;
-
-//        float prevSpeed = speed;
-//        speed = 0f;
-
-//        yield return new WaitForSeconds(duration);
-
-//        isStunned = false;
-//        speed = prevSpeed;
-//    }
+        isStunned = false;
+        speed = prevSpeed;
+    }
 }

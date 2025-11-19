@@ -10,19 +10,9 @@ public class EnemyBug : MonoBehaviour
     public float dashCooldown = 3f;           // Time between dashes
 
     [Header("Status")]
-    //private bool isStunned = false;
-    //private float originalSpeed;
-
-    //[Header("Visuals")]
-    //private Renderer modelRenderer;
-    //private Color originalColor;
-
-    //[Header("Effects")]
-    //public GameObject stunEffectPrefab;
-    //private GameObject stunEffectInstance;
-
+    private bool isStunned = false;
+    private float originalSpeed;
     public bool isHooked = false;
-    //private GameObject player;
 
     private bool isDashing = false;
     private bool canDash = true;
@@ -77,76 +67,41 @@ public class EnemyBug : MonoBehaviour
     }
 
     // -------------------- STATUS EFFECTS --------------------
-    //public void SlowEffect(float newSpeed, float duration)
-    //{
-    //    if (!isStunned)
-    //    {
-    //        float currentSpeed = speed;
-    //        speed = newSpeed;
-    //        StartCoroutine(BlinkEffect(duration));
-    //        StartCoroutine(ResetSpeedAfter(duration, currentSpeed));
-    //    }
-    //}
+    public void SlowEffect(float newSpeed, float duration)
+    {
+        if (!isStunned)
+        {
+            float currentSpeed = speed;
+            speed = newSpeed;
+            StartCoroutine(ResetSpeedAfter(duration, currentSpeed));
+            speed = originalSpeed;
+        }
+    }
 
-    //private IEnumerator ResetSpeedAfter(float duration, float originalSpeed)
-    //{
-    //    yield return new WaitForSeconds(duration);
-    //    speed = originalSpeed;
+    private IEnumerator ResetSpeedAfter(float duration, float originalSpeed)
+    {
+        yield return new WaitForSeconds(duration);
+        speed = originalSpeed;
+    }
 
-    //    if (modelRenderer != null)
-    //        modelRenderer.material.color = originalColor;
-    //}
+    // -------------------- STUN --------------------
+    public void Stun(float duration)
+    {
+        if (!isStunned)
+            StartCoroutine(StunCoroutine(duration));
+    }
 
-    //private IEnumerator BlinkEffect(float duration)
-    //{
-    //    if (modelRenderer == null) yield break;
+    private IEnumerator StunCoroutine(float duration)
+    {
+        isStunned = true;
 
-    //    float elapsed = 0f;
-    //    bool toggle = false;
-    //    Color slowColor = Color.blue;
+        float prevSpeed = speed;
+        speed = 0f; // stop movement
 
-    //    while (elapsed < duration)
-    //    {
-    //        modelRenderer.material.color = toggle ? slowColor : originalColor;
-    //        toggle = !toggle;
-    //        elapsed += 0.2f;
-    //        yield return new WaitForSeconds(0.2f);
-    //    }
+        yield return new WaitForSeconds(duration);
 
-    //    modelRenderer.material.color = originalColor;
-    //}
-
-    //// -------------------- STUN --------------------
-    //public void Stun(float duration)
-    //{
-    //    if (!isStunned)
-    //        StartCoroutine(StunCoroutine(duration));
-    //}
-
-    //private IEnumerator StunCoroutine(float duration)
-    //{
-    //    isStunned = true;
-
-    //    float prevSpeed = speed;
-    //    speed = 0f; // stop movement
-
-    //    // Spawn stun effect
-    //    if (stunEffectPrefab != null && stunEffectInstance == null)
-    //    {
-    //        stunEffectInstance = Instantiate(stunEffectPrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
-    //        stunEffectInstance.transform.SetParent(transform);
-    //    }
-
-    //    yield return new WaitForSeconds(duration);
-
-    //    // Restore
-    //    isStunned = false;
-    //    speed = prevSpeed;
-
-    //    if (stunEffectInstance != null)
-    //    {
-    //        Destroy(stunEffectInstance);
-    //        stunEffectInstance = null;
-    //    }
-    //}
+        // Restore
+        isStunned = false;
+        speed = prevSpeed;
+    }
 }

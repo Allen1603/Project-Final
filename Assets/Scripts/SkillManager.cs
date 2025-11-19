@@ -70,15 +70,15 @@ public class SkillManager : MonoBehaviour
         EnemyBug[] bugs = FindObjectsOfType<EnemyBug>();
         EnemyHopper[] hoppers = FindObjectsOfType<EnemyHopper>();
 
-        //foreach (EnemyFly enemy in flies)
-        //    enemy.Stun(currentStunValue);
+        foreach (EnemyFly enemy in flies)
+            enemy.Stun(currentStunValue);
 
-        //foreach (EnemyBee enemy in bees)
-        //    enemy.Stun(currentStunValue);
-        //foreach (EnemyBug enemy in bugs)
-        //    enemy.Stun(currentStunValue);
-        //foreach (EnemyHopper enemy in hoppers)
-        //    enemy.Stun(currentStunValue);
+        foreach (EnemyBee enemy in bees)
+            enemy.Stun(currentStunValue);
+        foreach (EnemyBug enemy in bugs)
+            enemy.Stun(currentStunValue);
+        foreach (EnemyHopper enemy in hoppers)
+            enemy.Stun(currentStunValue);
 
         yield return null;
     }
@@ -107,23 +107,23 @@ public class SkillManager : MonoBehaviour
         EnemyHopper[] hoppers = FindObjectsOfType<EnemyHopper>();
         EnemyBee[] bees = FindObjectsOfType<EnemyBee>();
 
-        //foreach (EnemyFly fly in flies)
-        //{
-        //    fly.SlowEffect(newSlowSpeed, currentSlowValue);
-        //}
+        foreach (EnemyFly fly in flies)
+        {
+            fly.SlowEffect(newSlowSpeed, currentSlowValue);
+        }
 
-        //foreach (EnemyBee bee in bees)
-        //{
-        //    bee.SlowEffect(newSlowSpeed, currentSlowValue);
-        //}
-        //foreach (EnemyBug bug in bugs)
-        //{
-        //    bug.SlowEffect(newSlowSpeed, currentSlowValue);
-        //}
-        //foreach (EnemyHopper hopper in hoppers)
-        //{
-        //    hopper.SlowEffect(newSlowSpeed, currentSlowValue);
-        //}
+        foreach (EnemyBee bee in bees)
+        {
+            bee.SlowEffect(newSlowSpeed, currentSlowValue);
+        }
+        foreach (EnemyBug bug in bugs)
+        {
+            bug.SlowEffect(newSlowSpeed, currentSlowValue);
+        }
+        foreach (EnemyHopper hopper in hoppers)
+        {
+            hopper.SlowEffect(newSlowSpeed, currentSlowValue);
+        }
 
         yield return null;
     }
@@ -137,19 +137,19 @@ public class SkillManager : MonoBehaviour
         currentHealValue = Mathf.Clamp(currentHealValue, 0, Mathf.RoundToInt(maxHealValue));
     }
 
-    public void HealPlayer()
-    {
-        //PlayerController player = FindObjectOfType<PlayerController>();
-        //if (player != null)
-        //{
-        //    int bonusHeal = currentHealValue + (PlayerController.instance.healLevel * 10);
-        //    player.Heal(bonusHeal);
-        //}
-        //else
-        //{
-        //    Debug.LogWarning("No PlayerController found!");
-        //}
-    }
+    //public void HealPlayer()
+    //{
+    //    PlayerController player = FindObjectOfType<PlayerController>();
+    //    if (player != null)
+    //    {
+    //        int bonusHeal = currentHealValue + (PlayerController.instance.healLevel * 10);
+    //        player.Heal(bonusHeal);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("No PlayerController found!");
+    //    }
+    //}
     #endregion
 
 }
