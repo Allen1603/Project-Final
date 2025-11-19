@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Evening6PM_VolumeProfile
+  m_EditorClassIdentifier: UnityEngine.Rendering.Universal:UnityEngine.Rendering.Universal.VolumeProfile
+  components:
+  - {fileID: 2}
+  - {fileID: 3}
+  - {fileID: 4}
+  - {fileID: 5}
+  - {fileID: 6}
+  - {fileID: 7}
+--- !u!114 &2
+MonoBehaviour:
+  m_Name: ColorAdjustments
+  postExposure: -0.45
+  contrast: 20
+  saturation: 8
+  hueShift: 3
+  colorFilter: {r: 1, g: 0.72, b: 0.47, a: 1}
+--- !u!114 &3
+MonoBehaviour:
+  m_Name: WhiteBalance
+  temperature: 15
+  tint: 5
+--- !u!114 &4
+MonoBehaviour:
+  m_Name: ShadowsMidtonesHighlights
+  shadows: {r: 0.37, g: 0.47, b: 0.68, a: 1}
+  shadowsWeight: 0.18
+  midtones: {r: 1, g: 1, b: 1, a: 1}
+  midtonesWeight: 0
+  highlights: {r: 1, g: 0.76, b: 0.55, a: 1}
+  highlightsWeight: 0.25
+--- !u!114 &5
+MonoBehaviour:
+  m_Name: Bloom
+  threshold: 1
+  intensity: 2.2
+  scatter: 0.6
+  clamp: 65472
+--- !u!114 &6
+MonoBehaviour:
+  m_Name: Vignette
+  color: {r: 0.04, g: 0.04, b: 0.08, a: 1}
+  intensity: 0.18
+  smoothness: 0.3
+--- !u!114 &7
+MonoBehaviour:
+  m_Name: FilmGrain
+  type: 1
+  intensity: 0.08
+  response: 0.5
