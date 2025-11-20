@@ -18,6 +18,25 @@ public class Joystick : MonoBehaviour
     [Header("-------Animation----")]
     public Animator anim;
 
+    private void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+        moveAction = playerInput.actions["attack"];
+
+        if (anim == null)
+            anim = GetComponent<Animator>();
+
+    }
+
+    private void OnEnable()
+    {
+        moveAction.canceled += OnJoystickReleased;
+    }
+
+    private void OnDisable()
+    {
+        moveAction.canceled -= OnJoystickReleased;
+    }
 
     private void Update()
     {
@@ -26,41 +45,12 @@ public class Joystick : MonoBehaviour
         if (input.sqrMagnitude > 0.01f)
         {
             // Joystick is being held
-            anim.SetBool("isHolding", true);
+            anim.SetTrigger("Attack1");
 
             Vector3 direction = new Vector3(input.x, 0, input.y);
             Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
-        else
-        {
-            // Joystick is NOT being held
-            anim.SetBool("isHolding", false);
-
-        }
-    }
-
-
-    private void Awake()
-    {
-        playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.actions["attack"];
-
-        if (anim == null)
-            anim = GetComponent<Animator>();
-    }
-
-    private void OnEnable()
-    {
-        moveAction.canceled += OnJoystickReleased;
-       
-
-    }
-
-
-    private void OnDisable()
-    {
-        moveAction.canceled -= OnJoystickReleased;
     }
 
    
@@ -70,7 +60,6 @@ public class Joystick : MonoBehaviour
         if (!isFishing)
         {
             LaunchHook();
-            //
         }
     }
     //-----ADD EVENT----
@@ -80,13 +69,12 @@ public class Joystick : MonoBehaviour
     //}
     private void LaunchHook()
     {
-        
-        HookMechanism hook = HookPool.Instance.GetHook();
-        // Setup hook to use tongueHook as origin
-        hook.SetUpHook(tongueHook);
-        anim.SetBool("isDone", false);
         anim.SetTrigger("Attack");
 
+        HookMechanism hook = HookPool.Instance.GetHook();
+
+        // Setup hook to use tongueHook as origin
+        hook.SetUpHook(tongueHook); 
 
         isFishing = true;
         hook.onHookReturn = HookReturned;
@@ -95,6 +83,5 @@ public class Joystick : MonoBehaviour
     private void HookReturned()
     {
         isFishing = false;
-        anim.SetBool("isDone", true);
     }
 }
