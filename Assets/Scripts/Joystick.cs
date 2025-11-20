@@ -3,22 +3,27 @@ using UnityEngine.InputSystem;
 
 public class Joystick : MonoBehaviour
 {
-    [Header("Input")]
+    [Header("-------Input------")]
     private PlayerInput playerInput;
     private InputAction moveAction;
 
-    [Header("Hook Settings")]
+    [Header("------Hook Settings------")]
     public GameObject hookPrefab;
     public Transform tongueHook;
     private bool isFishing = false;
 
-    [Header("Settings")]
+    [Header("-----Settings----")]
     public float rotationSpeed = 10f;
 
+    [Header("-------Animation----")]
+    public Animator anim;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["attack"];
+
+        if (anim == null)
+            anim = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -48,11 +53,17 @@ public class Joystick : MonoBehaviour
         if (!isFishing)
         {
             LaunchHook();
+            //anim.SetTrigger("Attack");
         }
     }
-
+    //-----ADD EVENT----
+    //public void AnimationLaunchHook()
+    //{
+    //    LaunchHook();
+    //}
     private void LaunchHook()
     {
+        
         HookMechanism hook = HookPool.Instance.GetHook();
         // Setup hook to use tongueHook as origin
         hook.SetUpHook(tongueHook);
