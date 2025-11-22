@@ -22,44 +22,19 @@ public class SkillManager : MonoBehaviour
 
     [Header("Clone Skill")]
     public GameObject clonePrefab;  // DRAG your CloneSkill prefab here
-    public Transform playerTransform;
+    public Transform clonePosition;
 
     private void Start()
     {
-        currentStunValue = baseStunDuration;
-        currentSlowValue = baseSlowDuration;
-        currentHealValue = baseHealAmount;
+
     }
 
-    #region Clone Skill
-    public void ActivateClone()
-    {
-        if (clonePrefab != null && playerTransform != null)
-        {
-            Vector3 spawnPoint = playerTransform.position + playerTransform.forward * 1.5f;
-            GameObject clone = Instantiate(clonePrefab, spawnPoint, playerTransform.rotation);
-
-            // Add upgrades
-            //CloneSkill hooker = clone.GetComponent<CloneSkill>();
-            //if (hooker != null)
-            //{
-            //    hooker.maxHooks += PlayerController.instance.cloneLevel;
-            //}
-        }
-    }
-    #endregion
 
     #region Stun Skill
-
-    public void NewStunValue(float addStunValue)
-    {
-        currentStunValue += addStunValue;
-        currentStunValue = Mathf.Clamp(currentStunValue, 0, maxStunValue);
-    }
+    //----------------- STUN ---------------//
 
     public void ActivateStunField()
     {
-        //float upgradedStun = baseStunDuration + (PlayerController.instance.stunLevel * 0.5f);
         StartCoroutine(StunAllEnemies());
     }
 
@@ -71,59 +46,49 @@ public class SkillManager : MonoBehaviour
         EnemyHopper[] hoppers = FindObjectsOfType<EnemyHopper>();
 
         foreach (EnemyFly enemy in flies)
-            enemy.Stun(currentStunValue);
+            enemy.Stun(baseStunDuration);
 
         foreach (EnemyBee enemy in bees)
-            enemy.Stun(currentStunValue);
+            enemy.Stun(baseStunDuration);
+
         foreach (EnemyBug enemy in bugs)
-            enemy.Stun(currentStunValue);
+            enemy.Stun(baseStunDuration);
+
         foreach (EnemyHopper enemy in hoppers)
-            enemy.Stun(currentStunValue);
+            enemy.Stun(baseStunDuration);
 
         yield return null;
     }
     #endregion
 
     #region Slow Skill
-
-    public void NewSlowValue(float addSlowValue)
-    {
-        currentSlowValue += addSlowValue;
-        currentSlowValue = Mathf.Clamp(currentSlowValue, 0, maxSlowValue);
-    }
-
+    //----------------- SLOW ---------------//
 
     public void ActivateSlowField()
     {
-        //float upgradedDuration = baseSlowDuration + (PlayerController.instance.slowLevel * 0.5f);
         StartCoroutine(SlowAllEnemies());
     }
 
     IEnumerator SlowAllEnemies()
     {
-        // Hanapin lahat ng enemies na merong SlowEffect method
+        float duration = currentSlowValue > 0 ? currentSlowValue : baseSlowDuration;
+
         EnemyFly[] flies = FindObjectsOfType<EnemyFly>();
         EnemyBug[] bugs = FindObjectsOfType<EnemyBug>();
         EnemyHopper[] hoppers = FindObjectsOfType<EnemyHopper>();
         EnemyBee[] bees = FindObjectsOfType<EnemyBee>();
 
         foreach (EnemyFly fly in flies)
-        {
-            fly.SlowEffect(newSlowSpeed, currentSlowValue);
-        }
+            fly.SlowEffect(newSlowSpeed, duration);
 
         foreach (EnemyBee bee in bees)
-        {
-            bee.SlowEffect(newSlowSpeed, currentSlowValue);
-        }
+            bee.SlowEffect(newSlowSpeed, duration);
+
         foreach (EnemyBug bug in bugs)
-        {
-            bug.SlowEffect(newSlowSpeed, currentSlowValue);
-        }
+            bug.SlowEffect(newSlowSpeed, duration);
+
         foreach (EnemyHopper hopper in hoppers)
-        {
-            hopper.SlowEffect(newSlowSpeed, currentSlowValue);
-        }
+            hopper.SlowEffect(newSlowSpeed, duration);
 
         yield return null;
     }
@@ -131,25 +96,26 @@ public class SkillManager : MonoBehaviour
 
     #region Heal Skill
 
-    public void NewHealValue(int addHealValue)
+    public void HealPlayer()
     {
-        currentHealValue += addHealValue;
-        currentHealValue = Mathf.Clamp(currentHealValue, 0, Mathf.RoundToInt(maxHealValue));
+        PlayerController player = FindObjectOfType<PlayerController>();
+        if (player != null)
+        {
+            int bonusHeal = currentHealValue + baseHealAmount;
+            player.Heal(bonusHeal);
+        }
+        else
+        {
+            Debug.LogWarning("No PlayerController found!");
+        }
     }
+    #endregion
 
-    //public void HealPlayer()
-    //{
-    //    PlayerController player = FindObjectOfType<PlayerController>();
-    //    if (player != null)
-    //    {
-    //        int bonusHeal = currentHealValue + (PlayerController.instance.healLevel * 10);
-    //        player.Heal(bonusHeal);
-    //    }
-    //    else
-    //    {
-    //        Debug.LogWarning("No PlayerController found!");
-    //    }
-    //}
+    #region Clone Skill
+    public void ActivateClone()
+    {
+        Instantiate(clonePrefab, clonePosition.position, Quaternion.identity);
+    }
     #endregion
 
 }

@@ -11,13 +11,11 @@ public class EnemyFly : MonoBehaviour
 
     [Header("Status")]
     public bool isHooked = false;
-    private bool isStunned = false;
 
     void OnEnable()
     {
         // Reset state for pooling
         isHooked = false;
-        isStunned = false;
 
         zigzagTimer = 0f;
     }
@@ -60,41 +58,52 @@ public class EnemyFly : MonoBehaviour
         }
     }
 
-    // --- STATUS EFFECTS BELOW ---
+    // -------------------- STATUS EFFECTS --------------------//
 
-    public void SlowEffect(float newSpeed, float duration)
+    // -------------------- SLOW --------------------//
+    public void SlowEffect(float slowMultiplier, float slowDuration)
     {
-        if (!isStunned)
-        {
-            float currentSpeed = speed;
-            speed = newSpeed;
-            StartCoroutine(ResetSpeedAfter(duration, currentSpeed));
-        }
+        // store original values
+        float originalSpeed = speed;
+        float originalFrequency = zigzagFrequency;
+
+        // apply slow
+        speed *= slowMultiplier;              // slow forward speed
+        zigzagFrequency *= slowMultiplier;    // slow zigzag motion
+
+        StartCoroutine(ResetSlow(originalSpeed, originalFrequency, slowDuration));
     }
 
-    private IEnumerator ResetSpeedAfter(float duration, float originalSpeed)
+    private IEnumerator ResetSlow(float originalSpeed, float originalFrequency, float duration)
     {
         yield return new WaitForSeconds(duration);
+
+        // reset values
         speed = originalSpeed;
+        zigzagFrequency = originalFrequency;
     }
 
-    //----------Stun--------
-    public void Stun(float duration)
+    // -------------------- STUN --------------------//
+    // -------------------- STUN --------------------//
+    public void Stun(float stunDuration)
     {
-        if (!isStunned)
-            StartCoroutine(StunCoroutine(duration));
+        StartCoroutine(StunCoroutine(stunDuration));
     }
 
     private IEnumerator StunCoroutine(float duration)
     {
-        isStunned = true;
+        float oldSpeed = speed;
+        float oldFrequency = zigzagFrequency;
 
-        float prevSpeed = speed;
+        // stop movement
         speed = 0f;
+        zigzagFrequency = 0f;
 
         yield return new WaitForSeconds(duration);
 
-        isStunned = false;
-        speed = prevSpeed;
+        // restore original values
+        speed = oldSpeed;
+        zigzagFrequency = oldFrequency;
     }
+
 }

@@ -154,10 +154,10 @@ public class SkillUnlockManager : MonoBehaviour
                     skillManager.ActivateSlowField();
                 break;
 
-            //case SkillType.Heal:
-            //    if (skillManager != null)
-            //        skillManager.HealPlayer();
-            //    break;
+            case SkillType.Heal:
+                if (skillManager != null)
+                    skillManager.HealPlayer();
+                break;
 
             case SkillType.Clone:
                 if (skillManager != null)

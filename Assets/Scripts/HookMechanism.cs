@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class HookMechanism : MonoBehaviour
 {
@@ -42,6 +43,33 @@ public class HookMechanism : MonoBehaviour
 
         if (hookCollider != null)
             hookCollider.enabled = true; // enable collider when hook starts
+    }
+
+    public void SetTarget(Transform tongue,Transform enemyTarget)
+    {
+        tongueHook = tongue;
+
+        startPoint = tongueHook.position;
+
+        if (enemyTarget != null)
+        {
+            // 🔥 Aim the hook DIRECTLY at the enemy
+            targetPoint = enemyTarget.position;
+        }
+        else
+        {
+            // fallback
+            targetPoint = startPoint + tongueHook.forward * hookRange;
+        }
+
+        hookProgress = 0f;
+        transform.position = startPoint;
+
+        if (lineRenderer != null)
+        {
+            lineRenderer.SetPosition(0, startPoint);
+            lineRenderer.SetPosition(1, startPoint);
+        }
     }
 
     public void SetUpHook(Transform tongue)

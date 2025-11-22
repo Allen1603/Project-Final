@@ -8,7 +8,6 @@ public class Joystick : MonoBehaviour
     private InputAction moveAction;
 
     [Header("------Hook Settings------")]
-    public GameObject hookPrefab;
     public Transform tongueHook;
     private bool isFishing = false;
 
@@ -62,11 +61,7 @@ public class Joystick : MonoBehaviour
             LaunchHook();
         }
     }
-    //-----ADD EVENT----
-    //public void AnimationLaunchHook()
-    //{
-    //    LaunchHook();
-    //}
+
     private void LaunchHook()
     {
         anim.SetTrigger("Attack");

@@ -113,12 +113,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //public void Heal(int amount)
-    //{
-    //    currentHP += amount;
-    //    currentHP = Mathf.Clamp(currentHP, 0, MaxHP);
-    //    UpdateUIHealth();
-    //}
+    //---------------- FOR HEAL SKILL -------------//
+    public void Heal(int amount)
+    {
+        currentHP += amount;
+        currentHP = Mathf.Clamp(currentHP, 0, MaxHP);
+        UpdateUIHealth();
+    }
 
     #endregion
 
@@ -154,14 +155,6 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Misc Logic
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy4"))
-        {
-            
-        }
-    }
 
     IEnumerator DecreaseBarOverTime()
     {

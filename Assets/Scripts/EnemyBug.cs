@@ -8,23 +8,26 @@ public class EnemyBug : MonoBehaviour
     public float dashSpeedMultiplier = 2f;    // Speed multiplier during dash
     public float dashDuration = 1f;           // How long dash lasts
     public float dashCooldown = 3f;           // Time between dashes
+    private float baseSpeed;
 
     [Header("Status")]
-    private bool isStunned = false;
-    private float originalSpeed;
     public bool isHooked = false;
-
     private bool isDashing = false;
     private bool canDash = true;
+    private bool isSlow = false;
+    private bool isStunned = false;
 
+    private void Start()
+    {
+        baseSpeed = speed;
+    }
     void Update()
     {
-        if (isHooked) return; // Stop moving if hooked
+        if (isHooked) return;
+        if (isStunned) return;  // ⛔ STOP ALL MOVEMENT
 
-        // Move left continuously
         transform.position += Vector3.left * speed * Time.deltaTime;
 
-        // Start dash if allowed
         if (canDash && !isDashing)
             StartCoroutine(DashRoutine());
     }
@@ -32,20 +35,32 @@ public class EnemyBug : MonoBehaviour
     // -------------------- DASH LOGIC --------------------
     private IEnumerator DashRoutine()
     {
-        canDash = false;       // prevent new dashes
-        isDashing = true;      // currently dashing
+        canDash = false;
+        isDashing = true;
 
-        float originalSpeed = speed;
-        speed = originalSpeed * dashSpeedMultiplier;  // speed boost
+        // If stunned, abort dash immediately
+        if (isStunned)
+        {
+            isDashing = false;
+            canDash = true;
+            yield break;
+        }
+
+        float dashSpeed = baseSpeed * dashSpeedMultiplier;
+
+        speed = isSlow ? speed : dashSpeed;
+
         yield return new WaitForSeconds(dashDuration);
 
-        speed = originalSpeed; // reset to normal
+        speed = isSlow ? speed : baseSpeed;
+
         isDashing = false;
 
-        // cooldown before next dash
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
+
+
 
     // -------------------- COLLISIONS --------------------
     private void OnTriggerEnter(Collider other)
@@ -66,42 +81,52 @@ public class EnemyBug : MonoBehaviour
         }
     }
 
-    // -------------------- STATUS EFFECTS --------------------
-    public void SlowEffect(float newSpeed, float duration)
+    // -------------------- STATUS EFFECTS --------------------//
+
+    // -------------------- SLOW --------------------//
+    public void SlowEffect(float newSpeed, float slowDuration)
     {
-        if (!isStunned)
+        if (!isSlow)
         {
-            float currentSpeed = speed;
+            isSlow = true;
             speed = newSpeed;
-            StartCoroutine(ResetSpeedAfter(duration, currentSpeed));
-            speed = originalSpeed;
+            StartCoroutine(ResetSlow(slowDuration));
+        }
+    }
+    private IEnumerator ResetSlow(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        isSlow = false;
+
+        // restore to base speed, but if dashing, let dash handle speed
+        if (!isDashing)
+        {
+            speed = baseSpeed;
         }
     }
 
-    private IEnumerator ResetSpeedAfter(float duration, float originalSpeed)
-    {
-        yield return new WaitForSeconds(duration);
-        speed = originalSpeed;
-    }
 
-    // -------------------- STUN --------------------
-    public void Stun(float duration)
+    // -------------------- STUN --------------------//
+    public void Stun(float stunDuration)
     {
-        if (!isStunned)
-            StartCoroutine(StunCoroutine(duration));
+        StartCoroutine(StunCoroutine(stunDuration));
     }
 
     private IEnumerator StunCoroutine(float duration)
     {
         isStunned = true;
 
-        float prevSpeed = speed;
-        speed = 0f; // stop movement
+        speed = 0f;       // full stop
+        isDashing = false; // cancel dash
+        canDash = false;   // disable future dashes
 
         yield return new WaitForSeconds(duration);
 
-        // Restore
         isStunned = false;
-        speed = prevSpeed;
+        canDash = true;
+
+        // Restore correct speed after stun
+        speed = isSlow ? speed : baseSpeed;
     }
+
 }

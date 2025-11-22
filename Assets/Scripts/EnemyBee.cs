@@ -14,21 +14,21 @@ public class EnemyBee : MonoBehaviour
     private float chargeTimer = 2f;
     public bool isHooked = false;
     private bool isAttacking = false;
-    private float originalSpeed;
     private bool isStunned = false;
-
-    //private float originalSpeed;
+    private bool isSlow = false;
+    private float originalSpeed;
+    private float originalChargeSpeed;
 
     void OnEnable()
     {
         isHooked = false;
-        //speed = originalSpeed;
     }
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        //originalSpeed = speed;
+        originalSpeed = speed;
+        originalChargeSpeed = chargeSpeed;
     }
 
     void Update()
@@ -43,9 +43,22 @@ public class EnemyBee : MonoBehaviour
         }
         else
         {
-            isAttacking = true;
-            Vector3 direction = (player.transform.position - transform.position).normalized;
-            transform.position += direction * chargeSpeed * Time.deltaTime;
+            if (!isStunned)
+            {
+                isAttacking = true;
+                Vector3 direction = (player.transform.position - transform.position).normalized;
+                transform.position += direction * chargeSpeed * Time.deltaTime;
+            }
+            
+        }
+        float currentChargeSpeed = chargeSpeed;
+        if (isSlow)
+        {
+            chargeSpeed = 0.5f;
+        }
+        else
+        {
+            chargeSpeed = currentChargeSpeed;
         }
     }
 
@@ -73,38 +86,51 @@ public class EnemyBee : MonoBehaviour
         }
     }
 
-    public void SlowEffect(float newSpeed, float duration)
+    // -------------------- STATUS EFFECTS --------------------//
+
+    // -------------------- SLOW --------------------//
+    public void SlowEffect(float newSpeed, float slowDuration)
     {
-        if (!isStunned)
+        if (!isSlow)
         {
-            float currentSpeed = speed;
-            speed = newSpeed;
-            StartCoroutine(ResetSpeedAfter(duration, currentSpeed));
-            speed = originalSpeed;
+            originalSpeed = speed;
+            originalChargeSpeed = chargeSpeed;
         }
+
+        isSlow = true;
+        speed = newSpeed;
+        chargeSpeed = newSpeed;   // ← SLOW the charge too
+
+        StartCoroutine(ResetSlow(slowDuration));
     }
 
-    private IEnumerator ResetSpeedAfter(float duration, float originalSpeed)
+    private IEnumerator ResetSlow(float duration)
     {
         yield return new WaitForSeconds(duration);
+
         speed = originalSpeed;
+        chargeSpeed = originalChargeSpeed;
+
+        isSlow = false;
     }
 
-    public void Stun(float duration)
+    // -------------------- STUN --------------------//
+    public void Stun(float stunDuration)
     {
-        if (!isStunned)
-            StartCoroutine(StunCoroutine(duration));
+        StartCoroutine(StunCoroutine(stunDuration));
+        
     }
 
     private IEnumerator StunCoroutine(float duration)
     {
         isStunned = true;
-        float savedSpeed = speed;
-        speed = 0f;
+        float prevSpeed = speed;
+        speed = 0f; // stop movement
 
         yield return new WaitForSeconds(duration);
 
+        // Restore
+        speed = prevSpeed;
         isStunned = false;
-        speed = savedSpeed;
     }
 }

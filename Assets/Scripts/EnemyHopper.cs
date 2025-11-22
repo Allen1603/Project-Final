@@ -13,10 +13,8 @@ public class EnemyHopper : MonoBehaviour
     private bool isJumping = false;
     private float jumpStartTime;
     private Vector3 jumpStartPos;
-    private float originalSpeed;
-    private bool isStunned = false;
-
     public bool isHooked = false;
+
 
     void Start()
     {
@@ -76,43 +74,58 @@ public class EnemyHopper : MonoBehaviour
         }
     }
 
-    // Slow Effect
-    public void SlowEffect(float newSpeed, float duration)
+    // -------------------- STATUS EFFECTS --------------------//
+
+    // -------------------- SLOW --------------------//
+    public void SlowEffect(float slowMultiplier, float slowDuration)
     {
-        if (isStunned) return;
-        StopCoroutine(nameof(SlowCoroutine));
-        StartCoroutine(SlowCoroutine(newSpeed, duration));
+        // Save original values
+        float originalSpeed = speed;
+        float originalJumpDuration = jumpDuration;
+        float originalJumpInterval = jumpInterval;
+
+        // Apply slow
+        speed *= slowMultiplier;              // slow forward movement
+        jumpDuration /= slowMultiplier;       // longer jump animation (slower jump)
+        jumpInterval /= slowMultiplier;       // longer wait between jumps
+
+        StartCoroutine(ResetSlow(originalSpeed, originalJumpDuration, originalJumpInterval, slowDuration));
     }
 
-    private IEnumerator SlowCoroutine(float newSpeed, float duration)
+    private IEnumerator ResetSlow(float oSpeed, float oJumpDuration, float oJumpInterval, float duration)
     {
-        float prevSpeed = speed;
-        speed = newSpeed;
-
         yield return new WaitForSeconds(duration);
 
-        speed = originalSpeed;
+        // Reset to original
+        speed = oSpeed;
+        jumpDuration = oJumpDuration;
+        jumpInterval = oJumpInterval;
     }
 
-    // Stun logic
-    public void Stun(float duration)
+    // -------------------- STUN --------------------//
+    public void Stun(float stunDuration)
     {
-        if (!isStunned)
-        {
-            StopAllCoroutines(); // Stop movement-related effects
-            StartCoroutine(StunCoroutine(duration));
-        }
+        StartCoroutine(StunCoroutine(stunDuration));
     }
 
     private IEnumerator StunCoroutine(float duration)
     {
-        isStunned = true;
-        float prevSpeed = speed;
+        float oldSpeed = speed;
+        float oldJumpDuration = jumpDuration;
+        float oldJumpInterval = jumpInterval;
+
+        // STOP ALL movement and jumping
         speed = 0f;
+        jumpDuration = 9999f;   // basically freezing jump animation
+        jumpInterval = 9999f;   // no more jumps
+
+        isJumping = false; // stop current jump immediately
 
         yield return new WaitForSeconds(duration);
 
-        isStunned = false;
-        speed = prevSpeed;
+        // Restore
+        speed = oldSpeed;
+        jumpDuration = oldJumpDuration;
+        jumpInterval = oldJumpInterval;
     }
 }
