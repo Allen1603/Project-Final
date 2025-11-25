@@ -18,7 +18,7 @@ public class SkillManager : MonoBehaviour
     [Header("Heal Skill")]
     public int baseHealAmount = 10;
     public int currentHealValue = 0;
-    public float maxHealValue = 20f;
+    public int maxHealValue = 20;
 
     [Header("Clone Skill")]
     public GameObject clonePrefab;  // DRAG your CloneSkill prefab here
@@ -32,6 +32,11 @@ public class SkillManager : MonoBehaviour
 
     #region Stun Skill
     //----------------- STUN ---------------//
+    public void NewStunValue(float addedDuration)
+    {
+        currentStunValue += addedDuration;
+        currentStunValue = Mathf.Clamp(currentStunValue, 0f, maxStunValue);
+    }
 
     public void ActivateStunField()
     {
@@ -63,7 +68,11 @@ public class SkillManager : MonoBehaviour
 
     #region Slow Skill
     //----------------- SLOW ---------------//
-
+    public void NewSlowValue(float addedDuration)
+    {
+        currentSlowValue += addedDuration;
+        currentSlowValue = Mathf.Clamp(currentSlowValue, 0f, maxSlowValue);
+    }
     public void ActivateSlowField()
     {
         StartCoroutine(SlowAllEnemies());
@@ -95,7 +104,11 @@ public class SkillManager : MonoBehaviour
     #endregion
 
     #region Heal Skill
-
+    public void NewHealValue(int newHealValue)
+    {
+        currentHealValue += newHealValue;
+        currentHealValue = Mathf.Clamp(currentHealValue, 0, maxHealValue);
+    }
     public void HealPlayer()
     {
         PlayerController player = FindObjectOfType<PlayerController>();

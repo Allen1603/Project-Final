@@ -6058,8 +6058,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.2000237, y: -413.6}
-  m_SizeDelta: {x: 60, y: 60}
+  m_AnchoredPosition: {x: 477, y: -162}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &221799838
 PrefabInstance:
@@ -7061,6 +7061,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &371275443 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8211904020588619405, guid: c3b6661f4c1c3964a89eea5539f14ee0, type: 3}
+  m_PrefabInstance: {fileID: 167929319}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ddc409aab207ab47b7101913355227c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &391712699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12990,8 +13001,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 153.90002, y: -413.6}
-  m_SizeDelta: {x: 60, y: 60}
+  m_AnchoredPosition: {x: 790, y: -98}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1501474766
 MonoBehaviour:
@@ -13300,6 +13311,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e53036412a17564f85a313a070daa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillManager: {fileID: 1759741298}
+  playerController: {fileID: 371275443}
+  skillUpgradePanel: {fileID: 1534026454}
+  stunIncrement: 0.5
+  slowIncrement: 0.5
+  healIncrement: 4
 --- !u!1001 &1555566013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14506,8 +14523,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -86.400024, y: -413.6}
-  m_SizeDelta: {x: 60, y: 60}
+  m_AnchoredPosition: {x: 426, y: -313}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1759741297
 GameObject:
@@ -14945,8 +14962,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 73, y: -413.6}
-  m_SizeDelta: {x: 60, y: 60}
+  m_AnchoredPosition: {x: 622, y: -80}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1832856849
 PrefabInstance:
