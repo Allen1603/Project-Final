@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
@@ -24,11 +25,24 @@ public class SkillManager : MonoBehaviour
     public GameObject clonePrefab;  // DRAG your CloneSkill prefab here
     public Transform clonePosition;
 
-    private void Start()
-    {
+    [Header("Skill Button")]
+    public Button stunButton;
+    public Button slowButton;
+    public Button healButton;
+    public Button cloneButton;
 
+    public static SkillManager instance;
+    private PlayerController player;
+    private void Awake()
+    {
+        instance = this;
     }
 
+    private void Start()
+    {
+        player = PlayerController.instance;
+        UpdateSkillButtons(0, player.MaxBar);
+    }
 
     #region Stun Skill
     //----------------- STUN ---------------//
@@ -41,6 +55,7 @@ public class SkillManager : MonoBehaviour
     public void ActivateStunField()
     {
         StartCoroutine(StunAllEnemies());
+        ResetBar();
     }
 
     IEnumerator StunAllEnemies()
@@ -76,6 +91,7 @@ public class SkillManager : MonoBehaviour
     public void ActivateSlowField()
     {
         StartCoroutine(SlowAllEnemies());
+        ResetBar();
     }
 
     IEnumerator SlowAllEnemies()
@@ -121,6 +137,8 @@ public class SkillManager : MonoBehaviour
         {
             Debug.LogWarning("No PlayerController found!");
         }
+
+        ResetBar();
     }
     #endregion
 
@@ -128,6 +146,27 @@ public class SkillManager : MonoBehaviour
     public void ActivateClone()
     {
         Instantiate(clonePrefab, clonePosition.position, Quaternion.identity);
+        ResetBar();
+    }
+
+    public void UpdateSkillButtons(float currentBar, float maxBar)
+    {
+        bool isFull = currentBar >= maxBar;
+
+        if (stunButton != null) stunButton.interactable = isFull;
+        if (slowButton != null) slowButton.interactable = isFull;
+        if (healButton != null) healButton.interactable = isFull;
+        if (cloneButton != null) cloneButton.interactable = isFull;
+    }
+
+    public void ResetBar()
+    {
+        if (player != null)
+        {
+            player.currentBar = 0;
+            player.UpdateUIBar();
+            UpdateSkillButtons(0, player.MaxBar);
+        }
     }
     #endregion
 

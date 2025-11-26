@@ -42,7 +42,8 @@ public class PlayerController : MonoBehaviour
     public Image hpFill;
     public Gradient hpGradient;
 
-    private Coroutine barCoroutine;
+    //private Coroutine barCoroutine;
+    public GameObject skillUpgradePanel;
 
     private void Awake()
     {
@@ -66,7 +67,10 @@ public class PlayerController : MonoBehaviour
         UpdateUIExp();
         UpdateUIBar();
 
-        barCoroutine = StartCoroutine(DecreaseBarOverTime());
+        if(skillUpgradePanel != null)
+            skillUpgradePanel.SetActive(false);
+
+        //barCoroutine = StartCoroutine(DecreaseBarOverTime());
     }
     private void Update()
     {
@@ -89,15 +93,25 @@ public class PlayerController : MonoBehaviour
     {
         currentEXP += exp;
         currentEXP = Mathf.Clamp(currentEXP, 0, MaxExp);
+
         UpdateUIExp();
+
+        if (currentEXP >= MaxExp)
+        {
+            skillUpgradePanel.SetActive(true);
+        }
     }
 
     public void TakeBar(float amount)
-    {
-        currentBar += amount;
-        currentBar = Mathf.Clamp(currentBar, 0, MaxBar);
-        UpdateUIBar();
-    }
+{
+    currentBar += amount;
+    currentBar = Mathf.Clamp(currentBar, 0, MaxBar);
+    UpdateUIBar();
+
+    // 🔥 Notify SkillManager to enable/disable skill button
+    if (SkillManager.instance != null)
+        SkillManager.instance.UpdateSkillButtons(currentBar, MaxBar);
+}
 
     public void TakeDamage(float damage)
     {
@@ -108,8 +122,9 @@ public class PlayerController : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            //put the game Over here
-            Destroy(gameObject);
+            playerInput.enabled = false;
+            rb.velocity = Vector3.zero;
+            //gameOverPanel.SetActive(true);
         }
     }
 

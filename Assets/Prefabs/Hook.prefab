@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tongueHook: {fileID: 7686227458819527645, guid: 0aa2d7ff097b36b4485dca5b0ea94dcd, type: 3}
-  hookRange: 18
-  hookSpeed: 20
-  returnSpeed: 25
+  hookRange: 16
+  hookSpeed: 25
+  returnSpeed: 35
 --- !u!120 &-6199786692563154392
 LineRenderer:
   m_ObjectHideFlags: 0

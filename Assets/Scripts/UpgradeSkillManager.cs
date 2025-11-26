@@ -5,71 +5,80 @@ using UnityEngine;
 public class UpgradeSkillManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private SkillManager skillManager;
-    [SerializeField] private PlayerController playerController;
-    public GameObject skillUpgradePanel;
+    private PlayerController playerController;
 
     [Header("Upgrade Values")]
     public float stunIncrement = 0.5f;
     public float slowIncrement = 0.5f;
     public int healIncrement = 4;
 
+    [Header("Upgrade System")]
+    public int cloneLevel = 1; // 1-4
+    //private int maxTargets = 1; // level 4 allows 2 enemies
+    //private float consumeSpeedMultiplier = 1f; // Level 2 bonus
+    //private float cooldownModifier = 0f;       // Level 3 bonus
+
+    public static UpgradeSkillManager instance;
+
     private void Awake()
     {
-        if (skillManager == null) skillManager = FindObjectOfType<SkillManager>();
-        if (playerController == null) playerController = FindObjectOfType<PlayerController>();
+        instance = this;
     }
 
     private void Start()
     {
-        if (skillUpgradePanel != null)
-            skillUpgradePanel.SetActive(false); // hide on start
+        //if (skillManager == null) skillManager = SkillManager.instance;
+        if (playerController == null) playerController = PlayerController.instance;
     }
 
     public void UpgradeSlow()
     {
-        if (skillManager == null || playerController == null) return;
+        if (playerController == null) return;
 
-        skillManager.NewSlowValue(slowIncrement);
-        playerController.TakeExp(0);
+        // Reset EXP to start from 0 again
+        playerController.currentEXP = 0f;
+        playerController.UpdateUIExp();
 
-        ClosePanel();
+        // Apply the slow upgrade
+        SkillManager.instance.NewSlowValue(slowIncrement);
     }
 
     public void UpgradeStun()
     {
-        if (skillManager == null || playerController == null) return;
+        if (playerController == null) return;
 
-        skillManager.NewStunValue(stunIncrement);
-        playerController.TakeExp(0);
-
-        ClosePanel();
+        SkillManager.instance.NewStunValue(stunIncrement);
+        playerController.currentEXP = 0f;
+        playerController.UpdateUIExp();
     }
 
     public void UpgradeHeal()
     {
-        if (skillManager == null || playerController == null) return;
+        if (playerController == null) return;
 
-        skillManager.NewHealValue(healIncrement);
-        playerController.TakeExp(0);
-
-        ClosePanel();
+        SkillManager.instance.NewHealValue(healIncrement);
+        playerController.currentEXP = 0f;
+        playerController.UpdateUIExp();
     }
 
     public void UpgradeClone()
     {
-        if (skillManager == null || playerController == null) return;
+        if (playerController == null) return;
 
-        // Example: give clone duration or power upgrade
-        //skillManager.NewCloneValue(1); // You can define logic inside SkillManager
-        playerController.TakeExp(0);
+        // Increase clone level (max 4)
+        if (cloneLevel < 4)
+            cloneLevel++;
 
-        ClosePanel();
-    }
+        // Reset player EXP
+        playerController.currentEXP = 0f;
+        playerController.UpdateUIExp();
 
-    private void ClosePanel()
-    {
-        if (skillUpgradePanel != null)
-            skillUpgradePanel.SetActive(false);
+        // Update all active or future clones (optional if using prefabs)
+        CloneSkill[] activeClones = FindObjectsOfType<CloneSkill>();
+        foreach (var clone in activeClones)
+        {
+            clone.cloneLevel = cloneLevel;
+            clone.ApplyUpgrades(); // make ApplyUpgrades public in CloneSkill
+        }
     }
 }
