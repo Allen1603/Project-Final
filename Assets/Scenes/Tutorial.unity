@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5636266
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9224,7 +9224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &929868249
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13562,12 +13562,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e53036412a17564f85a313a070daa77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillManager: {fileID: 0}
-  playerController: {fileID: 0}
-  skillUpgradePanel: {fileID: 0}
   stunIncrement: 0.5
   slowIncrement: 0.5
   healIncrement: 4
+  cloneLevel: 1
 --- !u!1 &1553813105
 GameObject:
   m_ObjectHideFlags: 0
@@ -15602,6 +15600,10 @@ MonoBehaviour:
   maxHealValue: 20
   clonePrefab: {fileID: 8291235950984118424, guid: 170c7c3358348b94fb7bf4e01a488e77, type: 3}
   clonePosition: {fileID: 0}
+  stunButton: {fileID: 0}
+  slowButton: {fileID: 0}
+  healButton: {fileID: 0}
+  cloneButton: {fileID: 0}
 --- !u!4 &1759741299
 Transform:
   m_ObjectHideFlags: 0
