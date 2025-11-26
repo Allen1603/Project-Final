@@ -10,7 +10,7 @@ public class Mainmenu : MonoBehaviour
 
     public void Tutorial()
     {
-        SceneManager.LoadSceneAsync(2);
+        SceneManager.LoadSceneAsync(3);
     }
 
     public void Quit()
