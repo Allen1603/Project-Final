@@ -14,10 +14,6 @@ public class EnemyFly : MonoBehaviour
 
     private Vector3 moveDirection;
 
-    public void SetDirection(Vector3 dir)
-    {
-        moveDirection = dir;
-    }
     void OnEnable()
     {
         // Reset state for pooling
@@ -117,5 +113,8 @@ public class EnemyFly : MonoBehaviour
         speed = oldSpeed;
         zigzagFrequency = oldFrequency;
     }
-
+    public void SetDirection(Vector3 dir)
+    {
+        moveDirection = dir;
+    }
 }

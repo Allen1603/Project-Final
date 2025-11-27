@@ -17,10 +17,6 @@ public class EnemyHopper : MonoBehaviour
 
     private Vector3 moveDirection;
 
-    public void SetDirection(Vector3 dir)
-    {
-        moveDirection = dir;
-    }
     void Start()
     {
         jumpTimer = jumpInterval;
@@ -136,5 +132,9 @@ public class EnemyHopper : MonoBehaviour
         speed = oldSpeed;
         jumpDuration = oldJumpDuration;
         jumpInterval = oldJumpInterval;
+    }
+    public void SetDirection(Vector3 dir)
+    {
+        moveDirection = dir;
     }
 }

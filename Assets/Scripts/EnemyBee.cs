@@ -21,11 +21,6 @@ public class EnemyBee : MonoBehaviour
 
     private Vector3 moveDirection;
 
-    public void SetDirection(Vector3 dir)
-    {
-        moveDirection = dir;
-    }
-
     void OnEnable()
     {
         isHooked = false;
@@ -152,5 +147,9 @@ public class EnemyBee : MonoBehaviour
         // Restore
         speed = prevSpeed;
         isStunned = false;
+    }
+    public void SetDirection(Vector3 dir)
+    {
+        moveDirection = dir;
     }
 }

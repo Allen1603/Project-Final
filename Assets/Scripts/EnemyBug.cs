@@ -19,10 +19,6 @@ public class EnemyBug : MonoBehaviour
 
     private Vector3 moveDirection;
 
-    public void SetDirection(Vector3 dir)
-    {
-        moveDirection = dir;
-    }
     private void Start()
     {
         baseSpeed = speed;
@@ -33,6 +29,7 @@ public class EnemyBug : MonoBehaviour
         if (isStunned) return;  // ⛔ STOP ALL MOVEMENT
 
         transform.position += moveDirection * speed * Time.deltaTime;
+
         if (moveDirection == Vector3.left)
             transform.rotation = Quaternion.Euler(0, 0, 0);
         else
@@ -138,5 +135,21 @@ public class EnemyBug : MonoBehaviour
         // Restore correct speed after stun
         speed = isSlow ? speed : baseSpeed;
     }
+    public void SetDirection(Vector3 dir)
+    {
+        ResetEnemy();
+        moveDirection = dir;
+    }
+    private void ResetEnemy()
+    {
+        baseSpeed = speed;
 
+        isHooked = false;
+        isStunned = false;
+        isSlow = false;
+        isDashing = false;
+        canDash = true;
+
+        speed = baseSpeed;
+    }
 }
