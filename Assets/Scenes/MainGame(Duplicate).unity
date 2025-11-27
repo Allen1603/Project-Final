@@ -6508,8 +6508,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: RESUME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7ca6b68abbf0cfa4482109fe93c90d49, type: 2}
-  m_sharedMaterial: {fileID: -2968994345443799383, guid: 7ca6b68abbf0cfa4482109fe93c90d49, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6829,7 +6829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &213651333
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9357,8 +9357,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: RESTART
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7ca6b68abbf0cfa4482109fe93c90d49, type: 2}
-  m_sharedMaterial: {fileID: -2968994345443799383, guid: 7ca6b68abbf0cfa4482109fe93c90d49, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12835,8 +12835,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: EXIT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7ca6b68abbf0cfa4482109fe93c90d49, type: 2}
-  m_sharedMaterial: {fileID: -2968994345443799383, guid: 7ca6b68abbf0cfa4482109fe93c90d49, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12974,8 +12974,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PAUSE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7ca6b68abbf0cfa4482109fe93c90d49, type: 2}
-  m_sharedMaterial: {fileID: -2968994345443799383, guid: 7ca6b68abbf0cfa4482109fe93c90d49, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13377,8 +13377,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: GAME IS PAUSED
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7ca6b68abbf0cfa4482109fe93c90d49, type: 2}
-  m_sharedMaterial: {fileID: -2968994345443799383, guid: 7ca6b68abbf0cfa4482109fe93c90d49, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -18750,10 +18750,6 @@ MonoBehaviour:
   - Enemy2
   - Enemy3
   - Enemy4
-  spawner:
-  - {fileID: 667071191}
-  - {fileID: 2037862744}
-  - {fileID: 647018905}
   rightSpawner: {fileID: 2037862744}
   leftSpawner:
   - {fileID: 667071191}
@@ -18766,6 +18762,10 @@ MonoBehaviour:
   wavePanel: {fileID: 1941341763}
   waveTXT: {fileID: 722438383}
   waveTextDisplayTime: 3
+  hopperPanel: {fileID: 0}
+  flyPanel: {fileID: 0}
+  bugPanel: {fileID: 0}
+  beePanel: {fileID: 0}
 --- !u!4 &1910447919
 Transform:
   m_ObjectHideFlags: 0
@@ -19458,7 +19458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1992282471
 RectTransform:
   m_ObjectHideFlags: 0
