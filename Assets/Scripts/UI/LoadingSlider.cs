@@ -13,12 +13,11 @@ public class LoadingSlider : MonoBehaviour
     public float fillSpeed = 0.5f;
 
     [Header("Fade Transition Settings")]
-    public CanvasGroup fadeCanvasGroup;  // Assign a UI panel with CanvasGroup
-    public float fadeDuration = 1f;      // Crossfade speed
+    public CanvasGroup fadeCanvasGroup;  
+    public float fadeDuration = 1f;      
 
     void Start()
     {
-        // Ensure fade starts invisible
         fadeCanvasGroup.alpha = 0f;
 
         StartCoroutine(LoadSceneSlow());
@@ -40,10 +39,9 @@ public class LoadingSlider : MonoBehaviour
 
             loadingSlider.value = fakeProgress;
 
-            // When loading is 100%
+            
             if (fakeProgress >= 1f)
             {
-                // Start fade-out transition
                 yield return StartCoroutine(Crossfade());
 
                 operation.allowSceneActivation = true;
