@@ -15,7 +15,12 @@ public class EnemyHopper : MonoBehaviour
     private Vector3 jumpStartPos;
     public bool isHooked = false;
 
+    private Vector3 moveDirection;
 
+    public void SetDirection(Vector3 dir)
+    {
+        moveDirection = dir;
+    }
     void Start()
     {
         jumpTimer = jumpInterval;
@@ -25,8 +30,12 @@ public class EnemyHopper : MonoBehaviour
     {
         if (isHooked) return;
 
+        transform.position += moveDirection * speed * Time.deltaTime;
         // Move left
-        transform.position += Vector3.left * speed * Time.deltaTime;
+        if (moveDirection == Vector3.left)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        else
+            transform.rotation = Quaternion.Euler(0, 180, 0);
 
         // Handle jumping
         jumpTimer -= Time.deltaTime;

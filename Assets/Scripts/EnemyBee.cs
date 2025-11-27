@@ -19,6 +19,13 @@ public class EnemyBee : MonoBehaviour
     private float originalSpeed;
     private float originalChargeSpeed;
 
+    private Vector3 moveDirection;
+
+    public void SetDirection(Vector3 dir)
+    {
+        moveDirection = dir;
+    }
+
     void OnEnable()
     {
         isHooked = false;
@@ -40,10 +47,11 @@ public class EnemyBee : MonoBehaviour
 
         if (chargeTimer >= 0f)
         {
-            transform.rotation = Quaternion.LookRotation(Vector3.left);
-
-            // Move left
-            transform.position += Vector3.left * speed * Time.deltaTime;
+            transform.position += moveDirection * speed * Time.deltaTime;
+            if (moveDirection == Vector3.left)
+                transform.rotation = Quaternion.LookRotation(Vector3.left);
+            else
+                transform.rotation = Quaternion.LookRotation(Vector3.right);    
         }
         else
         {

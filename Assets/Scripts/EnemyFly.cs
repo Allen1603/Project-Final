@@ -12,6 +12,12 @@ public class EnemyFly : MonoBehaviour
     [Header("Status")]
     public bool isHooked = false;
 
+    private Vector3 moveDirection;
+
+    public void SetDirection(Vector3 dir)
+    {
+        moveDirection = dir;
+    }
     void OnEnable()
     {
         // Reset state for pooling
@@ -29,15 +35,21 @@ public class EnemyFly : MonoBehaviour
     {
         if (isHooked) return;
 
-        // Zigzag motion
-        zigzagTimer += Time.deltaTime * zigzagFrequency;
-        float zigzagOffset = Mathf.Sin(zigzagTimer * Mathf.PI * 2) * zigzagWidth;
+        // Move forward
+        Vector3 forwardMove = moveDirection * speed * Time.deltaTime;
 
-        transform.position += new Vector3(
-            -speed * Time.deltaTime,
-            0f,
-            zigzagOffset * Time.deltaTime * zigzagFrequency
-        );
+        // Zigzag
+        zigzagTimer += Time.deltaTime * zigzagFrequency;
+        Vector3 right = Vector3.Cross(Vector3.up, moveDirection);
+        Vector3 zigzagOffset = right * Mathf.Sin(zigzagTimer * Mathf.PI * 2) * zigzagWidth;
+
+        transform.position += forwardMove + zigzagOffset * Time.deltaTime;
+
+        // Face direction
+        if (moveDirection == Vector3.left)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        else
+            transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
     private void OnTriggerEnter(Collider other)

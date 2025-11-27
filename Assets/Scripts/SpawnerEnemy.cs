@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -10,6 +10,8 @@ public class SpawnerEnemy : MonoBehaviour
 
     [Header("----- Spawner Points -----")]
     public Transform[] spawner; // assign multiple spawn points in inspector
+    public Transform rightSpawner;
+    public Transform[] leftSpawner;
 
     [Header("----- Spawn Settings -----")]
     public float spawnInterval = 3f;     // initial time between spawns
@@ -17,8 +19,8 @@ public class SpawnerEnemy : MonoBehaviour
     public float limitDecrement = 1f;    // min allowed interval
 
     [Header("----- Wave Settings -----")]
-    public int startingEnemiesPerWave = 10;
-    public int enemyIncrementPerWave = 5;
+    public int startingEnemiesPerWave = 7;
+    public int enemyIncrementPerWave = 3;
     private bool bossActivate = false;
 
     private int currentWave = 1;
@@ -72,7 +74,7 @@ public class SpawnerEnemy : MonoBehaviour
         currentWave++;
         spawnInterval = Mathf.Clamp(spawnInterval - spawnDecrement, limitDecrement, 999f);
 
-        if (currentWave >= 2)
+        if (currentWave >= 6)
             bossActivate = true;
 
         yield return new WaitForSeconds(10f);
@@ -81,15 +83,8 @@ public class SpawnerEnemy : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        // Random enemy + random spawn point
-        int enemyIndex = Random.Range(0, enemyTags.Length);
-        int spawnerIndex = Random.Range(0, spawner.Length);
 
-        string enemyTag = enemyTags[enemyIndex];
-        Transform spawnPoint = spawner[spawnerIndex];
-
-        EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
-
+        EnemySpawnWave();
     }
 
     private IEnumerator ShowWaveText()
@@ -102,4 +97,59 @@ public class SpawnerEnemy : MonoBehaviour
             wavePanel.SetActive(false);
         }
     }
+
+    private void EnemySpawnWave()
+    {
+        Transform spawnPoint;
+
+        // ----------------------------
+        // ALWAYS RANDOM LEFT OR RIGHT
+        // ----------------------------
+        if (Random.value > 0.5f)
+            spawnPoint = leftSpawner[Random.Range(0, leftSpawner.Length)];
+        else
+            spawnPoint = rightSpawner;
+
+        // ----------------------------
+        // WAVE 1 → ONLY enemyTags[0]
+        // ----------------------------
+        if (currentWave == 1)
+        {
+            SpawnEnemyAt(spawnPoint, enemyTags[0]);
+            return;
+        }
+
+        // ----------------------------
+        // WAVE 2+
+        // ----------------------------
+        int enemyIndex = Random.Range(0, enemyTags.Length);
+        string enemyRanTag = enemyTags[enemyIndex];
+
+        if (currentWave >= 5)
+            SpawnEnemyAt(spawnPoint, enemyRanTag);
+        else if (currentWave >= 4)
+            SpawnEnemyAt(spawnPoint, enemyTags[3]);
+        else if (currentWave >= 3)
+            SpawnEnemyAt(spawnPoint, enemyTags[2]);
+        else if (currentWave >= 2)
+            SpawnEnemyAt(spawnPoint, enemyTags[1]);
+
+    }
+
+    private void SpawnEnemyAt(Transform spawnPoint, string enemyTag)
+    {
+        Vector3 dir;
+
+        // RIGHT SPAWNER → MOVE LEFT
+        if (spawnPoint == rightSpawner)
+            dir = Vector3.left;
+        else
+            dir = Vector3.right;
+
+        GameObject enemy = EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, spawnPoint.rotation);
+
+        // Apply direction to ANY enemy script that has SetDirection()
+        enemy.SendMessage("SetDirection", dir, SendMessageOptions.DontRequireReceiver);
+    }
+
 }
