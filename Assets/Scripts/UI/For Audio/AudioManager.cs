@@ -16,10 +16,6 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Clips (SFX)")]
     public List<AudioClip> sfxClips;
 
-    [Header("Force Include Important Clips (by name)")]
-    [Tooltip("If you want the AudioManager to try loading these from Resources if missing.")]
-    [SerializeField] private string soulSFXName = "SoulSFX";
-
     [Header("Volume Controls")]
     [Range(0f, 1f)] public float bgmVolume = 0.5f;
     [Range(0f, 1f)] public float sfxVolume = 1f;
@@ -61,20 +57,6 @@ public class AudioManager : MonoBehaviour
         {
             if (clip != null && !sfxDict.ContainsKey(clip.name))
                 sfxDict.Add(clip.name, clip);
-        }
-
-        if (!string.IsNullOrEmpty(soulSFXName) && !sfxDict.ContainsKey(soulSFXName))
-        {
-            AudioClip soulClip = Resources.Load<AudioClip>("Audio/" + soulSFXName);
-            if (soulClip != null)
-            {
-                sfxDict[soulSFXName] = soulClip;
-                Debug.Log("[AudioManager] SoulSFX loaded from Resources.");
-            }
-            else
-            {
-                Debug.LogWarning("[AudioManager] SoulSFX not found!");
-            }
         }
 
         if (bgmSource != null) bgmSource.volume = bgmVolume;
