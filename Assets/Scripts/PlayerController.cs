@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
     //private Coroutine barCoroutine;
     public GameObject skillUpgradePanel;
+    public GameObject gameOverPanel;
 
     private void Awake()
     {
@@ -124,7 +125,7 @@ public class PlayerController : MonoBehaviour
         {
             playerInput.enabled = false;
             rb.velocity = Vector3.zero;
-            //gameOverPanel.SetActive(true);
+            gameOverPanel.SetActive(true);
         }
     }
 
