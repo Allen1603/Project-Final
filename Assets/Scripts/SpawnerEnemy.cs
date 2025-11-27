@@ -32,6 +32,12 @@ public class SpawnerEnemy : MonoBehaviour
     public TextMeshProUGUI waveTXT;
     public float waveTextDisplayTime = 3f;
 
+    [Header("----- Panel for Insect UI -----")]
+    public GameObject hopperPanel;
+    public GameObject flyPanel;
+    public GameObject bugPanel;
+    public GameObject beePanel;  
+
     private void Start()
     {
         StartCoroutine(InitializeSpawner());
@@ -53,6 +59,7 @@ public class SpawnerEnemy : MonoBehaviour
 
         StartCoroutine(ShowWaveText());
         StartCoroutine(SpawnWave());
+        StartCoroutine(InsectPanel());
 
         //if (bossActivate && EnemyPool.Instance != null)
         //{
@@ -104,7 +111,7 @@ public class SpawnerEnemy : MonoBehaviour
         string enemyToSpawn = enemyTags[0]; // default
 
         if (currentWave >= 2) enemyToSpawn = enemyTags[1];
-        if (currentWave >= 3) enemyToSpawn = enemyTags[1];
+        if (currentWave >= 3) enemyToSpawn = enemyTags[2];
         if (currentWave >= 4) enemyToSpawn = enemyTags[3];
         if (currentWave >= 5) enemyToSpawn = enemyTags[Random.Range(0, enemyTags.Length)];
 
@@ -127,5 +134,46 @@ public class SpawnerEnemy : MonoBehaviour
         // Apply direction to ANY enemy script that has SetDirection()
         enemy.SendMessage("SetDirection", dir);
     }
+
+    private IEnumerator InsectPanel()
+    {
+        if (currentWave == 1)
+        {
+            yield return new WaitForSeconds(1.5f);
+            hopperPanel.SetActive(true);
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(2.5f);
+            hopperPanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        if (currentWave == 2)
+        {
+            yield return new WaitForSeconds(1.5f);
+            flyPanel.SetActive(true);
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(2.5f);
+            flyPanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        if (currentWave == 3)
+        {
+            yield return new WaitForSeconds(1.5f);
+            bugPanel.SetActive(true);
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(2.5f);
+            bugPanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        if (currentWave == 4)
+        {
+            yield return new WaitForSeconds(1.5f);
+            beePanel.SetActive(true);
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(2.5f);
+            beePanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
+
 
 }

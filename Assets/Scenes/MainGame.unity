@@ -20930,6 +20930,10 @@ MonoBehaviour:
   wavePanel: {fileID: 1941341763}
   waveTXT: {fileID: 722438383}
   waveTextDisplayTime: 3
+  hopperPanel: {fileID: 1463106272}
+  flyPanel: {fileID: 733601894}
+  bugPanel: {fileID: 634772959}
+  beePanel: {fileID: 616846587}
 --- !u!4 &1910447919
 Transform:
   m_ObjectHideFlags: 0
