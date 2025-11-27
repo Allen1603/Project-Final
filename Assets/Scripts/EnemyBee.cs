@@ -37,8 +37,12 @@ public class EnemyBee : MonoBehaviour
         if (player == null) return;
 
         chargeTimer -= Time.deltaTime;
+
         if (chargeTimer >= 0f)
         {
+            transform.rotation = Quaternion.LookRotation(Vector3.left);
+
+            // Move left
             transform.position += Vector3.left * speed * Time.deltaTime;
         }
         else
@@ -46,19 +50,27 @@ public class EnemyBee : MonoBehaviour
             if (!isStunned)
             {
                 isAttacking = true;
+
+                FaceTarget();
+
                 Vector3 direction = (player.transform.position - transform.position).normalized;
                 transform.position += direction * chargeSpeed * Time.deltaTime;
             }
-            
         }
-        float currentChargeSpeed = chargeSpeed;
-        if (isSlow)
+    }
+
+    void FaceTarget()
+    {
+        if (player == null) return;
+
+        // Direction from clone to target
+        Vector3 direction = player.transform.position - transform.position;
+        direction.y = 0f; // optional if you want to ignore vertical rotation
+
+        if (direction != Vector3.zero)
         {
-            chargeSpeed = 0.5f;
-        }
-        else
-        {
-            chargeSpeed = currentChargeSpeed;
+            // Instantly face the target
+            transform.rotation = Quaternion.LookRotation(direction);
         }
     }
 

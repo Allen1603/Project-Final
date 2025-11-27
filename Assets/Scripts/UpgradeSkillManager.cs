@@ -14,9 +14,9 @@ public class UpgradeSkillManager : MonoBehaviour
 
     [Header("Upgrade System")]
     public int cloneLevel = 1; // 1-4
-    //private int maxTargets = 1; // level 4 allows 2 enemies
-    //private float consumeSpeedMultiplier = 1f; // Level 2 bonus
-    //private float cooldownModifier = 0f;       // Level 3 bonus
+    private int maxTargets = 1; // level 4 allows 2 enemies
+    private float consumeSpeedMultiplier = 1f; // Level 2 bonus
+    private float cooldownModifier = 0f;       // Level 3 bonus
 
     public static UpgradeSkillManager instance;
 
@@ -73,12 +73,45 @@ public class UpgradeSkillManager : MonoBehaviour
         playerController.currentEXP = 0f;
         playerController.UpdateUIExp();
 
-        // Update all active or future clones (optional if using prefabs)
+        // Update stats inside upgrade manager
+        ApplyUpgrades();
+
+        // Apply the upgrade to all currently active clones
         CloneSkill[] activeClones = FindObjectsOfType<CloneSkill>();
         foreach (var clone in activeClones)
         {
-            clone.cloneLevel = cloneLevel;
-            clone.ApplyUpgrades(); // make ApplyUpgrades public in CloneSkill
+            clone.ApplyUpgrade(maxTargets, consumeSpeedMultiplier, cooldownModifier);
         }
     }
+    public void ApplyUpgrades()
+    {
+        switch (cloneLevel)
+        {
+            case 1:
+                maxTargets = 1;
+                consumeSpeedMultiplier = 1f;
+                cooldownModifier = 0f;
+                break;
+
+            case 2:
+                maxTargets = 1;
+                consumeSpeedMultiplier = 1.2f;
+                cooldownModifier = 0f;
+                break;
+
+            case 3:
+                maxTargets = 1;
+                consumeSpeedMultiplier = 1.2f;
+                cooldownModifier = -1f;
+                break;
+
+            case 4:
+                maxTargets = 2;
+                consumeSpeedMultiplier = 1.2f;
+                cooldownModifier = -1f;
+                break;
+        }
+    }
+
+
 }

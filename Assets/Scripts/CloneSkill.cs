@@ -7,10 +7,11 @@ public class CloneSkill : MonoBehaviour
     public float hookCooldown = 1f;
 
     [Header("Upgrade Stats")]
-    public int cloneLevel = 1;             // 1-4
-    public int maxTargets = 1;             // default targets
-    public float cooldownModifier = 0f;    // Level 3 bonus
-    public float consumeSpeedMultiplier = 1f; // Level 2 bonus
+    public int maxTargets = 1;
+    public float consumeSpeed = 1f;
+    public float consumeSpeedMultiplier = 1f;
+    public float attackCooldown = 1f;
+    public float cooldownModifier = 0f;
 
     [Header("Enemy Tags")]
     public string[] enemyTags;
@@ -26,8 +27,6 @@ public class CloneSkill : MonoBehaviour
     {
         attackTimer = 0f;
         consumedEnemies = 0;
-
-        ApplyUpgrades();
     }
 
     void Update()
@@ -119,30 +118,17 @@ public class CloneSkill : MonoBehaviour
     }
 
     // ---------------- APPLY UPGRADE ----------------
-    public void ApplyUpgrades()
+    public void ApplyUpgrade(int newMaxTargets, float newConsumeSpeed, float newCooldownModifier)
     {
-        switch (cloneLevel)
-        {
-            case 1:
-                maxTargets = 1;
-                consumeSpeedMultiplier = 1f;
-                cooldownModifier = 0f;
-                break;
-            case 2:
-                maxTargets = 1;
-                consumeSpeedMultiplier = 1.2f; // faster consumption
-                cooldownModifier = 0f;
-                break;
-            case 3:
-                maxTargets = 1;
-                consumeSpeedMultiplier = 1.2f;
-                cooldownModifier = -1f; // reduce cooldown
-                break;
-            case 4:
-                maxTargets = 2; // multi-target
-                consumeSpeedMultiplier = 1.2f;
-                cooldownModifier = -1f;
-                break;
-        }
+        maxTargets = newMaxTargets;
+        consumeSpeedMultiplier = newConsumeSpeed;
+        cooldownModifier = newCooldownModifier;
+
+        // If your clone uses cooldown:
+        attackCooldown += cooldownModifier;
+
+        // If your clone uses hook consume time:
+        consumeSpeed *= consumeSpeedMultiplier;
     }
+
 }
