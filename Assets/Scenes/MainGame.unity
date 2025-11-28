@@ -22384,7 +22384,10 @@ MonoBehaviour:
   - Enemy2
   - Enemy3
   - Enemy4
-  spawner: []
+  spawner:
+  - {fileID: 667071191}
+  - {fileID: 2037862744}
+  - {fileID: 647018905}
   spawnInterval: 3
   spawnDecrement: 0.2
   limitDecrement: 1
