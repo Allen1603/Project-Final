@@ -40,13 +40,11 @@ public class EnemyBee : MonoBehaviour
 
         chargeTimer -= Time.deltaTime;
 
+        // NORMAL MOVE (always move left)
         if (chargeTimer >= 0f)
         {
-            transform.position += moveDirection * speed * Time.deltaTime;
-            if (moveDirection == Vector3.left)
-                transform.rotation = Quaternion.LookRotation(Vector3.left);
-            else
-                transform.rotation = Quaternion.LookRotation(Vector3.right);    
+            transform.position += Vector3.left * speed * Time.deltaTime;
+            transform.rotation = Quaternion.LookRotation(Vector3.left);
         }
         else
         {
@@ -61,6 +59,7 @@ public class EnemyBee : MonoBehaviour
             }
         }
     }
+
 
     void FaceTarget()
     {

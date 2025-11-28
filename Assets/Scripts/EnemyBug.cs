@@ -17,7 +17,6 @@ public class EnemyBug : MonoBehaviour
     private bool isSlow = false;
     private bool isStunned = false;
 
-    private Vector3 moveDirection;
 
     private void Start()
     {
@@ -28,16 +27,14 @@ public class EnemyBug : MonoBehaviour
         if (isHooked) return;
         if (isStunned) return;  // ⛔ STOP ALL MOVEMENT
 
-        transform.position += moveDirection * speed * Time.deltaTime;
+        // ---- MOVE LEFT ONLY ----
+        transform.position += Vector3.left * speed * Time.deltaTime;
 
-        if (moveDirection == Vector3.left)
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        else
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-      
+        // ---- DASH LOGIC ----
         if (canDash && !isDashing)
             StartCoroutine(DashRoutine());
     }
+
 
     // -------------------- DASH LOGIC --------------------
     private IEnumerator DashRoutine()
@@ -134,22 +131,5 @@ public class EnemyBug : MonoBehaviour
 
         // Restore correct speed after stun
         speed = isSlow ? speed : baseSpeed;
-    }
-    public void SetDirection(Vector3 dir)
-    {
-        ResetEnemy();
-        moveDirection = dir;
-    }
-    private void ResetEnemy()
-    {
-        baseSpeed = speed;
-
-        isHooked = false;
-        isStunned = false;
-        isSlow = false;
-        isDashing = false;
-        canDash = true;
-
-        speed = baseSpeed;
     }
 }

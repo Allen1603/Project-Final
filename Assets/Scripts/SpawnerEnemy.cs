@@ -9,9 +9,7 @@ public class SpawnerEnemy : MonoBehaviour
     public string[] enemyTags; // should have 4 tags here
 
     [Header("----- Spawner Points -----")]
-    //public Transform[] spawner; // assign multiple spawn points in inspector
-    public Transform rightSpawner;
-    public Transform[] leftSpawner;
+    public Transform[] spawner; // assign multiple spawn points in inspector
 
     [Header("----- Spawn Settings -----")]
     public float spawnInterval = 3f;     // initial time between spawns
@@ -101,38 +99,22 @@ public class SpawnerEnemy : MonoBehaviour
 
     private void EnemySpawnWave()
     {
-        Transform spawnPoint;
+        // --- Choose a random spawner ---
+        Transform spawnPoint = spawner[Random.Range(0, spawner.Length)];
 
-        if (Random.value > 0.5f)
-            spawnPoint = leftSpawner[Random.Range(0, leftSpawner.Length)];
-        else
-            spawnPoint = rightSpawner;
+        // --- Choose enemy depending on wave ---
+        string enemyTag = enemyTags[0]; // default for wave 1
 
-        string enemyToSpawn = enemyTags[0]; // default
+        if (currentWave >= 2) enemyTag = enemyTags[1];
+        if (currentWave >= 3) enemyTag = enemyTags[2];
+        if (currentWave >= 4) enemyTag = enemyTags[3];
 
-        if (currentWave >= 2) enemyToSpawn = enemyTags[1];
-        if (currentWave >= 3) enemyToSpawn = enemyTags[2];
-        if (currentWave >= 4) enemyToSpawn = enemyTags[3];
-        if (currentWave >= 5) enemyToSpawn = enemyTags[Random.Range(0, enemyTags.Length)];
+        // Wave 5+ -> random enemy
+        if (currentWave >= 5)
+            enemyTag = enemyTags[Random.Range(0, enemyTags.Length)];
 
-        SpawnEnemyAt(spawnPoint, enemyToSpawn);
-    }
-
-
-    private void SpawnEnemyAt(Transform spawnPoint, string enemyTag)
-    {
-        Vector3 dir;
-
-        // RIGHT SPAWNER → MOVE LEFT
-        if (spawnPoint == rightSpawner)
-            dir = Vector3.left;
-        else
-            dir = Vector3.right;
-
-        GameObject enemy = EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, spawnPoint.rotation);
-
-        // Apply direction to ANY enemy script that has SetDirection()
-        enemy.SendMessage("SetDirection", dir);
+        // --- Spawn enemy ---
+        EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, spawnPoint.rotation);
     }
 
     private IEnumerator InsectPanel()

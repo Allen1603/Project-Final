@@ -12,18 +12,9 @@ public class EnemyFly : MonoBehaviour
     [Header("Status")]
     public bool isHooked = false;
 
-    private Vector3 moveDirection;
-
     void OnEnable()
     {
-        // Reset state for pooling
         isHooked = false;
-
-        zigzagTimer = 0f;
-    }
-
-    void Start()
-    {
         zigzagTimer = 0f;
     }
 
@@ -31,21 +22,19 @@ public class EnemyFly : MonoBehaviour
     {
         if (isHooked) return;
 
-        // Move forward
-        Vector3 forwardMove = moveDirection * speed * Time.deltaTime;
+        // ---- ALWAYS MOVE LEFT ---- //
+        Vector3 forwardMove = Vector3.left * speed * Time.deltaTime;
 
-        // Zigzag
+        // ---- ZIGZAG ---- //
         zigzagTimer += Time.deltaTime * zigzagFrequency;
-        Vector3 right = Vector3.Cross(Vector3.up, moveDirection);
-        Vector3 zigzagOffset = right * Mathf.Sin(zigzagTimer * Mathf.PI * 2) * zigzagWidth;
+        float zigzagOffset = Mathf.Sin(zigzagTimer * Mathf.PI * 2) * zigzagWidth;
 
-        transform.position += forwardMove + zigzagOffset * Time.deltaTime;
+        // Z movement for zigzag (forward/back)
+        Vector3 zigzagMove = new Vector3(0f, 0f, zigzagOffset * Time.deltaTime);
 
-        // Face direction
-        if (moveDirection == Vector3.left)
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        else
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+        // Final movement
+        transform.position += forwardMove + zigzagMove;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -66,18 +55,14 @@ public class EnemyFly : MonoBehaviour
         }
     }
 
-    // -------------------- STATUS EFFECTS --------------------//
-
     // -------------------- SLOW --------------------//
     public void SlowEffect(float slowMultiplier, float slowDuration)
     {
-        // store original values
         float originalSpeed = speed;
         float originalFrequency = zigzagFrequency;
 
-        // apply slow
-        speed *= slowMultiplier;              // slow forward speed
-        zigzagFrequency *= slowMultiplier;    // slow zigzag motion
+        speed *= slowMultiplier;
+        zigzagFrequency *= slowMultiplier;
 
         StartCoroutine(ResetSlow(originalSpeed, originalFrequency, slowDuration));
     }
@@ -86,12 +71,10 @@ public class EnemyFly : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
 
-        // reset values
         speed = originalSpeed;
         zigzagFrequency = originalFrequency;
     }
 
-    // -------------------- STUN --------------------//
     // -------------------- STUN --------------------//
     public void Stun(float stunDuration)
     {
@@ -101,20 +84,14 @@ public class EnemyFly : MonoBehaviour
     private IEnumerator StunCoroutine(float duration)
     {
         float oldSpeed = speed;
-        float oldFrequency = zigzagFrequency;
+        float oldFreq = zigzagFrequency;
 
-        // stop movement
         speed = 0f;
         zigzagFrequency = 0f;
 
         yield return new WaitForSeconds(duration);
 
-        // restore original values
         speed = oldSpeed;
-        zigzagFrequency = oldFrequency;
-    }
-    public void SetDirection(Vector3 dir)
-    {
-        moveDirection = dir;
+        zigzagFrequency = oldFreq;
     }
 }

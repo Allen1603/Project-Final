@@ -26,14 +26,10 @@ public class EnemyHopper : MonoBehaviour
     {
         if (isHooked) return;
 
-        transform.position += moveDirection * speed * Time.deltaTime;
-        // Move left
-        if (moveDirection == Vector3.left)
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        else
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+        // ---- MOVE LEFT ONLY ----
+        transform.position += Vector3.left * speed * Time.deltaTime;
 
-        // Handle jumping
+        // ---- JUMPING ----
         jumpTimer -= Time.deltaTime;
         if (!isJumping && jumpTimer <= 0f)
         {
@@ -60,6 +56,7 @@ public class EnemyHopper : MonoBehaviour
             }
         }
     }
+
 
     void OnTriggerEnter(Collider other)
     {
