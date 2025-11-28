@@ -9,9 +9,8 @@ public class Base : MonoBehaviour
     public float maxLimit = 15f;
     public float currentLimit = 0;
 
-    [Header("----- UI -----")]
-    public TextMeshProUGUI limitText;
-    public GameObject gameOverPanel; // Optional: assign in Inspector
+    //[Header("----- UI -----")]
+    //public TextMeshProUGUI limitText;
 
     void Start()
     {
@@ -29,18 +28,7 @@ public class Base : MonoBehaviour
             if (currentLimit >= maxLimit)
             {
                 currentLimit = maxLimit;
-                GameOver();
             }
-        }
-    }
-
-    void GameOver()
-    {
-        Time.timeScale = 0f; // pause game
-
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
         }
     }
 }
