@@ -74,6 +74,9 @@ public class PlayerController : MonoBehaviour
         if(skillUpgradePanel != null)
             skillUpgradePanel.SetActive(false);
 
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayBGM("BGM");
+
         //barCoroutine = StartCoroutine(DecreaseBarOverTime());
     }
     private void Update()

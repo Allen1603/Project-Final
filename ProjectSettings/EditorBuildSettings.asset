@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Loading Scene.unity
     guid: 84c6c88bc4d8c424c93ee2c3726965ea
   - enabled: 1
+    path: Assets/Scenes/PickingCharacter.unity
+    guid: 644f098b05e4c894791d58bce8f18103
+  - enabled: 1
     path: Assets/Scenes/MainGame.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1

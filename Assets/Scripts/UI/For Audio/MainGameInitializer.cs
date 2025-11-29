@@ -1,15 +1,16 @@
 using UnityEngine;
 
-public class SceneInitializer : MonoBehaviour
+public class MainGameInitializer : MonoBehaviour
 {
-    void Start()
+    /*void Start()
     {
         if (AudioManager.Instance != null)
         {
             Debug.Log("Scene1Initializer: switching to BGM");
             AudioManager.Instance.StopBGM();
-            AudioManager.Instance.PlayBGM("BGM");
+            if(AudioManager.Instance != null)
+                AudioManager.Instance.PlayBGM("BGM");
         }
-    }
+    }*/
 }
 

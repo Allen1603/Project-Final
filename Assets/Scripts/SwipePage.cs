@@ -19,6 +19,12 @@ public class SwipePage : MonoBehaviour
     //public bool pickTwo = false;
     //public bool pickThree = false;
 
+
+    private void Start()
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayBGM("PickingAudio");
+    }
     private void Awake()
     {
         currentPage = 1;
