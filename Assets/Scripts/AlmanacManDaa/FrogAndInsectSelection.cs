@@ -1,79 +1,22 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FrogAndInsectSelection : MonoBehaviour
 {
-    public GameObject pic1;
-    public GameObject pic2;
-    public GameObject pic3;
-    public GameObject pic4;
-
-
-    public GameObject Idescrip1;
-    public GameObject Idescrip2;
-    public GameObject Idescrip3;
-    public GameObject Idescrip4;
+    public GameObject[] pics;       // drag pic1, pic2, pic3, pic4 here
+    public GameObject[] descriptions; // drag Idescrip1, Idescrip2, Idescrip3, Idescrip4 here
 
     void Start()
     {
-        pic1.gameObject.SetActive(true);
-        pic2.gameObject.SetActive(false);
-        pic3.gameObject.SetActive(false); 
-        pic4.gameObject.SetActive(false);
-
-
-        Idescrip1.gameObject.SetActive(true);
-        Idescrip2.gameObject.SetActive(false);
-        Idescrip3.gameObject.SetActive(false);
-        Idescrip4.gameObject.SetActive(false);
+        ShowCard(0); // show first card by default
     }
 
-    public void Card1()
+    // Call this from buttons: pass 0 for first card, 1 for second, etc.
+    public void ShowCard(int index)
     {
-        pic1.gameObject.SetActive(true);
-        pic2.gameObject.SetActive(false);
-        pic3.gameObject.SetActive(false);
-        pic4.gameObject.SetActive(false);
-
-        Idescrip1.gameObject.SetActive(true);
-        Idescrip2.gameObject.SetActive(false);
-        Idescrip3.gameObject.SetActive(false);
-        Idescrip4.gameObject.SetActive(false);
-    }
-    public void Card2()
-    {
-        pic1.gameObject.SetActive(false);
-        pic2.gameObject.SetActive(true);
-        pic3.gameObject.SetActive(false);
-        pic4.gameObject.SetActive(false);
-
-        Idescrip1.gameObject.SetActive(false);
-        Idescrip2.gameObject.SetActive(true);
-        Idescrip3.gameObject.SetActive(false);
-        Idescrip4.gameObject.SetActive(false);
-    }
-    public void Card3()
-    {
-        pic1.gameObject.SetActive(false);
-        pic2.gameObject.SetActive(false);
-        pic3.gameObject.SetActive(true);
-        pic4.gameObject.SetActive(false);
-
-        Idescrip1.gameObject.SetActive(false);
-        Idescrip2.gameObject.SetActive(false);
-        Idescrip3.gameObject.SetActive(true);
-        Idescrip4.gameObject.SetActive(false);
-    }
-    public void Card4()
-    {
-        pic1.gameObject.SetActive(false);
-        pic2.gameObject.SetActive(false);
-        pic3.gameObject.SetActive(false);
-        pic4.gameObject.SetActive(true);
-
-        Idescrip1.gameObject.SetActive(false);
-        Idescrip2.gameObject.SetActive(false);
-        Idescrip3.gameObject.SetActive(false);
-        Idescrip4.gameObject.SetActive(true);
+        for (int i = 0; i < pics.Length; i++)
+        {
+            pics[i].SetActive(i == index);
+            descriptions[i].SetActive(i == index);
+        }
     }
 }
