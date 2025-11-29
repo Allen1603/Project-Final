@@ -10,7 +10,7 @@ public class HookMechanism : MonoBehaviour
     private GameObject hookedEnemy;
     private LineRenderer lineRenderer;
     private Collider hookCollider;   // we'll manage this
-    public Transform tongueHook;
+    private Transform tongueHook;
 
     [Header("Hook Settings")]
     public float hookRange = 5f;

@@ -90,7 +90,7 @@ public class CloneSkill : MonoBehaviour
         {
             HookMechanism hook = HookPool.Instance.GetHook();
 
-            hook.tongueHook = tongueHook;
+            //hook.tongueHook = tongueHook;
             hook.SetTarget(tongueHook, targetEnemy);
 
             // Apply consumption speed multiplier

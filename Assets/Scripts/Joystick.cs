@@ -43,9 +43,6 @@ public class Joystick : MonoBehaviour
 
         if (input.sqrMagnitude > 0.01f)
         {
-            // Joystick is being held
-            anim.SetTrigger("Attack1");
-
             Vector3 direction = new Vector3(input.x, 0, input.y);
             Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
