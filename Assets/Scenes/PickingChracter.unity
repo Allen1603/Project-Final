@@ -469,14 +469,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.122641504, g: 0.09186543, b: 0.09186543, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 216a08b5b1ac21940bf2736e2036a720, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6127,7 +6127,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 299295466}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 906140144}
+        m_TargetAssemblyTypeName: SwipePage, Assembly-CSharp
+        m_MethodName: CharacterTwo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &299295466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8942,6 +8954,9 @@ MonoBehaviour:
   tweenTime: 1
   tweenType: 6
   cameraMovement: {fileID: 963194227}
+  pickOne: 0
+  pickTwo: 0
+  pickThree: 0
 --- !u!1001 &906736346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9231,7 +9246,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 922425426}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 906140144}
+        m_TargetAssemblyTypeName: SwipePage, Assembly-CSharp
+        m_MethodName: CharacterOne
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &922425426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11974,7 +12001,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1477399305}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 906140144}
+        m_TargetAssemblyTypeName: SwipePage, Assembly-CSharp
+        m_MethodName: CharacterThree
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1477399305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12603,7 +12642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.99433964, b: 0.99433964, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
