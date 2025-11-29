@@ -143,7 +143,9 @@ public class PlayerController : MonoBehaviour
         {
             playerInput.enabled = false;
             rb.velocity = Vector3.zero;
-            gameOverPanel.SetActive(true);
+
+            if (GameOverManager.instance != null)
+                GameOverManager.instance.ShowGameOver();
         }
     }
 
