@@ -126,38 +126,50 @@ public class SpawnerEnemy : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
             hopperPanel.SetActive(true);
             Time.timeScale = 0f;
-            yield return new WaitForSecondsRealtime(2.5f);
-            hopperPanel.SetActive(false);
-            Time.timeScale = 1f;
+            
         }
         if (currentWave == 2)
         {
             yield return new WaitForSeconds(1.5f);
             flyPanel.SetActive(true);
             Time.timeScale = 0f;
-            yield return new WaitForSecondsRealtime(2.5f);
-            flyPanel.SetActive(false);
-            Time.timeScale = 1f;
         }
         if (currentWave == 3)
         {
             yield return new WaitForSeconds(1.5f);
             bugPanel.SetActive(true);
             Time.timeScale = 0f;
-            yield return new WaitForSecondsRealtime(2.5f);
-            bugPanel.SetActive(false);
-            Time.timeScale = 1f;
         }
         if (currentWave == 4)
         {
             yield return new WaitForSeconds(1.5f);
             beePanel.SetActive(true);
             Time.timeScale = 0f;
-            yield return new WaitForSecondsRealtime(2.5f);
+        }
+    }
+
+    public void InsectContinueOne()
+    {
+        if (currentWave == 1)
+        {
+            hopperPanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        if (currentWave == 2)
+        {
+            flyPanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        if (currentWave == 3)
+        {
+            bugPanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        if (currentWave == 4)
+        {
             beePanel.SetActive(false);
             Time.timeScale = 1f;
         }
     }
-
 
 }
