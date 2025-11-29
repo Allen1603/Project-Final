@@ -192,8 +192,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Life: The frog\u2019s health is at 150%"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -807,8 +807,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: '>'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5815,8 +5815,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Cane toad
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5949,8 +5949,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Bull Frog
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7410,8 +7410,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Life: The frog still has 90% of its health'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7766,8 +7766,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SELECT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9721,8 +9721,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10296,8 +10296,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Select
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10983,8 +10983,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Life: its health is super strong at 120%'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11117,8 +11117,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Ability: The frog performs a rapid tongue strike.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12275,8 +12275,8 @@ MonoBehaviour:
   m_text: "Ability: The frog\u2019s tongue moves a little slowly at 35% and comes
     back at 45%"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14135,8 +14135,8 @@ MonoBehaviour:
   m_text: "Ability: The frog\u2019s tongue is a bit slow, moving at 25% and coming
     back at 35%"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14343,8 +14343,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: <
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14664,8 +14664,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Four lined frog
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
-  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
+  m_sharedMaterial: {fileID: 7115601214868542458, guid: 9aafc0a1b041fd24481d941676bc767c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
