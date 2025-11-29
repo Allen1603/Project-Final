@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 45586d85472fa6647921e9e43b86b1c3
+  - enabled: 0
+    path: Assets/Scenes/Almanac.unity
+    guid: 3ec328c630f572b48b244680423359ed
   m_configObjects: {}
