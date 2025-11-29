@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
+    [Header("Skill Button Effects")]
+    public GameObject stunEffect;
+    public GameObject slowEffect;
+    public GameObject healEffect;
+    public GameObject cloneEffect;
+
     [Header("Stun Skill")]
     public float baseStunDuration = 1f;
     public float currentStunValue = 0f;
@@ -157,6 +163,11 @@ public class SkillManager : MonoBehaviour
         if (slowButton != null) slowButton.interactable = isFull;
         if (healButton != null) healButton.interactable = isFull;
         if (cloneButton != null) cloneButton.interactable = isFull;
+
+        if (stunEffect != null) stunEffect.SetActive(isFull);
+        if (slowEffect != null) slowEffect.SetActive(isFull);
+        if (healEffect != null) healEffect.SetActive(isFull);
+        if (cloneEffect != null) cloneEffect.SetActive(isFull);
     }
 
     public void ResetBar()
