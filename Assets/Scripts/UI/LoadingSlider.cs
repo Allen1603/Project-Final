@@ -25,7 +25,7 @@ public class LoadingSlider : MonoBehaviour
 
     IEnumerator LoadSceneSlow()
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(2);
+        AsyncOperation operation = SceneManager.LoadSceneAsync("MainGame");
         AudioManager.Instance.PlayBGM("BGM");
         operation.allowSceneActivation = false;
 

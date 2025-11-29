@@ -5,7 +5,6 @@ public class Mainmenu : MonoBehaviour
 {
     private void Start()
     {
-        // Start menu BGM
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayBGM("MainMenu");
@@ -14,7 +13,7 @@ public class Mainmenu : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(2);
         Time.timeScale = 1f;
     }
 
@@ -23,6 +22,14 @@ public class Mainmenu : MonoBehaviour
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySFX("ButtonClick");
+        }
+    }
+
+    public void ClickFroggy()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX("froggy");
         }
     }
 
