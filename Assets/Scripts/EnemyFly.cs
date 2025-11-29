@@ -8,6 +8,7 @@ public class EnemyFly : MonoBehaviour
     public float zigzagFrequency = 3f;
     public float zigzagWidth = 1f;
     private float zigzagTimer;
+    private bool isStunned = false;
 
     [Header("Status")]
     public bool isHooked = false;
@@ -20,7 +21,7 @@ public class EnemyFly : MonoBehaviour
 
     void Update()
     {
-        if (isHooked) return;
+        if (isHooked || isStunned) return;
 
         // ---- ALWAYS MOVE LEFT ---- //
         Vector3 forwardMove = Vector3.left * speed * Time.deltaTime;
@@ -29,12 +30,9 @@ public class EnemyFly : MonoBehaviour
         zigzagTimer += Time.deltaTime * zigzagFrequency;
         float zigzagOffset = Mathf.Sin(zigzagTimer * Mathf.PI * 2) * zigzagWidth;
 
-        // Z movement for zigzag (forward/back)
         Vector3 zigzagMove = new Vector3(0f, 0f, zigzagOffset * Time.deltaTime);
 
-        // Final movement
         transform.position += forwardMove + zigzagMove;
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,15 +81,19 @@ public class EnemyFly : MonoBehaviour
 
     private IEnumerator StunCoroutine(float duration)
     {
+        isStunned = true;
+
         float oldSpeed = speed;
         float oldFreq = zigzagFrequency;
 
-        speed = 0f;
-        zigzagFrequency = 0f;
+        speed = 0;
+        zigzagFrequency = 0;
 
         yield return new WaitForSeconds(duration);
 
         speed = oldSpeed;
         zigzagFrequency = oldFreq;
+
+        isStunned = false;
     }
 }

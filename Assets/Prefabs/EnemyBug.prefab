@@ -1447,7 +1447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  dashSpeedMultiplier: 1
+  dashSpeedMultiplier: 2
   dashDuration: 1
   dashCooldown: 1
   isHooked: 0
