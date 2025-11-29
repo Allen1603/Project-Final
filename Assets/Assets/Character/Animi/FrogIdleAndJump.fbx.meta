@@ -9,7 +9,12 @@ ModelImporter:
   - first:
       74: 7049474260693586274
     second: anim_Clip1
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: lambert12_Base_Color
+    second: {fileID: 2800000, guid: 39706fb7884adbf4a965a2eaae71c775, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -46,6 +46,9 @@ public class PlayerController : MonoBehaviour
     public GameObject skillUpgradePanel;
     public GameObject gameOverPanel;
 
+    public Animator anim;
+    private float previousMove = 0f;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -77,13 +80,25 @@ public class PlayerController : MonoBehaviour
     {
         float move = 0f;
 
-        // New Input System movement
+        // New Input System
         move = moveAction.ReadValue<float>();
 
-        // Override with mobile buttons
-        if (leftButton != null && leftButton.isPressed) move = -1;
-        if (rightButton != null && rightButton.isPressed) move = 1;
+        // Mobile buttons override
+        if (leftButton != null && leftButton.isPressed)
+            move = -1;
 
+        if (rightButton != null && rightButton.isPressed)
+            move = 1;
+
+        // ---- Play animation only when movement STARTS ----
+        if (previousMove == 0 && move != 0)
+        {
+            anim.SetTrigger("FrogJump");   // Play jump ONCE
+        }
+
+        previousMove = move; // update previous frame move
+
+        // ---- Movement ----
         Vector3 velocity = new Vector3(move * moveSpeed, rb.velocity.y, rb.velocity.z);
         rb.velocity = velocity;
     }
