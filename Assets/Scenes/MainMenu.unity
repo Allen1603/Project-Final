@@ -5290,6 +5290,22 @@ PrefabInstance:
       propertyPath: sfxToggle
       value: 
       objectReference: {fileID: 2072318709}
+    - target: {fileID: 3175770223628723957, guid: ea3814fbfe90fd34ab7dfa4f70fef231, type: 3}
+      propertyPath: bgmSlider
+      value: 
+      objectReference: {fileID: 27101778}
+    - target: {fileID: 3175770223628723957, guid: ea3814fbfe90fd34ab7dfa4f70fef231, type: 3}
+      propertyPath: bgmToggle
+      value: 
+      objectReference: {fileID: 180793589}
+    - target: {fileID: 3175770223628723957, guid: ea3814fbfe90fd34ab7dfa4f70fef231, type: 3}
+      propertyPath: sfxSlider
+      value: 
+      objectReference: {fileID: 1803322365}
+    - target: {fileID: 3175770223628723957, guid: ea3814fbfe90fd34ab7dfa4f70fef231, type: 3}
+      propertyPath: sfxToggle
+      value: 
+      objectReference: {fileID: 2072318709}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea3814fbfe90fd34ab7dfa4f70fef231, type: 3}
 --- !u!1001 &1575832620915980351
