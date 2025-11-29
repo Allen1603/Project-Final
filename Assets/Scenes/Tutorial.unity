@@ -676,15 +676,15 @@ RectTransform:
   m_GameObject: {fileID: 111400578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4738048, y: 1.4738048, z: 1.4738048}
+  m_LocalScale: {x: 1.3706385, y: 1.3706385, z: 1.3706385}
   m_Children: []
   m_Father: {fileID: 5636266}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11, y: 52.246582}
-  m_SizeDelta: {x: 508.2003, y: 51.7511}
+  m_AnchoredPosition: {x: 26, y: 52.246582}
+  m_SizeDelta: {x: 554.1842, y: 51.7511}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &111400580
 MonoBehaviour:
@@ -708,8 +708,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Want to play the game?
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1227,8 +1227,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 44, y: -148}
-  m_SizeDelta: {x: 78.613, y: 34.4758}
+  m_AnchoredPosition: {x: 69.88806, y: -148}
+  m_SizeDelta: {x: 93.6699, y: 34.4758}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &166551161
 MonoBehaviour:
@@ -2273,10 +2273,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: click anywhere
+  m_text: click here
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2912,7 +2912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.6666667, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3505,7 +3505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.6666667, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4361,7 +4361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.6666667, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4860,8 +4860,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: click here
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5828,15 +5828,15 @@ RectTransform:
   m_GameObject: {fileID: 592434135}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.11939824, y: 0.11939824, z: 0.11939824}
+  m_LocalScale: {x: 0.12705167, y: 0.12705167, z: 0.12705167}
   m_Children: []
   m_Father: {fileID: 603251681}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 18.5, y: 9.3}
-  m_SizeDelta: {x: 1031.3418, y: 568.0175}
+  m_AnchoredPosition: {x: 22, y: 3.5}
+  m_SizeDelta: {x: 1031.3418, y: 634.94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &592434137
 MonoBehaviour:
@@ -5882,15 +5882,15 @@ MonoBehaviour:
     - Creates a copy
     of the frog to help you fight.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8c2ec75fcbb65984187021b7ef521139, type: 2}
-  m_sharedMaterial: {fileID: 3424967747913944824, guid: 8c2ec75fcbb65984187021b7ef521139, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6028,7 +6028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.6666667, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6589,7 +6589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -78, y: 108}
+  m_AnchoredPosition: {x: -78, y: 101}
   m_SizeDelta: {x: 950.0619, y: 467.7551}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &684301448
@@ -6616,15 +6616,15 @@ MonoBehaviour:
     When this bar is full, the frog can use a special skill\n\nEXP Bar:\n- When this
     bar is full, you can upgrade the frog\u2019s skills"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6862,10 +6862,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: click anywhere
+  m_text: click here
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8033,8 +8033,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: click here
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8150,15 +8150,15 @@ RectTransform:
   m_GameObject: {fileID: 795976979}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.173612, y: 2.173612, z: 2.173612}
+  m_LocalScale: {x: 1.577738, y: 1.577738, z: 1.577738}
   m_Children: []
   m_Father: {fileID: 2020828927}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -45, y: 250}
-  m_SizeDelta: {x: 293.3885, y: 31.8525}
+  m_AnchoredPosition: {x: -59, y: 250}
+  m_SizeDelta: {x: 378.9334, y: 31.8525}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &795976981
 MonoBehaviour:
@@ -8182,8 +8182,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ATTACK JOYSTICK
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4fdc9741f044ec24290e2dd29f70bfd5, type: 2}
-  m_sharedMaterial: {fileID: 9084022576694253773, guid: 4fdc9741f044ec24290e2dd29f70bfd5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8213,7 +8213,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 4
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -8404,15 +8404,15 @@ RectTransform:
   m_GameObject: {fileID: 830675762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.0121756, y: 2.0121756, z: 2.0121756}
+  m_LocalScale: {x: 1.6877726, y: 1.6877726, z: 1.6877726}
   m_Children: []
   m_Father: {fileID: 609735709}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -72.5, y: 287.3}
-  m_SizeDelta: {x: 303.3144, y: 46.3005}
+  m_AnchoredPosition: {x: -40, y: 297}
+  m_SizeDelta: {x: 385.773, y: 46.3005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &830675765
 MonoBehaviour:
@@ -8436,8 +8436,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Losing Condition
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4fdc9741f044ec24290e2dd29f70bfd5, type: 2}
-  m_sharedMaterial: {fileID: 9084022576694253773, guid: 4fdc9741f044ec24290e2dd29f70bfd5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8467,7 +8467,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 4
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -15177,8 +15177,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 68, y: 39}
-  m_SizeDelta: {x: 579.4393, y: 149.1441}
+  m_AnchoredPosition: {x: 68, y: 59.5948}
+  m_SizeDelta: {x: 579.4393, y: 113.6643}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1120538616
 MonoBehaviour:
@@ -15202,15 +15202,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- Press the left and right buttons to make the frog move'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -15429,7 +15429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.6666667, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15689,15 +15689,15 @@ RectTransform:
   m_GameObject: {fileID: 1184525280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.0197074, y: 2.0197074, z: 2.0197074}
+  m_LocalScale: {x: 1.7061478, y: 1.7061478, z: 1.7061478}
   m_Children: []
   m_Father: {fileID: 1086383928}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -237, y: 308}
-  m_SizeDelta: {x: 271.4266, y: 37.9075}
+  m_AnchoredPosition: {x: -209, y: 308}
+  m_SizeDelta: {x: 340.6996, y: 37.9075}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1184525282
 MonoBehaviour:
@@ -15721,8 +15721,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SKILL UPGRADES
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4fdc9741f044ec24290e2dd29f70bfd5, type: 2}
-  m_sharedMaterial: {fileID: 9084022576694253773, guid: 4fdc9741f044ec24290e2dd29f70bfd5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15752,7 +15752,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 4
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -15833,15 +15833,15 @@ RectTransform:
   m_GameObject: {fileID: 1195689366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6823256, y: 1.6823256, z: 1.6823256}
+  m_LocalScale: {x: 1.3458605, y: 1.3458605, z: 1.3458605}
   m_Children: []
   m_Father: {fileID: 927053573}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -180, y: 312}
-  m_SizeDelta: {x: 244.9303, y: 32.0279}
+  m_AnchoredPosition: {x: -180.4, y: 305.1}
+  m_SizeDelta: {x: 299.4008, y: 32.0279}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1195689368
 MonoBehaviour:
@@ -15865,8 +15865,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PLAYER'S INFO
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4fdc9741f044ec24290e2dd29f70bfd5, type: 2}
-  m_sharedMaterial: {fileID: 9084022576694253773, guid: 4fdc9741f044ec24290e2dd29f70bfd5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15896,7 +15896,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 4
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -16046,15 +16046,15 @@ RectTransform:
   m_GameObject: {fileID: 1211034856}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.1608655, y: 2.1608655, z: 2.1608655}
+  m_LocalScale: {x: 1.7070838, y: 1.7070838, z: 1.7070838}
   m_Children: []
   m_Father: {fileID: 536243332}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: 197}
-  m_SizeDelta: {x: 308.6987, y: 37.7826}
+  m_AnchoredPosition: {x: 21.3, y: 197}
+  m_SizeDelta: {x: 390.2412, y: 37.7826}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1211034858
 MonoBehaviour:
@@ -16078,8 +16078,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: FROG'S MOVEMENT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4fdc9741f044ec24290e2dd29f70bfd5, type: 2}
-  m_sharedMaterial: {fileID: 9084022576694253773, guid: 4fdc9741f044ec24290e2dd29f70bfd5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16109,7 +16109,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 4
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -16707,7 +16707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.6666667, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -17055,7 +17055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.6666667, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -18366,8 +18366,8 @@ MonoBehaviour:
   m_text: Welcome to Anura Defender! In this game, we will teach you the controls
     and how everything works
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8c2ec75fcbb65984187021b7ef521139, type: 2}
-  m_sharedMaterial: {fileID: 3424967747913944824, guid: 8c2ec75fcbb65984187021b7ef521139, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -19137,8 +19137,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: click here
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -19387,8 +19387,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 37}
-  m_SizeDelta: {x: 451.989, y: 233.2458}
+  m_AnchoredPosition: {x: 0, y: 50}
+  m_SizeDelta: {x: 451.989, y: 195.8829}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1553813107
 MonoBehaviour:
@@ -19413,15 +19413,15 @@ MonoBehaviour:
   m_text: "- Make sure the frog doesn\u2019t get hungry. If it loses all its hunger,
     you lose the game."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -19563,8 +19563,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: click here
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -20776,8 +20776,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: click here
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -20939,8 +20939,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9, y: 88}
-  m_SizeDelta: {x: 686.5951, y: 146.1342}
+  m_AnchoredPosition: {x: 9, y: 106}
+  m_SizeDelta: {x: 686.5951, y: 116.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1726377006
 MonoBehaviour:
@@ -20964,15 +20964,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- Move the joystick anywhere and release it to make the frog use its tongue'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -21528,6 +21528,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7062e2ccb47585f4a898c6ff3a9e5294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stunEffect: {fileID: 0}
+  slowEffect: {fileID: 0}
+  healEffect: {fileID: 0}
+  cloneEffect: {fileID: 0}
   baseStunDuration: 1
   currentStunValue: 0
   maxStunValue: 5
@@ -23303,8 +23307,7 @@ MonoBehaviour:
   - Enemy2
   - Enemy3
   - Enemy4
-  rightSpawner: {fileID: 0}
-  leftSpawner: []
+  spawner: []
   spawnInterval: 2
   spawnDecrement: 0.2
   limitDecrement: 1
@@ -24363,15 +24366,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: '- Upgrade your skills to make them stronger and more helpful in battle'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
-  m_sharedMaterial: {fileID: -7327361512837439595, guid: 9569bbf158a2fa04b9a1238c29ff24d7, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
+  m_sharedMaterial: {fileID: 3692429995123150417, guid: f99dae1d309df0942971f9a9301cafa1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -24917,7 +24920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7921569, g: 0.6666667, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

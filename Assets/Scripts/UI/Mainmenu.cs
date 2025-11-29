@@ -35,7 +35,7 @@ public class Mainmenu : MonoBehaviour
 
     public void Tutorial()
     {
-        SceneManager.LoadSceneAsync(3);
+        SceneManager.LoadSceneAsync(5);
         Time.timeScale = 1f;
     }
 
