@@ -9800,8 +9800,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLimit: 15
   currentLimit: 0
-  limitText: {fileID: 172687528}
-  gameOverPanel: {fileID: 0}
 --- !u!54 &654321446
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10730,6 +10728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPressed: 0
+  anim: {fileID: 0}
 --- !u!4 &753989073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4add6a592bf05a04c891c5b26b79e744, type: 3}
@@ -13606,6 +13605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPressed: 0
+  anim: {fileID: 0}
 --- !u!1 &1227112153
 GameObject:
   m_ObjectHideFlags: 0
@@ -17902,6 +17902,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7062e2ccb47585f4a898c6ff3a9e5294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stunEffect: {fileID: 0}
+  slowEffect: {fileID: 0}
+  healEffect: {fileID: 0}
+  cloneEffect: {fileID: 0}
   baseStunDuration: 1
   currentStunValue: 0
   maxStunValue: 5
@@ -18750,10 +18754,7 @@ MonoBehaviour:
   - Enemy2
   - Enemy3
   - Enemy4
-  rightSpawner: {fileID: 2037862744}
-  leftSpawner:
-  - {fileID: 667071191}
-  - {fileID: 647018905}
+  spawner: []
   spawnInterval: 3
   spawnDecrement: 0.2
   limitDecrement: 1
@@ -19089,8 +19090,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLimit: 15
   currentLimit: 0
-  limitText: {fileID: 172687528}
-  gameOverPanel: {fileID: 0}
 --- !u!54 &1952163352
 Rigidbody:
   m_ObjectHideFlags: 0
