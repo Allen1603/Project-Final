@@ -64,19 +64,23 @@ public class Joystick : MonoBehaviour
 
     private void LaunchHook()
     {
-        anim.SetTrigger("Attack");
-
-        HookMechanism hook = HookPool.Instance.GetHook();
-
-        // Setup hook to use tongueHook as origin
-        hook.SetUpHook(tongueHook); 
-
-        isFishing = true;
-        hook.onHookReturn = HookReturned;
+        anim.SetTrigger("FrogAttack");
+        //Igdi malaag ning sound
     }
 
     private void HookReturned()
     {
         isFishing = false;
+    }
+
+    public void AttackEvent()
+    {
+        HookMechanism hook = HookPool.Instance.GetHook();
+
+        // Setup hook to use tongueHook as origin
+        hook.SetUpHook(tongueHook);
+
+        isFishing = true;
+        hook.onHookReturn = HookReturned;
     }
 }

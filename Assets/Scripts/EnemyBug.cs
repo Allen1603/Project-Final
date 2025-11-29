@@ -15,51 +15,46 @@ public class EnemyBug : MonoBehaviour
     private bool isDashing = false;
     private bool canDash = true;
     private bool isSlow = false;
-    private bool isStunned = false;
+    //private bool isStunned = false;
 
 
     private void Start()
     {
+        isHooked = false;
         baseSpeed = speed;
     }
     void Update()
     {
         if (isHooked) return;
-        if (isStunned) return;  // ⛔ STOP ALL MOVEMENT
 
-        // ---- MOVE LEFT ONLY ----
+        // Move Left
         transform.position += Vector3.left * speed * Time.deltaTime;
 
-        // ---- DASH LOGIC ----
-        if (canDash && !isDashing)
+        // Dash logic
+        if (!isDashing && canDash)
             StartCoroutine(DashRoutine());
     }
 
-
-    // -------------------- DASH LOGIC --------------------
     private IEnumerator DashRoutine()
     {
         canDash = false;
         isDashing = true;
 
-        // If stunned, abort dash immediately
-        if (isStunned)
-        {
-            isDashing = false;
-            canDash = true;
-            yield break;
-        }
-
         float dashSpeed = baseSpeed * dashSpeedMultiplier;
 
-        speed = isSlow ? speed : dashSpeed;
+        // Start dash
+        if (!isSlow)
+            speed = dashSpeed;
 
         yield return new WaitForSeconds(dashDuration);
 
-        speed = isSlow ? speed : baseSpeed;
+        // End dash
+        if (!isSlow)
+            speed = baseSpeed;
 
         isDashing = false;
 
+        // Cooldown
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
@@ -97,17 +92,18 @@ public class EnemyBug : MonoBehaviour
             StartCoroutine(ResetSlow(slowDuration));
         }
     }
+
     private IEnumerator ResetSlow(float duration)
     {
         yield return new WaitForSeconds(duration);
+
         isSlow = false;
 
-        // restore to base speed, but if dashing, let dash handle speed
+        // If dashing, keep dash speed
         if (!isDashing)
-        {
             speed = baseSpeed;
-        }
     }
+
 
 
     // -------------------- STUN --------------------//
@@ -118,7 +114,6 @@ public class EnemyBug : MonoBehaviour
 
     private IEnumerator StunCoroutine(float duration)
     {
-        isStunned = true;
 
         speed = 0f;       // full stop
         isDashing = false; // cancel dash
@@ -126,7 +121,6 @@ public class EnemyBug : MonoBehaviour
 
         yield return new WaitForSeconds(duration);
 
-        isStunned = false;
         canDash = true;
 
         // Restore correct speed after stun

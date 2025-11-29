@@ -99,23 +99,25 @@ public class SpawnerEnemy : MonoBehaviour
 
     private void EnemySpawnWave()
     {
-        // --- Choose a random spawner ---
+        // --- Choose a random spawn point ---
         Transform spawnPoint = spawner[Random.Range(0, spawner.Length)];
 
-        // --- Choose enemy depending on wave ---
-        string enemyTag = enemyTags[0]; // default for wave 1
+        // --- Choose enemy tag for this wave ---
+        string enemyTag = enemyTags[2]; // wave 1 default
 
-        if (currentWave >= 2) enemyTag = enemyTags[1];
-        if (currentWave >= 3) enemyTag = enemyTags[2];
+        if (currentWave >= 2) 
+            enemyTag = enemyTags[Random.Range(0, enemyTags.Length)];
+        if (currentWave >= 3) enemyTag = enemyTags[0];
         if (currentWave >= 4) enemyTag = enemyTags[3];
 
-        // Wave 5+ -> random enemy
+        // Wave 5+ → random enemy
         if (currentWave >= 5)
-            enemyTag = enemyTags[Random.Range(0, enemyTags.Length)];
+            enemyTag = enemyTags[1];
 
-        // --- Spawn enemy ---
-        EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, spawnPoint.rotation);
+        // --- Spawn enemy properly ---
+        EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
     }
+
 
     private IEnumerator InsectPanel()
     {
