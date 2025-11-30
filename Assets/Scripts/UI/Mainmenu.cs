@@ -33,6 +33,13 @@ public class Mainmenu : MonoBehaviour
         }
     }
 
+    public void Almanac()
+    {
+        SceneManager.LoadSceneAsync(6);
+        Time.timeScale = 1f;
+        AudioManager.Instance.PlaySFX("froggy");
+    }
+
     public void Tutorial()
     {
         SceneManager.LoadSceneAsync(5);
