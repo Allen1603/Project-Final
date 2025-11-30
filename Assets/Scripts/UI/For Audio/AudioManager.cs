@@ -65,7 +65,6 @@ public class AudioManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log($"[AudioManager] Scene loaded: {scene.name}");
         StopBGM();
 
         switch (scene.name)

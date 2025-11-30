@@ -14,6 +14,7 @@ public class AlmanacSwitch : MonoBehaviour
     {
         Frogs.gameObject.SetActive(true);
         Insects.gameObject.SetActive(false);
+        
     }
 
     public void ShowFrogPanel()
@@ -23,6 +24,8 @@ public class AlmanacSwitch : MonoBehaviour
         Insects.gameObject.SetActive(false);
         ShowInsects.gameObject.SetActive(false);
     }
+
+
 
     public void ShowInsectPanel()
     {
@@ -41,5 +44,10 @@ public class AlmanacSwitch : MonoBehaviour
     {
         SceneManager.LoadSceneAsync("MainMenu");
         Time.timeScale = 1f;
+    }
+
+    public void ButtonClickSFX()
+    {
+        AudioManager.Instance.PlaySFX("ButtonClick");
     }
 }
