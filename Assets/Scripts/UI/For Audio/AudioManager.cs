@@ -78,7 +78,6 @@ public class AudioManager : MonoBehaviour
                 PlayBGM("BGM 3");
                 break;
             default:
-                Debug.Log("[AudioManager] No automatic BGM set for this scene.");
                 break;
         }
     }
@@ -87,7 +86,6 @@ public class AudioManager : MonoBehaviour
     {
         if (bgmSource == null)
         {
-            Debug.LogWarning("[AudioManager] bgmSource not assigned!");
             return;
         }
 
@@ -100,13 +98,8 @@ public class AudioManager : MonoBehaviour
             if (clip != null)
             {
                 bgmDict[clipName] = clip;
-                Debug.Log($"[AudioManager] Loaded BGM '{clipName}' from Resources.");
             }
-            else
-            {
-                Debug.LogWarning($"[AudioManager] BGM '{clipName}' not found!");
-                return;
-            }
+
         }
 
         if (bgmSource.clip == clip && bgmSource.isPlaying)
@@ -128,7 +121,6 @@ public class AudioManager : MonoBehaviour
     {
         if (sfxSource == null)
         {
-            Debug.LogWarning("[AudioManager] sfxSource not assigned!");
             return;
         }
 
@@ -143,7 +135,6 @@ public class AudioManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"[AudioManager] SFX '{clipName}' not found!");
                 return;
             }
         }

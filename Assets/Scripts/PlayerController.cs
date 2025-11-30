@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayBGM("BGM");
         rb = GetComponent<Rigidbody>();
 
         currentHP = MaxHP;
@@ -74,8 +76,7 @@ public class PlayerController : MonoBehaviour
         if(skillUpgradePanel != null)
             skillUpgradePanel.SetActive(false);
 
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayBGM("BGM");
+        
 
         //barCoroutine = StartCoroutine(DecreaseBarOverTime());
     }

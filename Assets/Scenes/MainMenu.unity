@@ -6451,6 +6451,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 939560250478735517, guid: ea3814fbfe90fd34ab7dfa4f70fef231, type: 3}
+      propertyPath: bgmClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: ac13e6afae4eac145b8daa5542679bbf, type: 3}
+    - target: {fileID: 939560250478735517, guid: ea3814fbfe90fd34ab7dfa4f70fef231, type: 3}
       propertyPath: sfxClips.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 16c6d0a39d0d41c49a50fd98ae0e056b, type: 3}
