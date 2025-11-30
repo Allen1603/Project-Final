@@ -62,7 +62,11 @@ public class Joystick : MonoBehaviour
     private void LaunchHook()
     {
         anim.SetTrigger("FrogAttack");
-        AudioManager.Instance.PlaySFX("froggy");
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX("froggy");
+        } 
     }
 
     private void HookReturned()
