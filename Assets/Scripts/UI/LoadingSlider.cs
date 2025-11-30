@@ -8,18 +8,21 @@ public class LoadingSlider : MonoBehaviour
     [Header("Loading UI")]
     public Slider loadingSlider;
 
+    [Header("Object to Follow Slider")]
+    public Transform followObject;          // GameObject you want to move
+    public RectTransform sliderFillArea;    // The bar of the slider for position reference
+
     [Header("Loading Speed Settings")]
     [Range(0.1f, 5f)]
     public float fillSpeed = 0.5f;
 
     [Header("Fade Transition Settings")]
-    public CanvasGroup fadeCanvasGroup;  
-    public float fadeDuration = 1f;      
+    public CanvasGroup fadeCanvasGroup;
+    public float fadeDuration = 1f;
 
     void Start()
     {
         fadeCanvasGroup.alpha = 0f;
-
         StartCoroutine(LoadSceneSlow());
     }
 
@@ -39,11 +42,22 @@ public class LoadingSlider : MonoBehaviour
 
             loadingSlider.value = fakeProgress;
 
-            
+            // ---------------------------------
+            // Move game object along the slider
+            // ---------------------------------
+            if (followObject != null && sliderFillArea != null)
+            {
+                float xMin = sliderFillArea.position.x - (sliderFillArea.rect.width * 0.5f);
+                float xMax = sliderFillArea.position.x + (sliderFillArea.rect.width * 0.5f);
+
+                float xPos = Mathf.Lerp(xMin, xMax, loadingSlider.value);
+
+                followObject.position = new Vector3(xPos, followObject.position.y, followObject.position.z);
+            }
+
             if (fakeProgress >= 1f)
             {
                 yield return StartCoroutine(Crossfade());
-
                 operation.allowSceneActivation = true;
             }
 
