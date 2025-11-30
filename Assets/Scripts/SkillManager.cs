@@ -30,6 +30,7 @@ public class SkillManager : MonoBehaviour
     [Header("Clone Skill")]
     public GameObject clonePrefab;  // DRAG your CloneSkill prefab here
     public Transform clonePosition;
+    private FrogData selectedFrog;
 
     [Header("Skill Button")]
     public Button stunButton;
@@ -48,6 +49,11 @@ public class SkillManager : MonoBehaviour
     {
         player = PlayerController.instance;
         UpdateSkillButtons(0, player.MaxBar);
+
+        selectedFrog = FrogSelectionManager.instance.selectedFrog;
+
+        // Replace the default clonePrefab with the selected frog's clonePrefab
+        clonePrefab = selectedFrog.clonePrefab;
     }
 
     #region Stun Skill
