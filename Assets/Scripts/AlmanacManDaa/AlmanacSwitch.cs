@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AlmanacSwitch : MonoBehaviour
 {
@@ -34,5 +35,11 @@ public class AlmanacSwitch : MonoBehaviour
     public void HideAlmanac()
     {
         Almanac.gameObject.SetActive(false);
+    }
+
+    public void ReturnMainMenu()
+    {
+        SceneManager.LoadSceneAsync("MainMenu");
+        Time.timeScale = 1f;
     }
 }

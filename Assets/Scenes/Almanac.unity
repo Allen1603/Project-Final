@@ -2409,7 +2409,7 @@ GameObject:
   - component: {fileID: 5468025524328933051}
   - component: {fileID: 8162913924095001700}
   m_Layer: 5
-  m_Name: RawImage (1)
+  m_Name: Beetle  Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2511,7 +2511,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0d81505c15a48f341a54b78160a62032, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4fa62b2f88fb0be4f9e2b82e2858c461, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2599,7 +2599,7 @@ GameObject:
   - component: {fileID: 4348784119813189351}
   - component: {fileID: 1031184447084583044}
   m_Layer: 5
-  m_Name: PalakaCard3
+  m_Name: Grasshopper image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2951,7 +2951,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0d81505c15a48f341a54b78160a62032, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e310aec1a5cdec740b256403aa4d7314, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4178,19 +4178,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2576200914740203149}
         m_TargetAssemblyTypeName: AlmanacSwitch, Assembly-CSharp
-        m_MethodName: HideAlmanac
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 102148705}
-        m_TargetAssemblyTypeName: Mainmenu, Assembly-CSharp
-        m_MethodName: AlmanacBackButton
+        m_MethodName: ReturnMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4315,7 +4303,7 @@ GameObject:
   - component: {fileID: 2576200914740203151}
   - component: {fileID: 2576200914740203149}
   m_Layer: 5
-  m_Name: Almanacc
+  m_Name: Almanac
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4462,7 +4450,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2608048883078385598
@@ -4477,7 +4465,7 @@ GameObject:
   - component: {fileID: 8043925364641353941}
   - component: {fileID: 2618214664709215963}
   m_Layer: 5
-  m_Name: RawImage (2)
+  m_Name: Lady Bug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4640,7 +4628,7 @@ GameObject:
   - component: {fileID: 409676410186453929}
   - component: {fileID: 1526582316731601758}
   m_Layer: 5
-  m_Name: PalakaCard3
+  m_Name: Spider image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4867,7 +4855,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0d81505c15a48f341a54b78160a62032, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e849cd5a58e1e33428110ed180fd19e6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4889,7 +4877,7 @@ GameObject:
   - component: {fileID: 2553126106148678150}
   - component: {fileID: 603641972540349985}
   m_Layer: 5
-  m_Name: PalakaCard3
+  m_Name: Dragon Fly image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4990,7 +4978,7 @@ MonoBehaviour:
   m_margin: {x: 1.4105835, y: 0.11122131, z: -1.2963562, w: 0.20970154}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!224 &3315493999179703933
@@ -5556,7 +5544,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &3805719102986945174
@@ -6076,7 +6064,7 @@ GameObject:
   - component: {fileID: 6239326828799363336}
   - component: {fileID: 1814543346554115125}
   m_Layer: 5
-  m_Name: RawImage (5)
+  m_Name: Spider Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6586,19 +6574,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2576200914740203149}
         m_TargetAssemblyTypeName: AlmanacSwitch, Assembly-CSharp
-        m_MethodName: HideAlmanac
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 102148705}
-        m_TargetAssemblyTypeName: Mainmenu, Assembly-CSharp
-        m_MethodName: AlmanacBackButton
+        m_MethodName: ReturnMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6773,7 +6749,7 @@ GameObject:
   - component: {fileID: 5899389901044856456}
   - component: {fileID: 6920853072728865091}
   m_Layer: 5
-  m_Name: PalakaCard1
+  m_Name: BeeCardImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6799,7 +6775,7 @@ GameObject:
   - component: {fileID: 2407263564192562732}
   - component: {fileID: 6009376945553193690}
   m_Layer: 5
-  m_Name: RawImage
+  m_Name: Bee Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7106,7 +7082,7 @@ GameObject:
   - component: {fileID: 6164050447828634024}
   - component: {fileID: 2629930343420929693}
   m_Layer: 5
-  m_Name: RawImage (4)
+  m_Name: Grasshopper Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7470,7 +7446,7 @@ GameObject:
   - component: {fileID: 1880428066717568561}
   - component: {fileID: 6907694067536027104}
   m_Layer: 5
-  m_Name: RawImage (3)
+  m_Name: Dragon Fly Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7888,7 +7864,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 54e036505d417d644b30014455417626, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae0d18ed2a738484b8377af01a3aaae9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7957,7 +7933,7 @@ GameObject:
   - component: {fileID: 5560649377754066744}
   - component: {fileID: 3290081482668646280}
   m_Layer: 5
-  m_Name: PalakaCard3
+  m_Name: LadyBug image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8148,7 +8124,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &7332497557088393315
