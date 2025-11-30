@@ -11,7 +11,7 @@ public class EnemyBee : MonoBehaviour
     public float chargeDelay = 1f;
 
     private GameObject player;
-    private float chargeTimer = 2f;
+    private float chargeTimer;
     public bool isHooked = false;
     private bool isAttacking = false;
     private bool isStunned = false;
@@ -31,6 +31,8 @@ public class EnemyBee : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         originalSpeed = speed;
         originalChargeSpeed = chargeSpeed;
+
+        chargeTimer = Random.Range(3f, 6f);
     }
 
     void Update()

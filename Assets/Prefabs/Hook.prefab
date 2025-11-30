@@ -109,10 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8ee7a1ae5d280408e1509521078642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tongueHook: {fileID: 7686227458819527645, guid: 0aa2d7ff097b36b4485dca5b0ea94dcd, type: 3}
   hookRange: 16
-  hookSpeed: 25
-  returnSpeed: 35
+  hookSpeed: 35
+  returnSpeed: 45
 --- !u!120 &-6199786692563154392
 LineRenderer:
   m_ObjectHideFlags: 0

@@ -89,15 +89,20 @@ public class PlayerController : MonoBehaviour
 
         // Mobile buttons override
         if (leftButton != null && leftButton.isPressed)
+        {
             move = -1;
+        }
 
         if (rightButton != null && rightButton.isPressed)
+        {
             move = 1;
+        }
+
 
         // ---- Play animation only when movement STARTS ----
         if (previousMove == 0 && move != 0)
         {
-            anim.SetTrigger("FrogJump");   // Play jump ONCE
+            anim.SetTrigger("FrogJump");
         }
 
         previousMove = move; // update previous frame move
