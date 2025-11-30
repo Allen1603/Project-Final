@@ -70,6 +70,7 @@ public class SkillManager : MonoBehaviour
         EnemyBee[] bees = FindObjectsOfType<EnemyBee>();
         EnemyBug[] bugs = FindObjectsOfType<EnemyBug>();
         EnemyHopper[] hoppers = FindObjectsOfType<EnemyHopper>();
+        BeetleBoss beetle = FindObjectOfType<BeetleBoss>();
 
         foreach (EnemyFly enemy in flies)
             enemy.Stun(baseStunDuration);
@@ -82,6 +83,9 @@ public class SkillManager : MonoBehaviour
 
         foreach (EnemyHopper enemy in hoppers)
             enemy.Stun(baseStunDuration);
+
+        if (beetle != null)
+            beetle.Stun(baseStunDuration);
 
         yield return null;
     }
@@ -108,6 +112,7 @@ public class SkillManager : MonoBehaviour
         EnemyBug[] bugs = FindObjectsOfType<EnemyBug>();
         EnemyHopper[] hoppers = FindObjectsOfType<EnemyHopper>();
         EnemyBee[] bees = FindObjectsOfType<EnemyBee>();
+        BeetleBoss beetle = FindObjectOfType<BeetleBoss>();
 
         foreach (EnemyFly fly in flies)
             fly.SlowEffect(newSlowSpeed, duration);
@@ -120,6 +125,8 @@ public class SkillManager : MonoBehaviour
 
         foreach (EnemyHopper hopper in hoppers)
             hopper.SlowEffect(newSlowSpeed, duration);
+        if (beetle != null)
+            beetle.SlowEffect(newSlowSpeed, duration);
 
         yield return null;
     }

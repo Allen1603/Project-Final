@@ -9,6 +9,7 @@ public class EnemyBee : MonoBehaviour
     public float chargeSpeed = 10f;
     public float detectionRange = 5f;
     public float chargeDelay = 1f;
+    public float beeDamage = 5f;
 
     private GameObject player;
     private float chargeTimer;
@@ -92,7 +93,7 @@ public class EnemyBee : MonoBehaviour
 
             if (isAttacking && !isHooked)
             {
-                PlayerController.instance.TakeDamage(10f);
+                PlayerController.instance.TakeDamage(beeDamage);
             }
         }
 

@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69dfae514ed1af640aa411f831331f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1.5
   zigzagFrequency: 1
-  zigzagWidth: 7
+  zigzagWidth: 4
   isHooked: 0
 --- !u!95 &7696066957699665087
 Animator:

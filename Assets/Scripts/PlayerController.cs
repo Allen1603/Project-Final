@@ -142,7 +142,6 @@ public class PlayerController : MonoBehaviour
     {
         currentHP -= damage;
         currentHP = Mathf.Clamp(currentHP, 0, MaxHP);
-        Debug.LogError("Current HP: " + currentHP);
         UpdateUIHealth();
 
         if (currentHP <= 0)

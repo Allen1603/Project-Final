@@ -19,7 +19,8 @@ public class SpawnerEnemy : MonoBehaviour
     [Header("----- Wave Settings -----")]
     public int startingEnemiesPerWave = 7;
     public int enemyIncrementPerWave = 3;
-    private bool bossActivate = false;
+    private bool bossActivate1 = false;
+    private bool bossActivate2 = false;
 
     private int currentWave = 1;
     private int enemiesToSpawnInWave;
@@ -59,11 +60,18 @@ public class SpawnerEnemy : MonoBehaviour
         StartCoroutine(SpawnWave());
         StartCoroutine(InsectPanel());
 
-        if (bossActivate && EnemyPool.Instance != null)
+        if (bossActivate1 && EnemyPool.Instance != null)
         {
             Transform bossSpawnPoint = spawner.Length > 1 ? spawner[1] : spawner[0];
             EnemyPool.Instance.SpawnFromPool("Boss", bossSpawnPoint.position, Quaternion.identity);
-            bossActivate = false;
+            bossActivate1 = false;
+        }
+        
+        if (bossActivate2 && EnemyPool.Instance != null)
+        {
+            Transform bossSpawnPoint = spawner.Length > 1 ? spawner[1] : spawner[0];
+            EnemyPool.Instance.SpawnFromPool("Boss2", bossSpawnPoint.position, Quaternion.identity);
+            bossActivate2 = false;
         }
     }
 
@@ -79,8 +87,11 @@ public class SpawnerEnemy : MonoBehaviour
         currentWave++;
         spawnInterval = Mathf.Clamp(spawnInterval - spawnDecrement, limitDecrement, 999f);
 
-        if (currentWave >= 6)
-            bossActivate = true;
+        if (currentWave == 6)
+            bossActivate1 = true;
+
+        if (currentWave == 8)
+            bossActivate2 = true;
 
         yield return new WaitForSeconds(10f);
         StartWave();

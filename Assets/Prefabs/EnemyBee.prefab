@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  chargeSpeed: 10
+  chargeSpeed: 7
   detectionRange: 20
   chargeDelay: 1
   isHooked: 0

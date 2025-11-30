@@ -4,15 +4,15 @@ using TMPro;
 public class Base : MonoBehaviour
 {
     [Header("----- Base Settings -----")]
-    public float maxLimit = 15f;
-    public float currentLimit = 0;
+    public float maxLimit = 50f;
+    public float currentLimit = 50f;
 
     [Header("----- UI -----")]
     public TextMeshProUGUI limitText;
 
     void Start()
     {
-        currentLimit = 0;
+        currentLimit = 50;
         UpdateLimitText();
     }
 
@@ -20,13 +20,16 @@ public class Base : MonoBehaviour
     {
         if (other.CompareTag("Enemy1") || other.CompareTag("Enemy2") || other.CompareTag("Enemy3") || other.CompareTag("Enemy4") || other.CompareTag("Boss"))
         {
-            currentLimit++;
+            currentLimit--;
 
-            if (currentLimit >= maxLimit)
-                currentLimit = maxLimit;
+            if (currentLimit <= 0)
+            {
+                currentLimit = 0;
 
+                if (GameOverManager.instance != null)
+                    GameOverManager.instance.ShowGameOver();
+            }
             UpdateLimitText();
-
             // Hide or return to pool
             other.gameObject.SetActive(false);
         }

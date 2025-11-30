@@ -10,10 +10,9 @@ public class EnemyBoss : MonoBehaviour
     [Header("Summoning")]
     public GameObject[] enemyPrefabs;
     public string[] enemyTags; // must match EnemyPool tags
+    public Transform[] enemyBeePosition;
     public int maxEnemies = 5;
-    public int currentEnemies = 0;
     public float summonInterval = 3f;
-    public float summonRadius = 3f;
     private float summonTimer;
 
     private List<GameObject> activeEnemies = new List<GameObject>();
@@ -39,6 +38,7 @@ public class EnemyBoss : MonoBehaviour
 
         // Movement (keeps Y constant)
         transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.Euler(0, -90, 0);
 
         // Summon countdown
         summonTimer += Time.deltaTime;
@@ -65,7 +65,8 @@ public class EnemyBoss : MonoBehaviour
         // only spawn if under max limit
         if (activeEnemies.Count < maxEnemies)
         {
-            Vector3 spawnPos = transform.position + (Vector3)(Random.insideUnitCircle * summonRadius);
+            int rand = Random.Range(0, enemyBeePosition.Length);
+            Vector3 spawnPos = enemyBeePosition[rand].position;
             GameObject enemy = EnemyPool.Instance.SpawnFromPool("Enemy4", spawnPos, Quaternion.identity);
 
             if (enemy != null)

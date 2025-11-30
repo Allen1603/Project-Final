@@ -468,8 +468,8 @@ MonoBehaviour:
   moveSpeed: 5
   leftButton: {fileID: 0}
   rightButton: {fileID: 0}
-  MaxHP: 10
-  currentHP: 10
+  MaxHP: 90
+  currentHP: 90
   MaxExp: 100
   currentEXP: 0
   expSlider: {fileID: 0}
