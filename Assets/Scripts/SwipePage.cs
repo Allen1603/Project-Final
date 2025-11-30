@@ -72,7 +72,7 @@ public class SwipePage : MonoBehaviour
         else if (currentPage == 2)
             camPos.x = 2.7f;
         else if (currentPage == 1)
-            camPos.x = -3.2f;
+            camPos.x = -3.07f;
 
         LeanTween.move(cameraMovement.gameObject, camPos, tweenTime).setEase(tweenType);
     }
