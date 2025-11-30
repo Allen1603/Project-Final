@@ -25,6 +25,14 @@ public class Mainmenu : MonoBehaviour
         }
     }
 
+    public void AlmanacBackButton()
+    {
+        SceneManager.LoadSceneAsync("MainMenu");
+        Time.timeScale = 1f;
+        AudioManager.Instance.PlaySFX("ButtonClick");
+
+    }
+
     public void ClickFroggy()
     {
         if (AudioManager.Instance != null)
