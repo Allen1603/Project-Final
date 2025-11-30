@@ -2787,7 +2787,7 @@ GameObject:
   - component: {fileID: 803778454087424616}
   - component: {fileID: 4756431318227292360}
   m_Layer: 5
-  m_Name: Plaka2
+  m_Name: Cane Toad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5644,7 +5644,7 @@ GameObject:
   - component: {fileID: 3019991619696460410}
   - component: {fileID: 3269284495870637406}
   m_Layer: 5
-  m_Name: Plaka1
+  m_Name: Four-lined Tree frog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9297,7 +9297,7 @@ GameObject:
   - component: {fileID: 3157900311802937094}
   - component: {fileID: 3696685755684871828}
   m_Layer: 5
-  m_Name: Plaka3
+  m_Name: Banded Bullfrog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
