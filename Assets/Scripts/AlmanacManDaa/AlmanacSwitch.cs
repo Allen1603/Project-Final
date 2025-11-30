@@ -12,42 +12,48 @@ public class AlmanacSwitch : MonoBehaviour
 
     void Start()
     {
-        Frogs.gameObject.SetActive(true);
-        Insects.gameObject.SetActive(false);
-        
+        // Play Almanac BGM when the scene loads
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayBGM("AlmanacBGM");
+
+        // Default panels
+        Frogs.SetActive(true);
+        Insects.SetActive(false);
     }
 
     public void ShowFrogPanel()
     {
-        Frogs.gameObject.SetActive(true);
-        ShowFrogs.gameObject.SetActive(true);
-        Insects.gameObject.SetActive(false);
-        ShowInsects.gameObject.SetActive(false);
+        Frogs.SetActive(true);
+        ShowFrogs.SetActive(true);
+        Insects.SetActive(false);
+        ShowInsects.SetActive(false);
     }
-
-
 
     public void ShowInsectPanel()
     {
-        Frogs.gameObject.SetActive(false);
-        Insects.gameObject.SetActive(true);
-        ShowInsects.gameObject.SetActive(true);
-        ShowFrogs.gameObject.SetActive(false);
+        Frogs.SetActive(false);
+        Insects.SetActive(true);
+        ShowInsects.SetActive(true);
+        ShowFrogs.SetActive(false);
     }
 
     public void HideAlmanac()
     {
-        Almanac.gameObject.SetActive(false);
+        Almanac.SetActive(false);
     }
 
     public void ReturnMainMenu()
     {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX("ButtonClick");
+
         SceneManager.LoadSceneAsync("MainMenu");
         Time.timeScale = 1f;
     }
 
     public void ButtonClickSFX()
     {
-        AudioManager.Instance.PlaySFX("ButtonClick");
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX("ButtonClick");
     }
 }

@@ -208,8 +208,8 @@ MonoBehaviour:
   sfxSource: {fileID: 939560250846868066}
   bgmClips:
   - {fileID: 8300000, guid: c99d9a8fc9fd7fe46838f77d6fd6af42, type: 3}
-  - {fileID: 8300000, guid: 1b5f2e27a80cb29488d428a50e6fb3bd, type: 3}
   - {fileID: 8300000, guid: 494cfbca3bd690944a16310d795630fb, type: 3}
+  - {fileID: 8300000, guid: 1b5f2e27a80cb29488d428a50e6fb3bd, type: 3}
   sfxClips:
   - {fileID: 8300000, guid: 16c6d0a39d0d41c49a50fd98ae0e056b, type: 3}
   bgmVolume: 1

@@ -17,6 +17,7 @@ public class Mainmenu : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+
     public void Click()
     {
         if (AudioManager.Instance != null)
@@ -43,10 +44,13 @@ public class Mainmenu : MonoBehaviour
 
     public void Almanac()
     {
+        // Play SFX
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX("froggy");
+
+        // Load Almanac Scene
         SceneManager.LoadSceneAsync(6);
         Time.timeScale = 1f;
-        AudioManager.Instance.PlaySFX("froggy");
- 
     }
 
     public void Tutorial()
