@@ -46,6 +46,7 @@ public class Mainmenu : MonoBehaviour
         SceneManager.LoadSceneAsync(6);
         Time.timeScale = 1f;
         AudioManager.Instance.PlaySFX("froggy");
+        AudioManager.Instance.PlayBGM("AlmanacBGM");
     }
 
     public void Tutorial()
