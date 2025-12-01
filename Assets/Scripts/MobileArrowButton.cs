@@ -2,18 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class MobileArrowButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class MobileArrowButton : MonoBehaviour, IPointerDownHandler
 {
-    [HideInInspector] public bool isPressed = false;
 
+    [HideInInspector] public bool wasTapped = false;
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        isPressed = true;  
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        isPressed = false;
+        wasTapped = true;
     }
 }

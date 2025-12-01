@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
     public Animator anim;
     private float previousMove = 0f;
+    public float tapMoveAmount = 5f;
 
     private void Awake()
     {
@@ -84,33 +85,29 @@ public class PlayerController : MonoBehaviour
     {
         float move = 0f;
 
-        // New Input System
-        move = moveAction.ReadValue<float>();
-
-        // Mobile buttons override
-        if (leftButton != null && leftButton.isPressed)
+        // ---- Mobile one-tap movement ----
+        if (leftButton != null && leftButton.wasTapped)
         {
             move = -1;
+            leftButton.wasTapped = false; // consume tap
         }
-
-        if (rightButton != null && rightButton.isPressed)
+        else if (rightButton != null && rightButton.wasTapped)
         {
             move = 1;
+            rightButton.wasTapped = false; // consume tap
         }
 
-
-        // ---- Play animation only when movement STARTS ----
-        if (previousMove == 0 && move != 0)
+        // ---- Apply movement only ONCE ----
+        if (move != 0f)
         {
+            // play animation
             anim.SetTrigger("FrogJump");
+
+            // apply a small push once (not continuous)
+            rb.velocity = new Vector2(move * tapMoveAmount, rb.velocity.y);
         }
-
-        previousMove = move; // update previous frame move
-
-        // ---- Movement ----
-        Vector3 velocity = new Vector3(move * moveSpeed, rb.velocity.y, rb.velocity.z);
-        rb.velocity = velocity;
     }
+
 
     #region EXP & Bar Logic
 
