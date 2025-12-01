@@ -7,15 +7,10 @@ public class SceneInitializer : MonoBehaviour
 {
     void Start()
     {
-        if (AudioManager.Instance == null) return;
-
-        string sceneName = SceneManager.GetActiveScene().name;
-
-        AudioManager.Instance.StopBGM(); // stop previous BGM
-
-        if (sceneName == "Almanac")
-            AudioManager.Instance.PlayBGM("AlmanacBGM");
-        else if (sceneName == "MainMenu")
-            AudioManager.Instance.PlayBGM("MainMenu");
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopBGM();
+            AudioManager.Instance.PlayBGM("PickingAudio");
+        }
     }
 }
