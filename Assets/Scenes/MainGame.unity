@@ -6763,11 +6763,11 @@ RectTransform:
   m_Father: {fileID: 1077331272}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 59.99997}
   m_SizeDelta: {x: 1600, y: 1000}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &170414943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8547,7 +8547,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 16, y: -7.299988}
+  m_AnchoredPosition: {x: 16, y: -7.300049}
   m_SizeDelta: {x: 120, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &318235256
@@ -13243,7 +13243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c4270b26207754b8740e02e156cc95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPressed: 0
+  wasTapped: 0
 --- !u!4 &753989073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4add6a592bf05a04c891c5b26b79e744, type: 3}
@@ -15371,11 +15371,11 @@ RectTransform:
   m_Father: {fileID: 2029642005}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -710, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 390}
   m_SizeDelta: {x: 1520, y: 880}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &906233626
 GameObject:
   m_ObjectHideFlags: 0
@@ -15416,11 +15416,11 @@ RectTransform:
   m_Father: {fileID: 1438209404}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 59.99997}
   m_SizeDelta: {x: 1600, y: 1000}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &906233628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16234,11 +16234,11 @@ RectTransform:
   m_Father: {fileID: 904568899}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 59.99997}
   m_SizeDelta: {x: 1600, y: 1000}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &968042644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16955,11 +16955,11 @@ RectTransform:
   m_Father: {fileID: 1463106273}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 60}
   m_SizeDelta: {x: 1600, y: 1000}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1047588509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17402,11 +17402,11 @@ RectTransform:
   m_Father: {fileID: 2029642005}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -710, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 390}
   m_SizeDelta: {x: 1520, y: 880}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1077331273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18337,7 +18337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c4270b26207754b8740e02e156cc95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPressed: 0
+  wasTapped: 0
 --- !u!1 &1227112153
 GameObject:
   m_ObjectHideFlags: 0
@@ -19004,7 +19004,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30.599976, y: -108.5}
+  m_AnchoredPosition: {x: 30.600098, y: -108.5}
   m_SizeDelta: {x: 150, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1263204433
@@ -20765,11 +20765,11 @@ RectTransform:
   m_Father: {fileID: 2029642005}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -710, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 390}
   m_SizeDelta: {x: 1520, y: 880}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1438209405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20953,11 +20953,11 @@ RectTransform:
   m_Father: {fileID: 2029642005}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -710, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 389.99994}
   m_SizeDelta: {x: 1520, y: 880}
-  m_Pivot: {x: 0, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1463106274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26254,7 +26254,7 @@ MonoBehaviour:
   waveTextDisplayTime: 3
   hopperPanel: {fileID: 1463106272}
   flyPanel: {fileID: 1438209403}
-  bugPanel: {fileID: 634772959}
+  bugPanel: {fileID: 1077331271}
   beePanel: {fileID: 904568896}
 --- !u!4 &1910447919
 Transform:
@@ -27739,11 +27739,11 @@ RectTransform:
   m_Father: {fileID: 1458994969}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 40, y: 474.80005}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 474.80005}
   m_SizeDelta: {x: 180, y: 70}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2030627966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29519,6 +29519,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CaneToad
       objectReference: {fileID: 0}
+    - target: {fileID: 2335980158869194289, guid: b3a9b2b753d7a434db07bf22e3a0be14, type: 3}
+      propertyPath: tongueHook
+      value: 
+      objectReference: {fileID: 698614776448043937}
     - target: {fileID: 2335980158869194290, guid: b3a9b2b753d7a434db07bf22e3a0be14, type: 3}
       propertyPath: hpFill
       value: 
@@ -29605,6 +29609,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3a9b2b753d7a434db07bf22e3a0be14, type: 3}
+--- !u!4 &698614776448043937 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 698614777214208289, guid: b3a9b2b753d7a434db07bf22e3a0be14, type: 3}
+  m_PrefabInstance: {fileID: 698614776448043936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &971072594267742505 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4832751533628921283, guid: ad15b79655a6bbb4ca7fdef7dcfd14c2, type: 3}
@@ -29675,6 +29684,10 @@ PrefabInstance:
       propertyPath: skillUpgradePanel
       value: 
       objectReference: {fileID: 1534026454}
+    - target: {fileID: 1599613248847884143, guid: f576bf59ded6db0429b87d3f500257b8, type: 3}
+      propertyPath: tongueHook
+      value: 
+      objectReference: {fileID: 4172181151785266536}
     - target: {fileID: 2123772038876657112, guid: f576bf59ded6db0429b87d3f500257b8, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -29721,6 +29734,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f576bf59ded6db0429b87d3f500257b8, type: 3}
+--- !u!4 &4172181151785266536 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4172181151840178902, guid: f576bf59ded6db0429b87d3f500257b8, type: 3}
+  m_PrefabInstance: {fileID: 4172181151785266535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5649924659645199594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29732,6 +29750,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FourLinedFrog
       objectReference: {fileID: 0}
+    - target: {fileID: 4832751533628921286, guid: ad15b79655a6bbb4ca7fdef7dcfd14c2, type: 3}
+      propertyPath: tongueHook
+      value: 
+      objectReference: {fileID: 5649924659645199595}
     - target: {fileID: 4832751533628921287, guid: ad15b79655a6bbb4ca7fdef7dcfd14c2, type: 3}
       propertyPath: hpFill
       value: 
@@ -29818,3 +29840,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad15b79655a6bbb4ca7fdef7dcfd14c2, type: 3}
+--- !u!4 &5649924659645199595 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5649924660527532565, guid: ad15b79655a6bbb4ca7fdef7dcfd14c2, type: 3}
+  m_PrefabInstance: {fileID: 5649924659645199594}
+  m_PrefabAsset: {fileID: 0}

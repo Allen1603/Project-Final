@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookRange: 16
-  hookSpeed: 35
-  returnSpeed: 45
+  hookSpeed: 70
+  returnSpeed: 80
 --- !u!120 &-6199786692563154392
 LineRenderer:
   m_ObjectHideFlags: 0
