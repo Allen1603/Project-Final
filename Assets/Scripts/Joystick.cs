@@ -9,6 +9,7 @@ public class Joystick : MonoBehaviour
 
     [Header("------Hook Settings------")]
     public Transform tongueHook;
+    public int hookPrefabIndex = 3;
     private bool isFishing = false;
 
     [Header("-----Settings----")]
@@ -76,7 +77,7 @@ public class Joystick : MonoBehaviour
 
     public void AttackEvent()
     {
-        HookMechanism hook = HookPool.Instance.GetHook();
+        HookMechanism hook = HookPool.Instance.GetHook(hookPrefabIndex);
 
         // Setup hook to use tongueHook as origin
         hook.SetUpHook(tongueHook);

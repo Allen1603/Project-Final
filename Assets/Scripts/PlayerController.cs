@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
     public GameObject gameOverPanel;
 
     public Animator anim;
-    private float previousMove = 0f;
     public float tapMoveAmount = 5f;
 
     private void Awake()

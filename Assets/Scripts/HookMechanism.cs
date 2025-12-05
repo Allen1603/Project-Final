@@ -120,23 +120,27 @@ public class HookMechanism : MonoBehaviour
 
     private void MoveBack()
     {
-        Vector3 returnDir = (tongueHook.position - transform.position).normalized;
-        transform.position += returnDir * returnSpeed * Time.deltaTime;
+        float distance = Vector3.Distance(transform.position, tongueHook.position);
+
+        // Smooth return with no overshoot
+        float step = returnSpeed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, tongueHook.position, step);
 
         if (hookedEnemy != null)
             hookedEnemy.transform.position = transform.position;
 
-        // Re-enable collider once hook finishes returning
-        if (Vector3.Distance(transform.position, tongueHook.position) < 0.3f)
+        // If close enough, snap & finish
+        if (distance <= 0.05f)
         {
             if (hookCollider != null)
-                hookCollider.enabled = true; // ready for next throw
+                hookCollider.enabled = true;
 
             onHookReturn?.Invoke();
             HookPool.Instance.ReturnToPool(this);
             hookedEnemy = null;
         }
     }
+
 
     private void UpdateLine()
     {

@@ -39,7 +39,7 @@ public class CloneSkill : MonoBehaviour
 
         FindNearestEnemy();
         FaceTarget();
-        AutoHook();
+        //AutoHook();
     }
 
     void FaceTarget()
@@ -80,27 +80,27 @@ public class CloneSkill : MonoBehaviour
     }
 
     // ---------------- AUTO HOOK ----------------
-    void AutoHook()
-    {
-        if (targetEnemy == null) return;
+    //void AutoHook()
+    //{
+    //    if (targetEnemy == null) return;
 
-        attackTimer -= Time.deltaTime;
+    //    attackTimer -= Time.deltaTime;
 
-        if (attackTimer <= 0f)
-        {
-            HookMechanism hook = HookPool.Instance.GetHook();
+    //    if (attackTimer <= 0f)
+    //    {
+    //        //HookMechanism hook = HookPool.Instance.GetHook();
 
-            //hook.tongueHook = tongueHook;
-            hook.SetTarget(tongueHook, targetEnemy);
+    //        //hook.tongueHook = tongueHook;
+    //        hook.SetTarget(tongueHook, targetEnemy);
 
-            // Apply consumption speed multiplier
-            hook.hookSpeed *= consumeSpeedMultiplier;
+    //        // Apply consumption speed multiplier
+    //        hook.hookSpeed *= consumeSpeedMultiplier;
 
-            hook.onHookReturn = OnEnemyConsumed;
+    //        hook.onHookReturn = OnEnemyConsumed;
 
-            attackTimer = hookCooldown + cooldownModifier;
-        }
-    }
+    //        attackTimer = hookCooldown + cooldownModifier;
+    //    }
+    //}
 
     // ---------------- ON ENEMY CONSUMED ----------------
     void OnEnemyConsumed()

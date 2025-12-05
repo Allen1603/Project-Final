@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6015254443689595652}
   - component: {fileID: -6199786692563154392}
   m_Layer: 0
-  m_Name: Hook
+  m_Name: FourLinedFrogTongue
   m_TagString: Hook
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookRange: 16
-  hookSpeed: 70
-  returnSpeed: 80
+  hookSpeed: 75
+  returnSpeed: 85
 --- !u!120 &-6199786692563154392
 LineRenderer:
   m_ObjectHideFlags: 0

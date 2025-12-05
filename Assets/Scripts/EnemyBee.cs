@@ -150,8 +150,4 @@ public class EnemyBee : MonoBehaviour
         speed = prevSpeed;
         isStunned = false;
     }
-    public void SetDirection(Vector3 dir)
-    {
-        moveDirection = dir;
-    }
 }

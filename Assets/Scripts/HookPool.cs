@@ -5,13 +5,14 @@ public class HookPool : MonoBehaviour
 {
     public static HookPool Instance;
 
-    [Header("Pool Settings")]
-    public GameObject hookPrefab;
+    [Header("Hook Prefabs for Each Character")]
+    public GameObject[] tongueHookPrefabs;  // 0 = char1, 1 = char2, 2 = char3
     public int poolSize = 5;
 
-    private List<HookMechanism> hookPool = new List<HookMechanism>();
+    // Separate pools per character
+    private List<HookMechanism>[] hookPools;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -20,35 +21,51 @@ public class HookPool : MonoBehaviour
         }
 
         Instance = this;
-        InitializePool();
+        InitializePools();
     }
 
-    void InitializePool()
+    void InitializePools()
     {
-        for (int i = 0; i < poolSize; i++)
+        // Create pool arrays
+        hookPools = new List<HookMechanism>[tongueHookPrefabs.Length];
+
+        for (int i = 0; i < tongueHookPrefabs.Length; i++)
         {
-            GameObject hookObj = Instantiate(hookPrefab, transform);
-            hookObj.SetActive(false);
+            hookPools[i] = new List<HookMechanism>();
 
-            HookMechanism hook = hookObj.GetComponent<HookMechanism>();
+            for (int j = 0; j < poolSize; j++)
+            {
+                GameObject hookObj = Instantiate(tongueHookPrefabs[i], transform);
+                hookObj.SetActive(false);
 
-            hookPool.Add(hook);
+                HookMechanism hook = hookObj.GetComponent<HookMechanism>();
+                hookPools[i].Add(hook);
+            }
         }
     }
 
-    public HookMechanism GetHook()
+    // Selects which pool to use based on character index
+    public HookMechanism GetHook(int characterIndex)
     {
-        // Find an inactive hook in the pool
-        foreach (HookMechanism hook in hookPool)
+        if (characterIndex < 0 || characterIndex >= hookPools.Length)
+        {
+            Debug.LogError("Invalid character index!");
+            return null;
+        }
+
+        List<HookMechanism> selectedPool = hookPools[characterIndex];
+
+        foreach (HookMechanism hook in selectedPool)
         {
             if (!hook.gameObject.activeInHierarchy)
             {
                 hook.gameObject.SetActive(true);
-                hook.transform.SetParent(null); // detach from pool
+                hook.transform.SetParent(null);
                 return hook;
             }
         }
-        return null;
+
+        return null; // all hooks in use
     }
 
     public void ReturnToPool(HookMechanism hook)
