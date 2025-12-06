@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyHopper : MonoBehaviour
+public class EnemyHopper : MonoBehaviour, IStunnable, ISlowable
 {
     [Header("Movement")]
     public float speed = 2f;
@@ -15,7 +15,6 @@ public class EnemyHopper : MonoBehaviour
     private Vector3 jumpStartPos;
     public bool isHooked = false;
 
-    private Vector3 moveDirection;
 
     void Start()
     {
@@ -129,9 +128,5 @@ public class EnemyHopper : MonoBehaviour
         speed = oldSpeed;
         jumpDuration = oldJumpDuration;
         jumpInterval = oldJumpInterval;
-    }
-    public void SetDirection(Vector3 dir)
-    {
-        moveDirection = dir;
     }
 }

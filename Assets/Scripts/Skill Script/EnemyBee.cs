@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBee : MonoBehaviour
+public class EnemyBee : MonoBehaviour, IStunnable, ISlowable
 {
     [Header("Movement Settings")]
     public float speed = 2f;

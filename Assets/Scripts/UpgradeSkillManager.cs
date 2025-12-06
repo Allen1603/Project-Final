@@ -12,12 +12,6 @@ public class UpgradeSkillManager : MonoBehaviour
     public float slowIncrement = 0.5f;
     public int healIncrement = 4;
 
-    [Header("Upgrade System")]
-    public int cloneLevel = 1; // 1-4
-    private int maxTargets = 1; // level 4 allows 2 enemies
-    private float consumeSpeedMultiplier = 1f; // Level 2 bonus
-    private float cooldownModifier = 0f;       // Level 3 bonus
-
     public static UpgradeSkillManager instance;
 
     private void Awake()
@@ -60,58 +54,5 @@ public class UpgradeSkillManager : MonoBehaviour
         playerController.currentEXP = 0f;
         playerController.UpdateUIExp();
     }
-
-    public void UpgradeClone()
-    {
-        if (playerController == null) return;
-
-        // Increase clone level (max 4)
-        if (cloneLevel < 4)
-            cloneLevel++;
-
-        // Reset player EXP
-        playerController.currentEXP = 0f;
-        playerController.UpdateUIExp();
-
-        // Update stats inside upgrade manager
-        ApplyUpgrades();
-
-        // Apply the upgrade to all currently active clones
-        CloneSkill[] activeClones = FindObjectsOfType<CloneSkill>();
-        foreach (var clone in activeClones)
-        {
-            clone.ApplyUpgrade(maxTargets, consumeSpeedMultiplier, cooldownModifier);
-        }
-    }
-    public void ApplyUpgrades()
-    {
-        switch (cloneLevel)
-        {
-            case 1:
-                maxTargets = 1;
-                consumeSpeedMultiplier = 1f;
-                cooldownModifier = 0f;
-                break;
-
-            case 2:
-                maxTargets = 1;
-                consumeSpeedMultiplier = 1.2f;
-                cooldownModifier = 0f;
-                break;
-
-            case 3:
-                maxTargets = 1;
-                consumeSpeedMultiplier = 1.2f;
-                cooldownModifier = -1f;
-                break;
-
-            case 4:
-                maxTargets = 2;
-                consumeSpeedMultiplier = 1.2f;
-                cooldownModifier = -1f;
-                break;
-        }
-    }
-
 
 }

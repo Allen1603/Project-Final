@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyFly : MonoBehaviour
+public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
 {
     [Header("Movement")]
     public float speed = 2f;

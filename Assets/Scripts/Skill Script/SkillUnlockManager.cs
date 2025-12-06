@@ -158,11 +158,6 @@ public class SkillUnlockManager : MonoBehaviour
                 if (skillManager != null)
                     skillManager.HealPlayer();
                 break;
-
-            case SkillType.Clone:
-                if (skillManager != null)
-                    skillManager.ActivateClone();
-                break;
         }
 
         // Lock the skill again after use

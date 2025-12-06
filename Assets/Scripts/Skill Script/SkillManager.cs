@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 using UnityEngine.UI;
+using System.Linq;
 
 public class SkillManager : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class SkillManager : MonoBehaviour
     public float baseStunDuration = 1f;
     public float currentStunValue = 0f;
     public float maxStunValue = 5f;
+    public GameObject shockWave;
 
     [Header("Slow Skill")]
     public float baseSlowDuration = 1f;
@@ -27,10 +28,6 @@ public class SkillManager : MonoBehaviour
     public int currentHealValue = 0;
     public int maxHealValue = 20;
 
-    [Header("Clone Skill")]
-    public GameObject clonePrefab;  // DRAG your CloneSkill prefab here
-    public Transform clonePosition;
-
     [Header("Skill Button")]
     public Button stunButton;
     public Button slowButton;
@@ -39,6 +36,7 @@ public class SkillManager : MonoBehaviour
 
     public static SkillManager instance;
     private PlayerController player;
+
     private void Awake()
     {
         instance = this;
@@ -48,10 +46,11 @@ public class SkillManager : MonoBehaviour
     {
         player = PlayerController.instance;
         UpdateSkillButtons(0, player.MaxBar);
+
+        shockWave.SetActive(false);
     }
 
     #region Stun Skill
-    //----------------- STUN ---------------//
     public void NewStunValue(float addedDuration)
     {
         currentStunValue += addedDuration;
@@ -60,44 +59,46 @@ public class SkillManager : MonoBehaviour
 
     public void ActivateStunField()
     {
+        Shockwave();
         StartCoroutine(StunAllEnemies());
         ResetBar();
     }
 
+    void Shockwave()
+    {
+        shockWave.transform.position = player.transform.position;
+        shockWave.SetActive(true);
+        StartCoroutine(HideShockwave());
+    }
+
+    IEnumerator HideShockwave()
+    {
+        yield return new WaitForSeconds(1f);
+        shockWave.SetActive(false);
+    }
+
     IEnumerator StunAllEnemies()
     {
-        EnemyFly[] flies = FindObjectsOfType<EnemyFly>();
-        EnemyBee[] bees = FindObjectsOfType<EnemyBee>();
-        EnemyBug[] bugs = FindObjectsOfType<EnemyBug>();
-        EnemyHopper[] hoppers = FindObjectsOfType<EnemyHopper>();
-        BeetleBoss beetle = FindObjectOfType<BeetleBoss>();
+        float duration = currentStunValue > 0 ? currentStunValue : baseStunDuration;
 
-        foreach (EnemyFly enemy in flies)
-            enemy.Stun(baseStunDuration);
+        IStunnable[] enemies = FindObjectsOfType<MonoBehaviour>(false)
+            .OfType<IStunnable>()
+            .ToArray();
 
-        foreach (EnemyBee enemy in bees)
-            enemy.Stun(baseStunDuration);
-
-        foreach (EnemyBug enemy in bugs)
-            enemy.Stun(baseStunDuration);
-
-        foreach (EnemyHopper enemy in hoppers)
-            enemy.Stun(baseStunDuration);
-
-        if (beetle != null)
-            beetle.Stun(baseStunDuration);
+        foreach (var enemy in enemies)
+            enemy.Stun(duration);
 
         yield return null;
     }
     #endregion
 
     #region Slow Skill
-    //----------------- SLOW ---------------//
     public void NewSlowValue(float addedDuration)
     {
         currentSlowValue += addedDuration;
         currentSlowValue = Mathf.Clamp(currentSlowValue, 0f, maxSlowValue);
     }
+
     public void ActivateSlowField()
     {
         StartCoroutine(SlowAllEnemies());
@@ -108,25 +109,12 @@ public class SkillManager : MonoBehaviour
     {
         float duration = currentSlowValue > 0 ? currentSlowValue : baseSlowDuration;
 
-        EnemyFly[] flies = FindObjectsOfType<EnemyFly>();
-        EnemyBug[] bugs = FindObjectsOfType<EnemyBug>();
-        EnemyHopper[] hoppers = FindObjectsOfType<EnemyHopper>();
-        EnemyBee[] bees = FindObjectsOfType<EnemyBee>();
-        BeetleBoss beetle = FindObjectOfType<BeetleBoss>();
+        ISlowable[] enemies = FindObjectsOfType<MonoBehaviour>(false)
+            .OfType<ISlowable>()
+            .ToArray();
 
-        foreach (EnemyFly fly in flies)
-            fly.SlowEffect(newSlowSpeed, duration);
-
-        foreach (EnemyBee bee in bees)
-            bee.SlowEffect(newSlowSpeed, duration);
-
-        foreach (EnemyBug bug in bugs)
-            bug.SlowEffect(newSlowSpeed, duration);
-
-        foreach (EnemyHopper hopper in hoppers)
-            hopper.SlowEffect(newSlowSpeed, duration);
-        if (beetle != null)
-            beetle.SlowEffect(newSlowSpeed, duration);
+        foreach (var enemy in enemies)
+            enemy.SlowEffect(newSlowSpeed, duration);
 
         yield return null;
     }
@@ -138,6 +126,7 @@ public class SkillManager : MonoBehaviour
         currentHealValue += newHealValue;
         currentHealValue = Mathf.Clamp(currentHealValue, 0, maxHealValue);
     }
+
     public void HealPlayer()
     {
         PlayerController player = FindObjectOfType<PlayerController>();
@@ -155,12 +144,7 @@ public class SkillManager : MonoBehaviour
     }
     #endregion
 
-    #region Clone Skill
-    public void ActivateClone()
-    {
-        Instantiate(clonePrefab, clonePosition.position, Quaternion.identity);
-        ResetBar();
-    }
+    #region Update Skill BTN
 
     public void UpdateSkillButtons(float currentBar, float maxBar)
     {
@@ -187,5 +171,4 @@ public class SkillManager : MonoBehaviour
         }
     }
     #endregion
-
 }

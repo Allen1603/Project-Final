@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyBug : MonoBehaviour
+public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
 {
     [Header("Movement Settings")]
     public float speed = 2f;
