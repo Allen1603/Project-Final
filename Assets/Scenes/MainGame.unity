@@ -8552,7 +8552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -4.0999756, y: -52}
+  m_AnchoredPosition: {x: -4.0998535, y: -52}
   m_SizeDelta: {x: 150, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &329059140
@@ -21502,7 +21502,6 @@ MonoBehaviour:
   stunIncrement: 0.5
   slowIncrement: 0.5
   healIncrement: 4
-  cloneLevel: 1
 --- !u!1001 &1542488209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23012,20 +23011,20 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 0
-          inSlope: 0.5387894
-          outSlope: 0.5387894
+          inSlope: 0.7835435
+          outSlope: 0.7835435
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.17322831
+          outWeight: 0.1332979
         - serializedVersion: 3
           time: 1
-          value: 0.6444435
-          inSlope: -1.676651
-          outSlope: -1.676651
+          value: 0.7444417
+          inSlope: -1.4979548
+          outSlope: -1.4979548
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.15507174
+          inWeight: 0.13648438
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -28906,8 +28905,6 @@ MonoBehaviour:
   baseHealAmount: 10
   currentHealValue: 0
   maxHealValue: 20
-  clonePrefab: {fileID: 0}
-  clonePosition: {fileID: 0}
   stunButton: {fileID: 2133589649}
   slowButton: {fileID: 290274563}
   healButton: {fileID: 1421421859}
