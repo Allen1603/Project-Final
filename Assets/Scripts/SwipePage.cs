@@ -94,6 +94,6 @@ public class SwipePage : MonoBehaviour
         }
 
         // Load scene after fade
-        SceneManager.LoadScene("MainGame");
+        SceneManager.LoadScene("Tester");
     }
 }
