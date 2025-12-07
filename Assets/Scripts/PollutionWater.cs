@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PollutionWater : MonoBehaviour
 {
-    public float damage = 10f;
-    public float damageInterval = 0.5f;
     public float waterSpeed = 2f;
     public float zigzagFrequency = 2f;
     public float zigzagWidth = 1f;
@@ -27,38 +25,5 @@ public class PollutionWater : MonoBehaviour
         Vector3 zigzagMove = new Vector3(0f, 0f, zigzagOffset * Time.deltaTime);
 
         transform.position += forwardMove + zigzagMove;
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        EggHealth egg = other.GetComponent<EggHealth>();
-
-        if (egg != null)
-        {
-            StartCoroutine(DamageEgg(egg));
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        EggHealth egg = other.GetComponent<EggHealth>();
-        if (egg != null)
-        {
-            egg.isBeingDamaged = false;   // Stop damaging THIS egg
-        }
-    }
-
-    private IEnumerator DamageEgg(EggHealth egg)
-    {
-        if (egg.isBeingDamaged) yield break;
-
-        egg.isBeingDamaged = true;
-
-        while (egg != null && egg.gameObject.activeSelf && egg.isBeingDamaged)
-        {
-            egg.TakeDamage(damage);
-            yield return new WaitForSeconds(damageInterval);
-        }
-
-        egg.isBeingDamaged = false;
     }
 }

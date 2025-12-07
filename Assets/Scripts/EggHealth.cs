@@ -1,23 +1,33 @@
 using UnityEngine;
-using System;
 using System.Collections;
 
 public class EggHealth : MonoBehaviour
 {
-    public float maxHealth = 100f;
-    private float currentHealth;
-    public bool isBeingDamaged = false;
+    [HideInInspector] public EggManager manager;
 
-    private void Start()
+    public float maxHealth = 100f;
+    public float damage = 10f;
+    public float damageInterval = 0.5f;
+
+    private float currentHealth;
+
+    private bool isBeingDamaged = false;
+    private Coroutine damageRoutine;
+
+    private SpriteRenderer sprite;  // cached
+
+    private void Awake()
     {
+        sprite = GetComponent<SpriteRenderer>();
         currentHealth = maxHealth;
-        this.gameObject.SetActive(true);
     }
 
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
-        StartCoroutine(DamageFlash());
+
+        // Fastest possible flash
+        StartCoroutine(FlashEffect());
 
         if (currentHealth <= 0)
         {
@@ -28,13 +38,48 @@ public class EggHealth : MonoBehaviour
     private void Die()
     {
         isBeingDamaged = false;
-        this.gameObject.SetActive(false);
+
+        if (damageRoutine != null)
+            StopCoroutine(damageRoutine);
+
+        manager.EggDied();
+
+        gameObject.SetActive(false);
     }
-    IEnumerator DamageFlash()
+
+    IEnumerator FlashEffect()
     {
-        Renderer r = GetComponent<Renderer>();
-        r.material.color = Color.red;
+        sprite.color = Color.red;
         yield return new WaitForSeconds(0.1f);
-        r.material.color = Color.white;
+        sprite.color = Color.white;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!isBeingDamaged && other.CompareTag("PollutedWater"))
+        {
+            isBeingDamaged = true;
+            damageRoutine = StartCoroutine(DamageLoop());
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("PollutedWater"))
+        {
+            isBeingDamaged = false;
+
+            if (damageRoutine != null)
+                StopCoroutine(damageRoutine);
+        }
+    }
+
+    private IEnumerator DamageLoop()
+    {
+        while (isBeingDamaged)
+        {
+            TakeDamage(damage);
+            yield return new WaitForSeconds(damageInterval);
+        }
     }
 }

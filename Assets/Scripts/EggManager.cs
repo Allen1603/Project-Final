@@ -1,44 +1,40 @@
 using UnityEngine;
+using TMPro;
 
 public class EggManager : MonoBehaviour
 {
-    //public GameObject eggPrefab;
-    //public int eggCount = 50;
+    private int eggsAlive;
+    public int maxLimit = 50;
+    public TextMeshProUGUI limitText;
 
-    //private int eggsAlive;
+    private void Start()
+    {
+        EggHealth[] eggs = FindObjectsOfType<EggHealth>();
+        eggsAlive = eggs.Length;
 
-    //private void Start()
-    //{
-    //    eggsAlive = eggCount;
-    //    SpawnEggs();
-    //}
+        // assign manager reference to each egg
+        foreach (EggHealth egg in eggs)
+        {
+            egg.manager = this;
+        }
 
-    //void SpawnEggs()
-    //{
-    //    for (int i = 0; i < eggCount; i++)
-    //    {
-    //        // position eggs near each other randomly
-    //        Vector3 pos = transform.position + new Vector3(
-    //            Random.Range(-1f, 1f),
-    //            0,
-    //            Random.Range(-1f, 1f)
-    //        );
+        UpdateLimitText();
+    }
 
-    //        GameObject egg = Instantiate(eggPrefab, pos, Quaternion.identity);
+    public void EggDied()
+    {
+        eggsAlive--;
 
-    //        // Tell egg who the manager is
-    //        egg.GetComponent<EggHealth>().manager = this;
-    //    }
-    //}
+        UpdateLimitText();
 
-    //public void EggDied()
-    //{
-    //    eggsAlive--;
-
-    //    if (eggsAlive <= 0)
-    //    {
-    //        Debug.Log("Player LOST! All eggs died.");
-    //        // trigger game over screen
-    //    }
-    //}
+        if (eggsAlive <= 0)
+        {
+            if (GameOverManager.instance != null)
+                GameOverManager.instance.ShowGameOver();
+        }
+    }
+    private void UpdateLimitText()
+    {
+        limitText.text = eggsAlive + " / " + maxLimit;
+    }
 }
