@@ -14,20 +14,14 @@ public class EggHealth : MonoBehaviour
     private bool isBeingDamaged = false;
     private Coroutine damageRoutine;
 
-    private SpriteRenderer sprite;  // cached
-
     private void Awake()
     {
-        sprite = GetComponent<SpriteRenderer>();
         currentHealth = maxHealth;
     }
 
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
-
-        // Fastest possible flash
-        StartCoroutine(FlashEffect());
 
         if (currentHealth <= 0)
         {
@@ -45,13 +39,6 @@ public class EggHealth : MonoBehaviour
         manager.EggDied();
 
         gameObject.SetActive(false);
-    }
-
-    IEnumerator FlashEffect()
-    {
-        sprite.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        sprite.color = Color.white;
     }
 
     private void OnTriggerStay(Collider other)
