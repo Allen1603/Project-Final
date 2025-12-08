@@ -32,13 +32,10 @@ public class EggHealth : MonoBehaviour
     private void Die()
     {
         isBeingDamaged = false;
-
+        gameObject.SetActive(false);
         if (damageRoutine != null)
             StopCoroutine(damageRoutine);
-
-        manager.EggDied();
-
-        gameObject.SetActive(false);
+        manager.EggDied();     
     }
 
     private void OnTriggerStay(Collider other)

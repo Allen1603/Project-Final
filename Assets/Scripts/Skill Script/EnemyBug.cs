@@ -5,26 +5,24 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
 {
     [Header("Movement Settings")]
     public float speed = 2f;
-    public float dashSpeedMultiplier = 2f;
-    public float dashDuration = 1f;
-    public float dashCooldown = 3f;
     private float baseSpeed;
-
-    private float currentSpeed;               // ← REAL movement speed
+    private float currentSpeed;
+    public float detectionRange = 5f;
 
     [Header("Status")]
     public bool isHooked = false;
-    private bool isDashing = false;
-    private bool canDash = true;
     private bool isSlow = false;
     private bool isStunned = false;
+    private bool isAttacking = false;
+
+    private GameObject frogEgg;
+    private EggHealth targetEgg;
+    public float damage = 20f;
+    public Animator anim;
 
     private void OnEnable()
     {
-        // Reset states when pulled from pool
         isHooked = false;
-        isDashing = false;
-        canDash = true;
         isSlow = false;
         isStunned = false;
 
@@ -32,48 +30,126 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
         currentSpeed = baseSpeed;
     }
 
+    void Start()
+    {
+        frogEgg = GameObject.FindGameObjectWithTag("FrogEgg");
+    }
+
     private void Update()
     {
-        if (isHooked || isStunned) return;
+        if (isHooked || isStunned || isAttacking) return;
 
-        // Move left
+        FindClosestEgg();
+
+        if (frogEgg != null)
+        {
+            float dist = Vector3.Distance(transform.position, frogEgg.transform.position);
+
+            if (dist <= detectionRange)
+            {
+                // Chase egg
+                ChaseEgg();
+                return;
+            }
+        }
         transform.position += Vector3.left * currentSpeed * Time.deltaTime;
-
-        // Dash logic
-        if (!isDashing && canDash)
-            StartCoroutine(DashRoutine());
     }
-
-    // -------------------- DASH -------------------- //
-    private IEnumerator DashRoutine()
+    // -------------------- COLLISIONS -------------------- //
+    private void OnTriggerEnter(Collider other)
     {
-        canDash = false;
-        isDashing = true;
+        if (other.CompareTag("Hook"))
+            isHooked = true;
 
-        // Always dash fast (ignores slow)
-        currentSpeed = baseSpeed * dashSpeedMultiplier;
+        if (other.CompareTag("Base"))
+            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("FrogEgg"))
+        {
+            if (!isAttacking)
+            {
+                isAttacking = true;
+                anim.SetTrigger("GiantAttack");
+                targetEgg = collision.gameObject.GetComponent<EggHealth>();     
+            }
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("FrogEgg"))
+        {
+            isAttacking = false;
+            targetEgg = null;
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerController.instance.TakeBar(10f);
+            PlayerController.instance.TakeExp(10f);
+            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
+        }
+    }
+    // -------------------- FIND CLOSEST EGG --------------------
+    void FindClosestEgg()
+    {
+        GameObject[] eggs = GameObject.FindGameObjectsWithTag("FrogEgg");
+        if (eggs.Length == 0) return;
 
-        yield return new WaitForSeconds(dashDuration);
+        GameObject closest = null;
+        float minDist = Mathf.Infinity;
 
-        isDashing = false;
+        foreach (GameObject egg in eggs)
+        {
+            float dist = Vector3.Distance(transform.position, egg.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closest = egg;
+            }
+        }
 
-        // Return to correct speed
-        currentSpeed = isSlow ? baseSpeed * 0.5f : baseSpeed;
-
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
+        frogEgg = closest;
     }
 
+    // -------------------- CHASE + ROTATE --------------------
+    void ChaseEgg()
+    {
+        if (frogEgg == null) return;
+
+        Vector3 direction = frogEgg.transform.position - transform.position;
+        direction.y = 0f;
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRot,
+                6f * Time.deltaTime // smooth turning
+            );
+        }
+
+        transform.position += transform.forward * currentSpeed * Time.deltaTime;
+    }
+    public void GiantBugDamage()
+    {
+        if (targetEgg != null)
+            targetEgg.TakeDamage(damage);
+    }
+    public void EndAttack()
+    {
+        isAttacking = false;
+    }
     // -------------------- SLOW -------------------- //
-    public void SlowEffect(float newSpeed, float duration)
+    public void SlowEffect(float slowSpeed, float duration)
     {
         if (isSlow) return;
 
         isSlow = true;
-
-        // If dashing, do NOT slow down  
-        if (!isDashing)
-            currentSpeed = newSpeed;
+        currentSpeed = slowSpeed;
 
         StartCoroutine(ResetSlow(duration));
     }
@@ -81,11 +157,8 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
     private IEnumerator ResetSlow(float duration)
     {
         yield return new WaitForSeconds(duration);
-
         isSlow = false;
-
-        if (!isDashing)
-            currentSpeed = baseSpeed;
+        currentSpeed = baseSpeed;
     }
 
     // -------------------- STUN -------------------- //
@@ -97,8 +170,6 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
     private IEnumerator StunCoroutine(float duration)
     {
         isStunned = true;
-        isDashing = false;
-        canDash = false;
 
         float oldSpeed = currentSpeed;
         currentSpeed = 0;
@@ -106,27 +177,7 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
         yield return new WaitForSeconds(duration);
 
         isStunned = false;
-        canDash = true;
 
         currentSpeed = isSlow ? baseSpeed * 0.5f : baseSpeed;
-    }
-
-    // -------------------- COLLISIONS -------------------- //
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Hook"))
-            isHooked = true;
-
-        if (other.CompareTag("Player"))
-        {
-            PlayerController.instance.TakeBar(10f);
-            PlayerController.instance.TakeExp(10f);
-            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
-        }
-
-        if (other.CompareTag("Base"))
-        {
-            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
-        }
     }
 }

@@ -8,7 +8,7 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
     public float speed = 2f;
 
     [Header("Settings")]
-    public float damage = 10;
+    public float damage = 10f;
 
     [Header("Status")]
     public bool isHooked = false;
@@ -73,20 +73,34 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
         {
             isHooked = true;
         }
-        if (other.CompareTag("Player"))
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
         {
             PlayerController.instance.TakeBar(10f);
             PlayerController.instance.TakeExp(10f);
             EnemyPool.Instance.ReturnToPool("Enemy4", gameObject);
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("FrogEgg"))
         {
-            isAttacking = true;
-            anim.SetTrigger("NymphsAttack");
-            targetEgg = collision.gameObject.GetComponent<EggHealth>();
+            if (!isAttacking)
+            {
+                isAttacking = true;
+                anim.SetTrigger("NymphsAttack");
+                targetEgg = collision.gameObject.GetComponent<EggHealth>();
+            }
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("FrogEgg"))
+        {
+            isAttacking = false;
+            targetEgg = null;
         }
     }
 
@@ -96,9 +110,9 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
             targetEgg.TakeDamage(damage);
     }
     public void EndAttack()
-{
-    isAttacking = false;
-}
+    {
+        isAttacking = false;
+    }
 
     // -------------------- SLOW --------------------//
     public void SlowEffect(float slowMultiplier, float slowDuration)

@@ -22,6 +22,9 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
     public bool isHooked = false;
 
     public Animator anim;
+    public Transform[] rondaPos;
+    private Transform targetPoint;
+    public float rotateSpeed = 5f;
 
     void OnEnable()
     {
@@ -32,25 +35,54 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
     {
         currentTimer = layingEggTimer;
         currentSpeed = speed;
+
+        PickNewRondaPoint();
     }
 
     void Update()
     {
         if (isHooked || isStunned || isLayingEgg) return;
 
-        // ---- ALWAYS MOVE LEFT ---- //
-        Vector3 forwardMove = Vector3.left * currentSpeed * Time.deltaTime;
+        Vector3 direction = (targetPoint.position - transform.position).normalized;
+        direction.y = 0f; // prevent tilting up/down
 
-        // ---- ZIGZAG ---- //
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                rotateSpeed * Time.deltaTime
+            );
+        }
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            targetPoint.position,
+            speed * Time.deltaTime
+        );
+
+        if (Vector3.Distance(transform.position, targetPoint.position) < 0.2f)
+        {
+            PickNewRondaPoint();
+        }
+
+        // -------------------------------------
+        // 4. ZIGZAG MOVEMENT (OPTIONAL)
+        // -------------------------------------
         zigzagTimer += Time.deltaTime * zigzagFrequency;
         float zigzagOffset = Mathf.Sin(zigzagTimer * Mathf.PI * 2) * zigzagWidth;
 
-        Vector3 zigzagMove = new Vector3(0f, 0f, zigzagOffset * Time.deltaTime);
-
-        transform.position += forwardMove + zigzagMove;
+        transform.position += new Vector3(0f, 0f, zigzagOffset * Time.deltaTime);
 
         LayingEgg();
     }
+
+    void PickNewRondaPoint()
+    {
+        targetPoint = rondaPos[Random.Range(0, rondaPos.Length)];
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -58,14 +90,18 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
         {
             isHooked = true;
         }
-        if (other.CompareTag("Player"))
+        
+        if (other.CompareTag("Base"))
+        {
+            EnemyPool.Instance.ReturnToPool("Enemy2", gameObject);
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
         {
             PlayerController.instance.TakeBar(10f);
             PlayerController.instance.TakeExp(10f);
-            EnemyPool.Instance.ReturnToPool("Enemy2", gameObject);
-        }
-        if (other.CompareTag("Base"))
-        {
             EnemyPool.Instance.ReturnToPool("Enemy2", gameObject);
         }
     }

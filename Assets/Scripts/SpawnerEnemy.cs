@@ -118,11 +118,11 @@ public class SpawnerEnemy : MonoBehaviour
 
         if (currentWave >= 2)
             enemyTag = enemyTags[1];
-        if (currentWave >= 3) enemyTag = enemyTags[2];
-        if (currentWave >= 4) enemyTag = enemyTags[3];
+        if (currentWave >= 3) 
+            enemyTag = enemyTags[2];
 
         // Wave 5+ → random enemy
-        if (currentWave >= 5)
+        if (currentWave >= 4)
             enemyTag = enemyTags[Random.Range(0, enemyTags.Length)];
         
 

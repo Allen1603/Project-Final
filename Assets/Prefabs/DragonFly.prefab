@@ -1327,7 +1327,7 @@ Transform:
   m_GameObject: {fileID: 3503247467511459721}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 2.498, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 407301245737350257}
   - {fileID: 7788802951089507712}
@@ -1408,14 +1408,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69dfae514ed1af640aa411f831331f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 1.5
   zigzagFrequency: 1
   zigzagWidth: 1
-  layingEggTimer: 5
+  layingEggTimer: 10
   flyEggPrefab: {fileID: 2526138904686506059, guid: d940887b14242db40901649302ff5dac, type: 3}
   eggPosition: {fileID: 6680039342868290641}
   isHooked: 0
   anim: {fileID: 4350302226202373417}
+  rondaPos:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rotateSpeed: 3
 --- !u!1 &3512338881024603671
 GameObject:
   m_ObjectHideFlags: 0
