@@ -88,8 +88,8 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerController.instance.TakeBar(10f);
-            PlayerController.instance.TakeExp(10f);
+            PlayerController.instance.TakeBar(20f);
+            PlayerController.instance.TakeExp(20f);
             EnemyPool.Instance.ReturnToPool("Enemy1", gameObject);
         }
     }

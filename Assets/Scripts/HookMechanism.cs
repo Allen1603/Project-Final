@@ -44,34 +44,17 @@ public class HookMechanism : MonoBehaviour
         if (hookCollider != null)
             hookCollider.enabled = true; // enable collider when hook starts
     }
-
-    public void SetTarget(Transform tongue,Transform enemyTarget)
+    private void Update()
     {
-        tongueHook = tongue;
+        if (tongueHook == null) return;
 
-        startPoint = tongueHook.position;
+        if (IsMovingForward)
+            MoveForward();
+        else if (IsReturning)
+            MoveBack();
 
-        if (enemyTarget != null)
-        {
-            // 🔥 Aim the hook DIRECTLY at the enemy
-            targetPoint = enemyTarget.position;
-        }
-        else
-        {
-            // fallback
-            targetPoint = startPoint + tongueHook.forward * hookRange;
-        }
-
-        hookProgress = 0f;
-        transform.position = startPoint;
-
-        if (lineRenderer != null)
-        {
-            lineRenderer.SetPosition(0, startPoint);
-            lineRenderer.SetPosition(1, startPoint);
-        }
+        UpdateLine();
     }
-
     public void SetUpHook(Transform tongue)
     {
         tongueHook = tongue;
@@ -89,17 +72,6 @@ public class HookMechanism : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (tongueHook == null) return;
-
-        if (IsMovingForward)
-            MoveForward();
-        else if (IsReturning)
-            MoveBack();
-
-        UpdateLine();
-    }
 
     private void MoveForward()
     {

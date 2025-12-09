@@ -1378,8 +1378,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5259546, y: 0.3734238, z: 1.3451015}
-  m_Center: {x: 0.033283032, y: -0.048018813, z: -0.35679114}
+  m_Size: {x: 0.5259546, y: 0.57063013, z: 1.3451015}
+  m_Center: {x: 0.033283025, y: 0.0011612475, z: -0.35679114}
 --- !u!54 &1101606221920031430
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1411,7 +1411,7 @@ MonoBehaviour:
   speed: 2.5
   zigzagFrequency: 1.5
   zigzagWidth: 1.5
-  layingEggTimer: 10
+  layingEggTimer: 15
   flyEggPrefab: {fileID: 2526138904686506059, guid: d940887b14242db40901649302ff5dac, type: 3}
   eggPosition: {fileID: 6680039342868290641}
   isHooked: 0
