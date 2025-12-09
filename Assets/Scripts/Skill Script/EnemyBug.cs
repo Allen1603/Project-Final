@@ -53,6 +53,7 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
             }
         }
         transform.position += Vector3.left * currentSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.Euler(0f, -90f, 0f);
     }
     // -------------------- COLLISIONS -------------------- //
     private void OnTriggerEnter(Collider other)

@@ -1408,19 +1408,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69dfae514ed1af640aa411f831331f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.5
-  zigzagFrequency: 1
-  zigzagWidth: 1
+  speed: 2.5
+  zigzagFrequency: 1.5
+  zigzagWidth: 1.5
   layingEggTimer: 10
   flyEggPrefab: {fileID: 2526138904686506059, guid: d940887b14242db40901649302ff5dac, type: 3}
   eggPosition: {fileID: 6680039342868290641}
   isHooked: 0
   anim: {fileID: 4350302226202373417}
   rondaPos:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7578467824985158433, guid: cb8781c5117623b408555133c04f702e, type: 3}
+  - {fileID: 1533324673043926251, guid: 6d6e0aa7122430a419e8b8d7440dd5de, type: 3}
+  - {fileID: 1458945781233543830, guid: 404580cdc62f2954298fd3c929c84915, type: 3}
+  - {fileID: 7850685617063792446, guid: 7d6b21379cc868b458837ef31657156a, type: 3}
   rotateSpeed: 3
 --- !u!1 &3512338881024603671
 GameObject:

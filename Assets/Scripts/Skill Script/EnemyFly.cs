@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
 {
     [Header("Movement")]
-    private float currentSpeed;
     public float speed = 2f;
     public float zigzagFrequency = 3f;
     public float zigzagWidth = 1f;
@@ -30,11 +29,8 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
     {
         isHooked = false;
         zigzagTimer = 0f;
-    }
-    private void Start()
-    {
+
         currentTimer = layingEggTimer;
-        currentSpeed = speed;
 
         PickNewRondaPoint();
     }
@@ -57,19 +53,16 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
         }
 
         transform.position = Vector3.MoveTowards(
-            transform.position,
-            targetPoint.position,
-            speed * Time.deltaTime
-        );
+           transform.position,
+           targetPoint.position,
+           speed * Time.deltaTime
+       );
 
         if (Vector3.Distance(transform.position, targetPoint.position) < 0.2f)
         {
             PickNewRondaPoint();
         }
 
-        // -------------------------------------
-        // 4. ZIGZAG MOVEMENT (OPTIONAL)
-        // -------------------------------------
         zigzagTimer += Time.deltaTime * zigzagFrequency;
         float zigzagOffset = Mathf.Sin(zigzagTimer * Mathf.PI * 2) * zigzagWidth;
 

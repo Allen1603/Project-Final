@@ -7,8 +7,11 @@ public class PollutionWater : MonoBehaviour
     public float zigzagFrequency = 2f;
     public float zigzagWidth = 1f;
     private float zigzagTimer;
- 
 
+    private void Start()
+    {
+        transform.position = new Vector3(14f, 0f, 5.4f);
+    }
     private void Update()
     {
         MovePollution();
