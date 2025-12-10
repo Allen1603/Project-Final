@@ -19,7 +19,7 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
     private EggHealth targetEgg;
     public float damage = 20f;
     public Animator anim;
-
+    private Collider hookCollider;
     private void OnEnable()
     {
         isHooked = false;
@@ -33,6 +33,7 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
     void Start()
     {
         frogEgg = GameObject.FindGameObjectWithTag("FrogEgg");
+        hookCollider = GetComponent<Collider>();
     }
 
     private void Update()
@@ -59,10 +60,15 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hook"))
-            isHooked = true;
-
-        if (other.CompareTag("Base"))
-            EnemyPool.Instance.ReturnToPool("Enemy1", gameObject);
+        {
+            DisapperWait();
+            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
+        }
+    }
+    IEnumerator DisapperWait()
+    {
+        yield return new WaitForSeconds(1f);
+        isHooked = true;
     }
     private void OnCollisionStay(Collision collision)
     {
@@ -82,15 +88,6 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
         {
             isAttacking = false;
             targetEgg = null;
-        }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerController.instance.TakeBar(20f);
-            PlayerController.instance.TakeExp(20f);
-            EnemyPool.Instance.ReturnToPool("Enemy1", gameObject);
         }
     }
     // -------------------- FIND CLOSEST EGG --------------------

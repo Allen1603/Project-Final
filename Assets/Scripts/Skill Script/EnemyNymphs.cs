@@ -66,22 +66,18 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
 
         frogEgg = closest;
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hook"))
         {
-            isHooked = true;
+            DisapperWait();
+            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    IEnumerator DisapperWait()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerController.instance.TakeBar(20f);
-            PlayerController.instance.TakeExp(20f);
-            EnemyPool.Instance.ReturnToPool("Enemy4", gameObject);
-        }
+        yield return new WaitForSeconds(1f);
+        isHooked = true;
     }
     private void OnCollisionStay(Collision collision)
     {

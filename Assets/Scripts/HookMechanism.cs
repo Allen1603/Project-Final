@@ -130,7 +130,8 @@ public class HookMechanism : MonoBehaviour
             other.CompareTag("Enemy3") || other.CompareTag("Enemy4"))
         {
             CatchEnemy(other.gameObject);
-            PlayerController.instance?.TakeBar(10);
+            PlayerController.instance.TakeBar(20f);
+            PlayerController.instance.TakeExp(20f);
         }
     }
 
@@ -146,16 +147,17 @@ public class HookMechanism : MonoBehaviour
             hookCollider.enabled = false;
 
         // Mark enemy as hooked
-        var bee = enemyObject.GetComponent<EnemyBee>();
-        if (bee != null) bee.isHooked = true;
+        var waterBug = enemyObject.GetComponent<EnemyWaterbug>();
+        if (waterBug != null) waterBug.isHooked = true;
 
         var fly = enemyObject.GetComponent<EnemyFly>();
         if (fly != null) fly.isHooked = true;
 
         var bug = enemyObject.GetComponent<EnemyBug>();
         if (bug != null) bug.isHooked = true;
+        
+        var nymphs = enemyObject.GetComponent<EnemyNymphs>();
+        if (nymphs != null) nymphs.isHooked = true;
 
-        var hopper = enemyObject.GetComponent<EnemyHopper>();
-        if (hopper != null) hopper.isHooked = true;
     }
 }

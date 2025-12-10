@@ -76,27 +76,18 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
         targetPoint = rondaPos[Random.Range(0, rondaPos.Length)];
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hook"))
         {
-            isHooked = true;
-        }
-        
-        if (other.CompareTag("Base"))
-        {
-            EnemyPool.Instance.ReturnToPool("Enemy2", gameObject);
+            DisapperWait();
+            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);      
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    IEnumerator DisapperWait()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerController.instance.TakeBar(20f);
-            PlayerController.instance.TakeExp(20f);
-            EnemyPool.Instance.ReturnToPool("Enemy2", gameObject);
-        }
+        yield return new WaitForSeconds(1f);
+        isHooked = true;
     }
 
     void LayingEgg()

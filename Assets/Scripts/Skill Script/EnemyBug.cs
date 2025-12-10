@@ -59,10 +59,15 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hook"))
-            isHooked = true;
-
-        if (other.CompareTag("Base"))
+        {
+            DisapperWait();
             EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
+        }
+    }
+    IEnumerator DisapperWait()
+    {
+        yield return new WaitForSeconds(1f);
+        isHooked = true;
     }
     private void OnCollisionStay(Collision collision)
     {
@@ -82,15 +87,6 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
         {
             isAttacking = false;
             targetEgg = null;
-        }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerController.instance.TakeBar(10f);
-            PlayerController.instance.TakeExp(10f);
-            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
         }
     }
     // -------------------- FIND CLOSEST EGG --------------------
