@@ -71,7 +71,7 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
         if (other.CompareTag("Hook"))
         {
             DisapperWait();
-            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
+            EnemyPool.Instance.ReturnToPool("Enemy4", gameObject);
         }
     }
     IEnumerator DisapperWait()

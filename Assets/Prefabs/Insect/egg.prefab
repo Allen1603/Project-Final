@@ -109,5 +109,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f244545416dae534187ff74ff4936ad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eggHatchingInterval: 2
+  eggHatchingInterval: 5
   nymphsPrefab: {fileID: 1090341219965707473, guid: c07fb450f06f3f74e8e1f479c1e16703, type: 3}

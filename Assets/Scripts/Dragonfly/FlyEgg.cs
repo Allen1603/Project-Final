@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlyEgg : MonoBehaviour
 {
-    public float eggHatchingInterval = 2f;
+    private float eggHatchingInterval;
     public GameObject nymphsPrefab;
     void Update()
     {
@@ -13,6 +13,7 @@ public class FlyEgg : MonoBehaviour
 
     IEnumerator EggHatching()
     {
+        eggHatchingInterval = Random.Range(5,10);
         yield return new WaitForSeconds(eggHatchingInterval);
         EnemyPool.Instance.SpawnFromPool("Enemy4", transform.position, Quaternion.identity);
         EnemyPool.Instance.ReturnToPool("Egg", gameObject);

@@ -131,7 +131,7 @@ public class HookMechanism : MonoBehaviour
         {
             CatchEnemy(other.gameObject);
             PlayerController.instance.TakeBar(20f);
-            PlayerController.instance.TakeExp(20f);
+            PlayerController.instance.TakeExp(15f);
         }
     }
 
