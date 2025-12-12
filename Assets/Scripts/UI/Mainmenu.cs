@@ -61,7 +61,7 @@ public class Mainmenu : MonoBehaviour
 
     public void Exit()
     {
-        SceneManager.LoadSceneAsync(0);
+        SceneManager.LoadSceneAsync(1);
         Time.timeScale = 1f;
     }
 

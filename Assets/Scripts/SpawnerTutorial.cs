@@ -19,8 +19,10 @@ public class SpawnerTutorial : MonoBehaviour
 
     private int currentWave = 1;
     private int enemiesSpawnedThisWave;
+    private int enemyHooked = 5;
 
     public GameObject exitPanel;
+    public GameObject indicatorToHook;
 
     private void Start()
     {
@@ -30,12 +32,15 @@ public class SpawnerTutorial : MonoBehaviour
     private IEnumerator InitializeSpawner()
     {
         yield return null;
+        indicatorToHook.SetActive(true);
+        yield return new WaitForSeconds(4f);
         StartWave();
     }
 
     private void StartWave()
     {
         enemiesSpawnedThisWave = 0;
+        indicatorToHook.SetActive(false);
         StartCoroutine(SpawnWave());
     }
 
@@ -49,12 +54,6 @@ public class SpawnerTutorial : MonoBehaviour
         }
 
         currentWave++;
-
-        // 🔥 Show exit panel at wave 4
-        if (currentWave == 6)
-        {
-            exitPanel.SetActive(true);
-        }
 
         // decrease interval safely
         spawnInterval = Mathf.Clamp(spawnInterval - spawnDecrement, minInterval, 999f);
@@ -79,5 +78,17 @@ public class SpawnerTutorial : MonoBehaviour
     public void StartWaveSpawn()
     {
         StartCoroutine(InitializeSpawner());
+    }
+
+    public void OnEnemyHooked()
+    {
+        enemyHooked--;
+
+        Debug.Log("Hooked Enemy! Remaining: " + enemyHooked);
+
+        if (enemyHooked <= 0)
+        {
+            exitPanel.SetActive(true);
+        }
     }
 }

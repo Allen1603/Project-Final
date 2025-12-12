@@ -46,8 +46,11 @@ public class SkillManager : MonoBehaviour
     {
         player = PlayerController.instance;
         UpdateSkillButtons(0, player.MaxBar);
-
-        shockWave.SetActive(false);
+        if (shockWave != null)
+        {
+            shockWave.SetActive(false);
+        }
+        
     }
 
     #region Stun Skill

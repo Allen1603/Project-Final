@@ -5,90 +5,15 @@ ModelImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: a402866afa66bee41a9e17bbbda519b5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert2
-    second: {fileID: 2100000, guid: d7d8f545e018c0549b4b056c4cd270e7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert3
-    second: {fileID: 2100000, guid: b8d9ee7ffeda0804b8d66e9900a6a79e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert32
-    second: {fileID: 2100000, guid: 6c895366975556548a459ea61594aaae, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert34
-    second: {fileID: 2100000, guid: 1561678e7c3904b4b8b5a37ac2ed9752, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert35
-    second: {fileID: 2100000, guid: 8085b9cf7c133c749ab7aaee3269bb69, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert36
-    second: {fileID: 2100000, guid: bfe933aea9914274687a20374cbd4ebe, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert37
-    second: {fileID: 2100000, guid: 14067d2e9bcd03c409cc9f768d066c37, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert38
-    second: {fileID: 2100000, guid: 84fc289d7be21dd45963bc79b6ca89f2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert39
-    second: {fileID: 2100000, guid: 2012ab45a1efc1c489f765fcc5c26804, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert40
-    second: {fileID: 2100000, guid: f27beffc97c73804aa6a15557bdea1ea, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert5
-    second: {fileID: 2100000, guid: eec5c6e9f12ae544c877d8332a6d152d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert6
-    second: {fileID: 2100000, guid: caf22bad932c6df4b9da6b501e40410a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert8
-    second: {fileID: 2100000, guid: 47b975b93868375448f6b82dc6f4b595, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pasted__pasted__lambert4
-    second: {fileID: 2100000, guid: 07a3ee3fb4addf3448b22e9b82a1171d, type: 2}
-  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: lambert1_Base_Color
-    second: {fileID: 2800000, guid: 0b1799fb0b5d5be4eb030faa544c74d0, type: 3}
+    second: {fileID: 2800000, guid: 03ca2a59790174f478929cbda858af45, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: standardSurface1_Base_Color
-    second: {fileID: 2800000, guid: e615f26de2d4ba443a076e683abbc8db, type: 3}
+    second: {fileID: 2800000, guid: e65d2929698efbb4b97e478827bcd46f, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -119,8 +44,8 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 67
-    meshCompression: 1
+    globalScale: 80
+    meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
@@ -170,7 +95,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 67
+    globalScale: 0.79999995
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
