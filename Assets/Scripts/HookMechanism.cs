@@ -132,7 +132,12 @@ public class HookMechanism : MonoBehaviour
             CatchEnemy(other.gameObject);
             PlayerController.instance.TakeBar(20f);
             PlayerController.instance.TakeExp(15f);
-            FindObjectOfType<SpawnerTutorial>().OnEnemyHooked();
+
+            if (FindObjectOfType<SpawnerTutorial>() != null)
+            {
+                FindObjectOfType<SpawnerTutorial>().OnEnemyHooked();
+            }
+            
         }
     }
 

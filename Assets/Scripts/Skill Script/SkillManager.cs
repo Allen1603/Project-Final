@@ -16,12 +16,14 @@ public class SkillManager : MonoBehaviour
     public float currentStunValue = 0f;
     public float maxStunValue = 5f;
     public GameObject shockWave;
+    public GameObject stunedTXT;
 
     [Header("Slow Skill")]
     public float baseSlowDuration = 1f;
     public float newSlowSpeed = 0.5f;
     public float currentSlowValue = 0f;
     public float maxSlowValue = 5f;
+    public GameObject slowedTXT;
 
     [Header("Heal Skill")]
     public int baseHealAmount = 10;
@@ -46,8 +48,10 @@ public class SkillManager : MonoBehaviour
     {
         player = PlayerController.instance;
         UpdateSkillButtons(0, player.MaxBar);
-        if (shockWave != null)
+        if (shockWave != null || stunedTXT != null || slowedTXT != null)
         {
+            slowedTXT.SetActive(false); slowedTXT.SetActive(false);
+            stunedTXT.SetActive(false);
             shockWave.SetActive(false);
         }
         
@@ -64,6 +68,7 @@ public class SkillManager : MonoBehaviour
     {
         Shockwave();
         StartCoroutine(StunAllEnemies());
+        StartCoroutine(StunedText());
         ResetBar();
     }
 
@@ -72,6 +77,12 @@ public class SkillManager : MonoBehaviour
         shockWave.transform.position = player.transform.position;
         shockWave.SetActive(true);
         StartCoroutine(HideShockwave());
+    }
+    private IEnumerator StunedText()
+    {
+        stunedTXT.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        stunedTXT.SetActive(false);
     }
 
     IEnumerator HideShockwave()
@@ -105,6 +116,7 @@ public class SkillManager : MonoBehaviour
     public void ActivateSlowField()
     {
         StartCoroutine(SlowAllEnemies());
+        StartCoroutine(SlowedText());
         ResetBar();
     }
 
@@ -120,6 +132,12 @@ public class SkillManager : MonoBehaviour
             enemy.SlowEffect(newSlowSpeed, duration);
 
         yield return null;
+    }
+    private IEnumerator SlowedText()
+    {
+        slowedTXT.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        slowedTXT.SetActive(false);
     }
     #endregion
 
