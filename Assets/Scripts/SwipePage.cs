@@ -77,23 +77,27 @@ public class SwipePage : MonoBehaviour
         LeanTween.move(cameraMovement.gameObject, camPos, tweenTime).setEase(tweenType);
     }
 
-    // Button click functions with fade
-    public void CharacterOne() { StartCoroutine(LoadSceneWithFade(1)); }
-    public void CharacterTwo() { StartCoroutine(LoadSceneWithFade(2)); }
-    public void CharacterThree() { StartCoroutine(LoadSceneWithFade(3)); }
+    // ---------- CHARACTER PICK ----------
+    public void CharacterOne() => PickCharacter(1);
+    public void CharacterTwo() => PickCharacter(2);
+    public void CharacterThree() => PickCharacter(3);
 
-    private IEnumerator LoadSceneWithFade(int characterIndex)
+    void PickCharacter(int index)
     {
-        PlayerPrefs.SetInt("SelectedCharacter", characterIndex);
+        PlayerPrefs.SetInt("SelectedCharacter", index);
+        StartCoroutine(LoadSelectedPond());
+    }
 
+    IEnumerator LoadSelectedPond()
+    {
         if (fadeImage != null)
         {
-            // Fade to black
-            LeanTween.alpha(fadeImage.rectTransform, 1f, fadeDuration).setEase(LeanTweenType.easeInOutQuad);
+            LeanTween.alpha(fadeImage.rectTransform, 1f, fadeDuration);
             yield return new WaitForSeconds(fadeDuration);
         }
 
-        // Load scene after fade
-        SceneManager.LoadScene("Map2");
+        int pond = PlayerPrefs.GetInt("SelectedPond", 1);
+
+        SceneManager.LoadScene(pond == 1 ? "Map1" : "Map2");
     }
 }

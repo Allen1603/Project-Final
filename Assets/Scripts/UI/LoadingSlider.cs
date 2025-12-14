@@ -28,7 +28,7 @@ public class LoadingSlider : MonoBehaviour
 
     IEnumerator LoadSceneSlow()
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync("PickingCharacter");
+        AsyncOperation operation = SceneManager.LoadSceneAsync("MapPicking");
         AudioManager.Instance.PlayBGM("BGM");
         operation.allowSceneActivation = false;
 
