@@ -3,35 +3,60 @@ using System.Collections;
 
 public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
 {
-    [Header("Movement Settings")]
+    public enum TargetType
+    {
+        Player,
+        Egg
+    }
+    [Header("Movement")]
     public float speed = 2f;
-    private float baseSpeed;
-    private float currentSpeed;
     public float detectionRange = 5f;
+
+    [Header("Combat")]
+    public float damage = 20f;
+    public Animator anim;
+
+    [Header("Targeting")]
+    public TargetType currentTarget;
+    [Range(0f, 1f)]
+    public float chanceToTargetEgg = 0.5f;
 
     [Header("Status")]
     public bool isHooked = false;
-    private bool isSlow = false;
-    private bool isStunned = false;
-    private bool isAttacking = false;
 
+    private float baseSpeed;
+    private float currentSpeed;
+
+    private bool isSlow;
+    private bool isStunned;
+    private bool isAttacking;
+
+    private GameObject player;
     private GameObject frogEgg;
     private EggHealth targetEgg;
-    public float damage = 20f;
-    public Animator anim;
+
 
     private void OnEnable()
     {
         isHooked = false;
         isSlow = false;
         isStunned = false;
+        isAttacking = false;
 
         baseSpeed = speed;
         currentSpeed = baseSpeed;
+
+        
+        FindClosestEgg();
+
+        ChooseRandomTarget();
     }
+
+
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         frogEgg = GameObject.FindGameObjectWithTag("FrogEgg");
     }
 
@@ -39,51 +64,97 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
     {
         if (isHooked || isStunned || isAttacking) return;
 
+        switch (currentTarget)
+        {
+            case TargetType.Egg:
+                HandleEggTarget();
+                break;
+
+            case TargetType.Player:
+                HandlePlayerTarget();
+                break;
+        }
+    }
+    void ChooseRandomTarget()
+    {
+        if (Random.value <= chanceToTargetEgg)
+            currentTarget = TargetType.Egg;
+        else
+            currentTarget = TargetType.Player;
+    }
+    void HandleEggTarget()
+    {
         FindClosestEgg();
 
-        if (frogEgg != null)
+        if (frogEgg == null)
         {
-            float dist = Vector3.Distance(transform.position, frogEgg.transform.position);
-
-            if (dist <= detectionRange)
-            {
-                // Chase egg
-                ChaseEgg();
-                return;
-            }
+            DefaultMove();
+            return;
         }
+
+        float dist = Vector3.Distance(transform.position, frogEgg.transform.position);
+
+        if (dist <= detectionRange)
+        {
+            ChaseEgg();
+        }
+        else
+        {
+            DefaultMove();
+        }
+    }
+    void HandlePlayerTarget()
+    {
+        if (player == null)
+        {
+            DefaultMove();
+            return;
+        }
+
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        direction.y = 0f;
+
+        if (direction != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(direction);
+
+        transform.position += transform.forward * currentSpeed * 1.2f * Time.deltaTime;
+    }
+    void DefaultMove()
+    {
         transform.position += Vector3.left * currentSpeed * Time.deltaTime;
         transform.rotation = Quaternion.Euler(0f, -90f, 0f);
     }
+
+
     // -------------------- COLLISIONS -------------------- //
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hook"))
         {
-            DisapperWait();
+            isHooked = true;
             EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
         }
     }
-    IEnumerator DisapperWait()
-    {
-        yield return new WaitForSeconds(1f);
-        isHooked = true;
-    }
     private void OnCollisionStay(Collision collision)
     {
+        if (isAttacking) return;
+
         if (collision.gameObject.CompareTag("FrogEgg"))
         {
-            if (!isAttacking)
-            {
-                isAttacking = true;
-                anim.SetTrigger("GiantAttack");
-                targetEgg = collision.gameObject.GetComponent<EggHealth>();     
-            }
+            isAttacking = true;
+            anim.SetTrigger("GiantAttack");
+            targetEgg = collision.gameObject.GetComponent<EggHealth>();
+        }
+        else if (collision.gameObject.CompareTag("Player"))
+        {
+            isAttacking = true;
+            anim.SetTrigger("GiantAttack");
+            PlayerController.instance.TakeDamage(10f);
         }
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("FrogEgg"))
+        if (collision.gameObject.CompareTag("FrogEgg") || collision.gameObject.CompareTag("Player"))
         {
             isAttacking = false;
             targetEgg = null;
@@ -129,7 +200,7 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
             );
         }
 
-        transform.position += transform.forward * currentSpeed * Time.deltaTime;
+        transform.position += direction * currentSpeed * Time.deltaTime;
     }
     public void GiantBugDamage()
     {

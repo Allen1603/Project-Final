@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
     currentBar = Mathf.Clamp(currentBar, 0, MaxBar);
     UpdateUIBar();
 
-    // 🔥 Notify SkillManager to enable/disable skill button
+    // Notify SkillManager to enable/disable skill button
     if (SkillManager.instance != null)
         SkillManager.instance.UpdateSkillButtons(currentBar, MaxBar);
 }

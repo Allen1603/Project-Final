@@ -3,91 +3,183 @@ using System.Collections;
 
 public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
 {
-    [Header("Movement Settings")]
+    // =========================
+    // ENUMS
+    // =========================
+    public enum TargetType
+    {
+        Player,
+        Egg
+    }
+
+    // =========================
+    // INSPECTOR FIELDS
+    // =========================
+    [Header("Movement")]
     public float speed = 2f;
-    private float baseSpeed;
-    private float currentSpeed;
     public float detectionRange = 5f;
+
+    [Header("Combat")]
+    public float damage = 20f;
+    public Animator anim;
+
+    [Header("Targeting")]
+    public TargetType currentTarget;
+    [Range(0f, 1f)]
+    public float chanceToTargetEgg = 0.5f;
 
     [Header("Status")]
     public bool isHooked = false;
-    private bool isSlow = false;
-    private bool isStunned = false;
-    private bool isAttacking = false;
 
+    // =========================
+    // PRIVATE STATE
+    // =========================
+    private float baseSpeed;
+    private float currentSpeed;
+
+    private bool isSlow;
+    private bool isStunned;
+    private bool isAttacking;
+
+    private GameObject player;
     private GameObject frogEgg;
     private EggHealth targetEgg;
-    public float damage = 20f;
-    public Animator anim;
-    private Collider hookCollider;
+
+
+
     private void OnEnable()
     {
         isHooked = false;
         isSlow = false;
         isStunned = false;
+        isAttacking = false;
 
         baseSpeed = speed;
         currentSpeed = baseSpeed;
+
+        // Find player and egg
+        player = GameObject.FindGameObjectWithTag("Player");
+        FindClosestEgg();
+
+        // Choose random target
+        ChooseRandomTarget();
+       
     }
+
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         frogEgg = GameObject.FindGameObjectWithTag("FrogEgg");
-        hookCollider = GetComponent<Collider>();
     }
 
     private void Update()
     {
         if (isHooked || isStunned || isAttacking) return;
 
+        switch (currentTarget)
+        {
+            case TargetType.Egg:
+                HandleEggTarget();
+                break;
+
+            case TargetType.Player:
+                HandlePlayerTarget();
+                break;
+        }
+    }
+    void ChooseRandomTarget()
+    {
+        if (Random.value <= chanceToTargetEgg)
+            currentTarget = TargetType.Egg;
+        else
+            currentTarget = TargetType.Player;
+    }
+    void HandleEggTarget()
+    {
         FindClosestEgg();
 
-        if (frogEgg != null)
+        if (frogEgg == null)
         {
-            float dist = Vector3.Distance(transform.position, frogEgg.transform.position);
-
-            if (dist <= detectionRange)
-            {
-                // Chase egg
-                ChaseEgg();
-                return;
-            }
+            DefaultMove();
+            return;
         }
+
+        float dist = Vector3.Distance(transform.position, frogEgg.transform.position);
+
+        if (dist <= detectionRange)
+        {
+            ChaseEgg();
+        }
+        else
+        {
+            DefaultMove();
+        }
+    }
+    void HandlePlayerTarget()
+    {
+        if (player == null)
+        {
+            DefaultMove();
+            return;
+        }
+
+        // Calculate direction to player
+        Vector3 direction = player.transform.position - transform.position;
+        direction.y = 0f;
+
+        if (direction != Vector3.zero)
+        {
+            // Smooth rotation toward player
+            Quaternion targetRot = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRot,
+                8f * Time.deltaTime
+            );
+        }
+
+        // Move forward along updated forward
+        transform.position += transform.forward * currentSpeed * 1.2f * Time.deltaTime;
+    }
+
+    void DefaultMove()
+    {
         transform.position += Vector3.left * currentSpeed * Time.deltaTime;
         transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (isAttacking) return;
+
+        if (collision.gameObject.CompareTag("FrogEgg"))
+        {
+            isAttacking = true;
+            anim.SetTrigger("BugAttack");
+            targetEgg = collision.gameObject.GetComponent<EggHealth>();
+        }
+        else if (collision.gameObject.CompareTag("Player"))
+        {
+            isAttacking = true;
+            anim.SetTrigger("BugAttack");
+            PlayerController.instance.TakeDamage(10f);
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("FrogEgg") || collision.gameObject.CompareTag("Player"))
+        {
+            isAttacking = false;
+            targetEgg = null;
+        }
     }
     // -------------------- COLLISIONS -------------------- //
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hook"))
         {
-            DisapperWait();
-            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
-        }
-    }
-    IEnumerator DisapperWait()
-    {
-        yield return new WaitForSeconds(1f);
-        isHooked = true;
-    }
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("FrogEgg"))
-        {
-            if (!isAttacking)
-            {
-                isAttacking = true;
-                anim.SetTrigger("BugAttack");
-                targetEgg = collision.gameObject.GetComponent<EggHealth>();     
-            }
-        }
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("FrogEgg"))
-        {
-            isAttacking = false;
-            targetEgg = null;
+            isHooked = true;
+            EnemyPool.Instance.ReturnToPool("Enemy1", gameObject);
         }
     }
     // -------------------- FIND CLOSEST EGG --------------------
@@ -132,6 +224,7 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
 
         transform.position += transform.forward * currentSpeed * Time.deltaTime;
     }
+    
     public void BugDamage()
     {
         if (targetEgg != null)

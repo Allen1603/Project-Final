@@ -80,14 +80,15 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
     {
         if (other.CompareTag("Hook"))
         {
-            DisapperWait();
-            EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);      
+            StartCoroutine(DisappearAndReturn());
         }
     }
-    IEnumerator DisapperWait()
+
+    IEnumerator DisappearAndReturn()
     {
-        yield return new WaitForSeconds(1f);
         isHooked = true;
+        yield return new WaitForSeconds(0.05f);
+        EnemyPool.Instance.ReturnToPool("Enemy2", gameObject);
     }
 
     void LayingEgg()

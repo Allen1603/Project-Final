@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using TMPro;
-
 public class SpawnerEnemy : MonoBehaviour
 {
     [Header("----- Enemy Prefabs & Tags -----")]
@@ -91,21 +90,29 @@ public class SpawnerEnemy : MonoBehaviour
         // --- Choose a random spawn point ---
         Transform spawnPoint = spawner[Random.Range(0, spawner.Length)];
 
-        // --- Choose enemy tag for this wave ---
-        string enemyTag = enemyTags[0]; // wave 1 default
+        if (currentWave <= 6)
+        {
+            // --- Choose enemy tag for this wave ---
+            string enemyTag = enemyTags[0]; // wave 1 default
 
-        if (currentWave >= 2)
-            enemyTag = enemyTags[1];
-        if (currentWave >= 3) 
-            enemyTag = enemyTags[2];
+            if (currentWave >= 2)
+                enemyTag = enemyTags[1];
+            if (currentWave >= 3)
+                enemyTag = enemyTags[2];
 
-        // Wave 5+ → random enemy
-        if (currentWave >= 4)
-            enemyTag = enemyTags[Random.Range(0, enemyTags.Length)];
+            // Wave 5+ → random enemy
+            if (currentWave >= 4)
+                enemyTag = enemyTags[Random.Range(0, enemyTags.Length)];
+
+
+            // --- Spawn enemy properly ---
+            EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("You win!");
+        }
         
-
-        // --- Spawn enemy properly ---
-        EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
     }
 
 
