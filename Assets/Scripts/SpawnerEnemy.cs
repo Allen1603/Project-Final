@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class SpawnerEnemy : MonoBehaviour
@@ -40,6 +41,12 @@ public class SpawnerEnemy : MonoBehaviour
     public GameObject flyPanel;
     public GameObject bugPanel;
     public GameObject beePanel;
+
+    [Header("----- Fade Settings -----")]
+    public CanvasGroup fadeCanvasGroup; 
+    public string pickingSceneName = "MapPicking";
+    public float fadeDuration = 1f;
+
 
     private void Awake()
     {
@@ -136,13 +143,34 @@ public class SpawnerEnemy : MonoBehaviour
 
     private void LevelClear()
     {
-        StartCoroutine(LevelClearDelay());   
+        StartCoroutine(LevelClearSequence());
     }
-    private IEnumerator LevelClearDelay()
+
+    private IEnumerator LevelClearSequence()
     {
-        yield return new WaitForSeconds(2f);
+        // Show Level Clear UI
         levelClearPanel.SetActive(true);
-        Time.timeScale = 0f;
+
+        // Wait 2 seconds
+        yield return new WaitForSeconds(2f);
+
+        // Start crossfade to black
+        yield return StartCoroutine(FadeToBlack());
+
+        // Load picking scene
+        SceneManager.LoadScene(pickingSceneName);
+    }
+
+    private IEnumerator FadeToBlack()
+    {
+        float elapsed = 0f;
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.unscaledDeltaTime; // Use unscaled time because Time.timeScale may be 0
+            fadeCanvasGroup.alpha = Mathf.Clamp01(elapsed / fadeDuration);
+            yield return null;
+        }
+        fadeCanvasGroup.alpha = 1f;
     }
 
     private IEnumerator ShowWaveText()
