@@ -21,7 +21,7 @@ public class FunFact : MonoBehaviour
         {
             // pick a new index different from the last one
             int index;
-            do
+            do   
             {
                 index = Random.Range(0, funfactTXT.Length);
             }
@@ -36,7 +36,7 @@ public class FunFact : MonoBehaviour
             // show the chosen one
             funfactTXT[index].SetActive(true);
 
-            yield return new WaitForSeconds(7f);
+            yield return new WaitForSeconds(5f);
         }
     }
 }
