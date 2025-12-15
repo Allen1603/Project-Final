@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
+public class EnemyNymphs : EnemyBase, IStunnable, ISlowable
 {
     [Header("Movement")]
     public float speed = 2f;
@@ -24,23 +24,22 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
     [Header("Targeting")]
     public TargetType currentTarget;
     [Range(0f, 1f)]
-    public float chanceToTargetEgg = 0.6f; // tweak in Inspector
+    public float chanceToTargetEgg = 0.6f;
+
+    private float baseSpeed;
 
     // -------------------- UNITY EVENTS -------------------- //
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        baseSpeed = speed;
         ResetStatus();
 
         player = GameObject.FindGameObjectWithTag("Player");
         FindClosestEgg();
 
         ChooseRandomTarget();
-        FaceCurrentTarget(); // Ensure immediate rotation toward the chosen target
-    }
-
-    private void Start()
-    {
-        frogEgg = GameObject.FindGameObjectWithTag("FrogEgg");
+        FaceCurrentTarget();
     }
 
     private void Update()
@@ -52,7 +51,6 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
             case TargetType.Egg:
                 HandleEggTarget();
                 break;
-
             case TargetType.Player:
                 HandlePlayerTarget();
                 break;
@@ -63,7 +61,7 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
     {
         if (other.CompareTag("Hook"))
         {
-            isHooked = true;
+            ResetStatus();
             EnemyPool.Instance.ReturnToPool("Enemy4", gameObject);
         }
     }
@@ -73,57 +71,42 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
         if (isAttacking) return;
 
         if (collision.gameObject.CompareTag("FrogEgg"))
-        {
             StartAttack(collision.gameObject.GetComponent<EggHealth>());
-        }
         else if (collision.gameObject.CompareTag("Player"))
-        {
             StartAttackOnPlayer();
-        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("FrogEgg") || collision.gameObject.CompareTag("Player"))
-        {
             EndAttack();
-        }
     }
 
     // -------------------- MOVEMENT & TARGETING -------------------- //
     private void HandleEggTarget()
     {
-        FindClosestEgg();
-
-        if (frogEgg == null)
-        {
-            DefaultMove();
-            return;
-        }
+        if (frogEgg == null) FindClosestEgg();
+        if (frogEgg == null) { DefaultMove(); return; }
 
         MoveTowards(frogEgg.transform.position);
     }
 
     private void HandlePlayerTarget()
     {
-        if (player == null)
-        {
-            DefaultMove();
-            return;
-        }
+        if (player == null) { DefaultMove(); return; }
 
         MoveTowards(player.transform.position);
     }
 
     private void MoveTowards(Vector3 targetPos)
     {
-        Vector3 direction = targetPos - transform.position;
+        Vector3 direction = (targetPos - transform.position).normalized;
         direction.y = 0f;
 
         if (direction != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(direction);
 
-        transform.position += transform.forward * speed * Time.deltaTime;
+        transform.position += direction * speed * Time.deltaTime;
     }
 
     private void DefaultMove()
@@ -135,9 +118,9 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
     private void FaceCurrentTarget()
     {
         Vector3 targetPos = currentTarget == TargetType.Player ? player?.transform.position ?? transform.position
-                                                                : frogEgg?.transform.position ?? transform.position;
+                                                               : frogEgg?.transform.position ?? transform.position;
 
-        Vector3 direction = targetPos - transform.position;
+        Vector3 direction = (targetPos - transform.position).normalized;
         direction.y = 0f;
 
         if (direction != Vector3.zero)
@@ -152,10 +135,10 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
     private void FindClosestEgg()
     {
         GameObject[] eggs = GameObject.FindGameObjectsWithTag("FrogEgg");
-        if (eggs.Length == 0) return;
+        if (eggs.Length == 0) { frogEgg = null; return; }
 
-        GameObject closest = null;
         float minDist = Mathf.Infinity;
+        GameObject closest = null;
 
         foreach (GameObject egg in eggs)
         {
@@ -182,7 +165,7 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
     {
         isAttacking = true;
         anim.SetTrigger("NymphsAttack");
-        PlayerController.instance.TakeDamage(10f);
+        PlayerController.instance.TakeDamage(damage);
     }
 
     public void NymphsDamage()
@@ -202,19 +185,20 @@ public class EnemyNymphs : MonoBehaviour, IStunnable, ISlowable
         isHooked = false;
         isStunned = false;
         isAttacking = false;
+        targetEgg = null;
+        // don't reset speed here
     }
 
     public void SlowEffect(float slowMultiplier, float slowDuration)
     {
-        float originalSpeed = speed;
-        speed *= slowMultiplier;
-        StartCoroutine(ResetSlow(originalSpeed, slowDuration));
+        speed = baseSpeed * slowMultiplier;
+        StartCoroutine(ResetSlow(slowDuration));
     }
 
-    private IEnumerator ResetSlow(float originalSpeed, float duration)
+    private IEnumerator ResetSlow(float duration)
     {
         yield return new WaitForSeconds(duration);
-        speed = originalSpeed;
+        speed = baseSpeed;
     }
 
     public void Stun(float stunDuration)

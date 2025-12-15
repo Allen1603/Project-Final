@@ -1,20 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
+public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
 {
-    // =========================
-    // ENUMS
-    // =========================
-    public enum TargetType
-    {
-        Player,
-        Egg
-    }
+    public enum TargetType { Player, Egg }
 
-    // =========================
-    // INSPECTOR FIELDS
-    // =========================
     [Header("Movement")]
     public float speed = 2f;
     public float detectionRange = 5f;
@@ -31,12 +21,8 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
     [Header("Status")]
     public bool isHooked = false;
 
-    // =========================
-    // PRIVATE STATE
-    // =========================
     private float baseSpeed;
     private float currentSpeed;
-
     private bool isSlow;
     private bool isStunned;
     private bool isAttacking;
@@ -45,10 +31,10 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
     private GameObject frogEgg;
     private EggHealth targetEgg;
 
-
-
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        // Reset state
         isHooked = false;
         isSlow = false;
         isStunned = false;
@@ -57,20 +43,9 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
         baseSpeed = speed;
         currentSpeed = baseSpeed;
 
-        // Find player and egg
         player = GameObject.FindGameObjectWithTag("Player");
         FindClosestEgg();
-
-        // Choose random target
         ChooseRandomTarget();
-       
-    }
-
-
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        frogEgg = GameObject.FindGameObjectWithTag("FrogEgg");
     }
 
     private void Update()
@@ -82,41 +57,35 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
             case TargetType.Egg:
                 HandleEggTarget();
                 break;
-
             case TargetType.Player:
                 HandlePlayerTarget();
                 break;
         }
     }
-    void ChooseRandomTarget()
-    {
-        if (Random.value <= chanceToTargetEgg)
-            currentTarget = TargetType.Egg;
-        else
-            currentTarget = TargetType.Player;
-    }
-    void HandleEggTarget()
-    {
-        FindClosestEgg();
 
+    private void ChooseRandomTarget()
+    {
+        currentTarget = (Random.value <= chanceToTargetEgg) ? TargetType.Egg : TargetType.Player;
+    }
+
+    private void HandleEggTarget()
+    {
         if (frogEgg == null)
         {
-            DefaultMove();
-            return;
+            FindClosestEgg();
+            if (frogEgg == null)
+            {
+                DefaultMove();
+                return;
+            }
         }
 
         float dist = Vector3.Distance(transform.position, frogEgg.transform.position);
-
-        if (dist <= detectionRange)
-        {
-            ChaseEgg();
-        }
-        else
-        {
-            DefaultMove();
-        }
+        if (dist <= detectionRange) ChaseEgg();
+        else DefaultMove();
     }
-    void HandlePlayerTarget()
+
+    private void HandlePlayerTarget()
     {
         if (player == null)
         {
@@ -124,30 +93,23 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
             return;
         }
 
-        // Calculate direction to player
         Vector3 direction = player.transform.position - transform.position;
         direction.y = 0f;
-
         if (direction != Vector3.zero)
         {
-            // Smooth rotation toward player
             Quaternion targetRot = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRot,
-                8f * Time.deltaTime
-            );
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 8f * Time.deltaTime);
         }
 
-        // Move forward along updated forward
         transform.position += transform.forward * currentSpeed * 1.2f * Time.deltaTime;
     }
 
-    void DefaultMove()
+    private void DefaultMove()
     {
         transform.position += Vector3.left * currentSpeed * Time.deltaTime;
         transform.rotation = Quaternion.Euler(0f, -90f, 0f);
     }
+
     private void OnCollisionStay(Collision collision)
     {
         if (isAttacking) return;
@@ -165,6 +127,7 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
             PlayerController.instance.TakeDamage(10f);
         }
     }
+
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("FrogEgg") || collision.gameObject.CompareTag("Player"))
@@ -173,75 +136,67 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
             targetEgg = null;
         }
     }
-    // -------------------- COLLISIONS -------------------- //
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hook"))
         {
-            isHooked = true;
+            ResetEnemy();
             EnemyPool.Instance.ReturnToPool("Enemy1", gameObject);
         }
     }
-    // -------------------- FIND CLOSEST EGG --------------------
-    void FindClosestEgg()
-    {
-        GameObject[] eggs = GameObject.FindGameObjectsWithTag("FrogEgg");
-        if (eggs.Length == 0) return;
 
-        GameObject closest = null;
-        float minDist = Mathf.Infinity;
+    void FindClosestEgg() 
+    { 
+        GameObject[] eggs = GameObject.FindGameObjectsWithTag("FrogEgg"); 
+        if (eggs.Length == 0) return; 
+        GameObject closest = null; 
 
-        foreach (GameObject egg in eggs)
-        {
+        float minDist = Mathf.Infinity; 
+        foreach (GameObject egg in eggs) 
+        { 
             float dist = Vector3.Distance(transform.position, egg.transform.position);
-            if (dist < minDist)
-            {
-                minDist = dist;
-                closest = egg;
-            }
-        }
-
-        frogEgg = closest;
-    }
-
+            if (dist < minDist) 
+            { 
+                minDist = dist; 
+                closest = egg; 
+            } 
+        } 
+        frogEgg = closest; 
+    } 
     // -------------------- CHASE + ROTATE --------------------
-    void ChaseEgg()
-    {
-        if (frogEgg == null) return;
+    void ChaseEgg() 
+    { 
+        if (frogEgg == null) return; 
 
-        Vector3 direction = frogEgg.transform.position - transform.position;
-        direction.y = 0f;
+        Vector3 direction = frogEgg.transform.position - transform.position; 
+        direction.y = 0f; 
 
-        if (direction != Vector3.zero)
-        {
+        if (direction != Vector3.zero) 
+        { 
             Quaternion targetRot = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRot,
-                6f * Time.deltaTime // smooth turning
-            );
-        }
-
-        transform.position += transform.forward * currentSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 6f * Time.deltaTime); 
+        } 
+        transform.position += transform.forward * currentSpeed * Time.deltaTime; 
     }
-    
+
+
     public void BugDamage()
     {
-        if (targetEgg != null)
-            targetEgg.TakeDamage(damage);
+        targetEgg?.TakeDamage(damage);
     }
+
     public void EndAttack()
     {
         isAttacking = false;
     }
-    // -------------------- SLOW -------------------- //
+
     public void SlowEffect(float slowSpeed, float duration)
     {
         if (isSlow) return;
 
         isSlow = true;
         currentSpeed = slowSpeed;
-
         StartCoroutine(ResetSlow(duration));
     }
 
@@ -252,7 +207,6 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
         currentSpeed = baseSpeed;
     }
 
-    // -------------------- STUN -------------------- //
     public void Stun(float duration)
     {
         StartCoroutine(StunCoroutine(duration));
@@ -261,14 +215,23 @@ public class EnemyWaterbug : MonoBehaviour, IStunnable, ISlowable
     private IEnumerator StunCoroutine(float duration)
     {
         isStunned = true;
-
         float oldSpeed = currentSpeed;
-        currentSpeed = 0;
+        currentSpeed = 0f;
 
         yield return new WaitForSeconds(duration);
 
         isStunned = false;
-
         currentSpeed = isSlow ? baseSpeed * 0.5f : baseSpeed;
+    }
+
+    private void ResetEnemy()
+    {
+        // Reset all states before returning to pool
+        isHooked = false;
+        isSlow = false;
+        isStunned = false;
+        isAttacking = false;
+        currentSpeed = baseSpeed;
+        targetEgg = null;
     }
 }

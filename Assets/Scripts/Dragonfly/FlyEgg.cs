@@ -1,22 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class FlyEgg : MonoBehaviour
 {
-    private float eggHatchingInterval;
-    public GameObject nymphsPrefab;
-    void Update()
+    private Coroutine hatchRoutine;
+
+    private void OnEnable()
     {
-        StartCoroutine(EggHatching());
+        hatchRoutine = StartCoroutine(EggHatching());
     }
 
-    IEnumerator EggHatching()
+    private void OnDisable()
     {
-        eggHatchingInterval = Random.Range(5,10);
-        yield return new WaitForSeconds(eggHatchingInterval);
-        EnemyPool.Instance.SpawnFromPool("Enemy4", transform.position, Quaternion.identity);
+        if (hatchRoutine != null)
+            StopCoroutine(hatchRoutine);
+    }
+
+    private IEnumerator EggHatching()
+    {
+        float hatchTime = Random.Range(5f, 10f);
+        yield return new WaitForSeconds(hatchTime);
+
+        // Spawn nymph (REAL enemy → must have EnemyBase)
+        EnemyPool.Instance.SpawnFromPool(
+            "Enemy4", // nymph tag
+            transform.position,
+            Quaternion.identity
+        );
+
+        // Remove egg (NOT an enemy)
         EnemyPool.Instance.ReturnToPool("Egg", gameObject);
     }
-
 }

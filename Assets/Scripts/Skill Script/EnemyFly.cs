@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
+public class EnemyFly : EnemyBase, IStunnable, ISlowable
 {
     [Header("Movement")]
     public float speed = 2f;
@@ -13,7 +13,6 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
     [Header("Laying Egg")]
     public float layingEggTimer = 2f;
     private float currentTimer;
-    public GameObject flyEggPrefab;
     public Transform eggPosition;
     private bool isLayingEgg = false;
 
@@ -25,73 +24,65 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
     private Transform targetPoint;
     public float rotateSpeed = 5f;
 
-    void OnEnable()
+    // -------------------- UNITY EVENTS -------------------- //
+    protected override void OnEnable()
     {
+        base.OnEnable(); // call base class OnEnable if any
+
         isHooked = false;
         zigzagTimer = 0f;
-
         currentTimer = layingEggTimer;
+        isLayingEgg = false;
 
         PickNewRondaPoint();
     }
 
-    void Update()
+    private void Update()
     {
         if (isHooked || isStunned || isLayingEgg) return;
 
+        MoveFly();
+        ZigzagMovement();
+        LayingEgg();
+    }
+
+    // -------------------- MOVEMENT -------------------- //
+    private void MoveFly()
+    {
+        if (targetPoint == null) return;
+
         Vector3 direction = (targetPoint.position - transform.position).normalized;
-        direction.y = 0f; // prevent tilting up/down
+        direction.y = 0f;
 
         if (direction != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                rotateSpeed * Time.deltaTime
-            );
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
         }
 
-        transform.position = Vector3.MoveTowards(
-           transform.position,
-           targetPoint.position,
-           speed * Time.deltaTime
-       );
+        transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, targetPoint.position) < 0.2f)
         {
             PickNewRondaPoint();
         }
-
-        zigzagTimer += Time.deltaTime * zigzagFrequency;
-        float zigzagOffset = Mathf.Sin(zigzagTimer * Mathf.PI * 2) * zigzagWidth;
-
-        transform.position += new Vector3(0f, 0f, zigzagOffset * Time.deltaTime);
-
-        LayingEgg();
     }
 
-    void PickNewRondaPoint()
+    private void ZigzagMovement()
     {
+        zigzagTimer += Time.deltaTime * zigzagFrequency;
+        float zigzagOffset = Mathf.Sin(zigzagTimer * Mathf.PI * 2) * zigzagWidth;
+        transform.position += new Vector3(0f, 0f, zigzagOffset * Time.deltaTime);
+    }
+
+    private void PickNewRondaPoint()
+    {
+        if (rondaPos.Length == 0) return;
         targetPoint = rondaPos[Random.Range(0, rondaPos.Length)];
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Hook"))
-        {
-            StartCoroutine(DisappearAndReturn());
-        }
-    }
-
-    IEnumerator DisappearAndReturn()
-    {
-        isHooked = true;
-        yield return new WaitForSeconds(0.05f);
-        EnemyPool.Instance.ReturnToPool("Enemy2", gameObject);
-    }
-
-    void LayingEgg()
+    // -------------------- EGG LAYING -------------------- //
+    private void LayingEgg()
     {
         currentTimer -= Time.deltaTime;
 
@@ -107,12 +98,23 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
     {
         EnemyPool.Instance.SpawnFromPool("Egg", eggPosition.position, Quaternion.identity);
     }
+
     public void FinishLayingEgg()
     {
-        isLayingEgg = false;   // ⬅ RESUME movement
+        isLayingEgg = false;
     }
 
-    // -------------------- SLOW --------------------//
+    // -------------------- TRIGGERS -------------------- //
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Hook"))
+        {
+            isHooked = true;
+            EnemyPool.Instance.ReturnToPool("Enemy2", gameObject);
+        }
+    }
+
+    // -------------------- SLOW -------------------- //
     public void SlowEffect(float slowMultiplier, float slowDuration)
     {
         float originalSpeed = speed;
@@ -132,7 +134,7 @@ public class EnemyFly : MonoBehaviour, IStunnable, ISlowable
         zigzagFrequency = originalFrequency;
     }
 
-    // -------------------- STUN --------------------//
+    // -------------------- STUN -------------------- //
     public void Stun(float stunDuration)
     {
         StartCoroutine(StunCoroutine(stunDuration));

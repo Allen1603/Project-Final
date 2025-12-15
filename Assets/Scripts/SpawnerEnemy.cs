@@ -1,30 +1,37 @@
 ﻿using System.Collections;
 using UnityEngine;
 using TMPro;
+
 public class SpawnerEnemy : MonoBehaviour
 {
+    public static SpawnerEnemy Instance;
+
     [Header("----- Enemy Prefabs & Tags -----")]
-    [Tooltip("Enemy tags that exist in EnemyPool (ex: Bug1, Bug2, Bug3, Bug4)")]
-    public string[] enemyTags; // should have 4 tags here
+    public string[] enemyTags;
 
     [Header("----- Spawner Points -----")]
-    public Transform[] spawner; // assign multiple spawn points in inspector
+    public Transform[] spawner;
 
     [Header("----- Spawn Settings -----")]
-    public float spawnInterval = 3f;     // initial time between spawns
-    public float spawnDecrement = 0.2f;  // reduces spawn interval per wave
-    public float limitDecrement = 1f;    // min allowed interval
+    public float spawnInterval = 3f;
+    public float spawnDecrement = 0.2f;
+    public float limitDecrement = 1f;
 
     [Header("----- Wave Settings -----")]
     public int startingEnemiesPerWave = 7;
     public int enemyIncrementPerWave = 3;
+    public int maxWave = 2;
 
     private int currentWave = 1;
     private int enemiesToSpawnInWave;
     private int enemiesSpawnedThisWave;
+    private int aliveEnemies;
+
+    private bool waveSpawningFinished;
 
     [Header("----- Wave UI -----")]
     public GameObject wavePanel;
+    public GameObject levelClearPanel;
     public TextMeshProUGUI waveTXT;
     public float waveTextDisplayTime = 3f;
 
@@ -32,24 +39,31 @@ public class SpawnerEnemy : MonoBehaviour
     public GameObject hopperPanel;
     public GameObject flyPanel;
     public GameObject bugPanel;
-    public GameObject beePanel;  
+    public GameObject beePanel;
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
 
     private void Start()
     {
         StartCoroutine(InitializeSpawner());
+        levelClearPanel.SetActive(false);
     }
 
     private IEnumerator InitializeSpawner()
     {
-        // wait 1 frame so EnemyPool.Instance can initialize
         yield return null;
-
         spawnInterval = Mathf.Max(spawnInterval, limitDecrement);
         StartWave();
     }
 
     private void StartWave()
     {
+        waveSpawningFinished = false;
+
         enemiesToSpawnInWave = startingEnemiesPerWave + enemyIncrementPerWave * (currentWave - 1);
         enemiesSpawnedThisWave = 0;
 
@@ -62,111 +76,99 @@ public class SpawnerEnemy : MonoBehaviour
     {
         while (enemiesSpawnedThisWave < enemiesToSpawnInWave)
         {
-            EnemySpawnWave();
+            SpawnEnemy();
             enemiesSpawnedThisWave++;
             yield return new WaitForSeconds(spawnInterval);
         }
 
-        currentWave++;
+        waveSpawningFinished = true;
         spawnInterval = Mathf.Clamp(spawnInterval - spawnDecrement, limitDecrement, 999f);
 
-        yield return new WaitForSeconds(10f);
+        CheckWaveClear();
+    }
+
+    private void SpawnEnemy()
+    {
+        if (currentWave > maxWave) return;
+
+        Transform spawnPoint = spawner[Random.Range(0, spawner.Length)];
+        string enemyTag = enemyTags[0];
+
+        if (currentWave >= 2) enemyTag = enemyTags[1];
+
+        GameObject enemy = EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
+    }
+
+    public void RegisterEnemy()
+    {
+        aliveEnemies++;
+    }
+
+    public void UnregisterEnemy()
+    {
+        aliveEnemies = Mathf.Max(0, aliveEnemies - 1);
+        CheckWaveClear();
+    }
+
+    private void CheckWaveClear()
+    {
+        if (!waveSpawningFinished || aliveEnemies > 0) return;
+
+        if (currentWave >= maxWave)
+        {
+            LevelClear();
+        }
+        else
+        {
+            StartCoroutine(NextWaveDelay());
+        }
+    }
+
+    private IEnumerator NextWaveDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        currentWave++;
         StartWave();
+    }
+
+    private void LevelClear()
+    {
+        StartCoroutine(LevelClearDelay());   
+    }
+    private IEnumerator LevelClearDelay()
+    {
+        levelClearPanel.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        Time.timeScale = 0f;
     }
 
     private IEnumerator ShowWaveText()
     {
-        if (wavePanel != null)
-        {
-            wavePanel.SetActive(true);
-            waveTXT.text = $"WAVE {currentWave}";
-            yield return new WaitForSeconds(waveTextDisplayTime);
-            wavePanel.SetActive(false);
-        }
+        wavePanel.SetActive(true);
+        waveTXT.text = $"WAVE {currentWave}";
+        yield return new WaitForSeconds(waveTextDisplayTime);
+        wavePanel.SetActive(false);
     }
-
-    private void EnemySpawnWave()
-    {
-        // --- Choose a random spawn point ---
-        Transform spawnPoint = spawner[Random.Range(0, spawner.Length)];
-
-        if (currentWave <= 6)
-        {
-            // --- Choose enemy tag for this wave ---
-            string enemyTag = enemyTags[0]; // wave 1 default
-
-            if (currentWave >= 2)
-                enemyTag = enemyTags[1];
-            if (currentWave >= 3)
-                enemyTag = enemyTags[2];
-
-            // Wave 5+ → random enemy
-            if (currentWave >= 4)
-                enemyTag = enemyTags[Random.Range(0, enemyTags.Length)];
-
-
-            // --- Spawn enemy properly ---
-            EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogError("You win!");
-        }
-        
-    }
-
 
     private IEnumerator InsectPanel()
     {
-        if (currentWave == 1)
-        {
-            yield return new WaitForSeconds(1.5f);
-            hopperPanel.SetActive(true);
-            Time.timeScale = 0f;
-            
-        }
-        if (currentWave == 2)
-        {
-            yield return new WaitForSeconds(1.5f);
-            flyPanel.SetActive(true);
-            Time.timeScale = 0f;
-        }
-        if (currentWave == 3)
-        {
-            yield return new WaitForSeconds(1.5f);
-            bugPanel.SetActive(true);
-            Time.timeScale = 0f;
-        }
-        if (currentWave == 4)
-        {
-            yield return new WaitForSeconds(1.5f);
-            beePanel.SetActive(true);
-            Time.timeScale = 0f;
-        }
+        yield return new WaitForSeconds(1.5f);
+
+        if (currentWave == 1) hopperPanel.SetActive(true);
+        if (currentWave == 2) flyPanel.SetActive(true);
+        if (currentWave == 3) bugPanel.SetActive(true);
+        if (currentWave == 4) beePanel.SetActive(true);
+
+        if (currentWave <= 4) Time.timeScale = 0f;
     }
 
     public void InsectContinueOne()
     {
-        if (currentWave == 1)
-        {
-            hopperPanel.SetActive(false);
-            Time.timeScale = 1f;
-        }
-        if (currentWave == 2)
-        {
-            flyPanel.SetActive(false);
-            Time.timeScale = 1f;
-        }
-        if (currentWave == 3)
-        {
-            bugPanel.SetActive(false);
-            Time.timeScale = 1f;
-        }
-        if (currentWave == 4)
-        {
-            beePanel.SetActive(false);
-            Time.timeScale = 1f;
-        }
-    }
+        hopperPanel.SetActive(false);
+        flyPanel.SetActive(false);
+        bugPanel.SetActive(false);
+        beePanel.SetActive(false);
 
+        Time.timeScale = 1f;
+    }
 }

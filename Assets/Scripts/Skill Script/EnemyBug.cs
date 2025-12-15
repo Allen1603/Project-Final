@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
+public class EnemyBug : EnemyBase, IStunnable, ISlowable
 {
-    public enum TargetType
-    {
-        Player,
-        Egg
-    }
+    public enum TargetType { Player, Egg }
+
     [Header("Movement")]
     public float speed = 2f;
     public float detectionRange = 5f;
@@ -35,29 +32,14 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
     private GameObject frogEgg;
     private EggHealth targetEgg;
 
-
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        isHooked = false;
-        isSlow = false;
-        isStunned = false;
-        isAttacking = false;
+        base.OnEnable();
+        ResetEnemy();
 
-        baseSpeed = speed;
-        currentSpeed = baseSpeed;
-
-        
-        FindClosestEgg();
-
-        ChooseRandomTarget();
-    }
-
-
-
-    void Start()
-    {
         player = GameObject.FindGameObjectWithTag("Player");
-        frogEgg = GameObject.FindGameObjectWithTag("FrogEgg");
+        FindClosestEgg();
+        ChooseRandomTarget();
     }
 
     private void Update()
@@ -69,22 +51,20 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
             case TargetType.Egg:
                 HandleEggTarget();
                 break;
-
             case TargetType.Player:
                 HandlePlayerTarget();
                 break;
         }
     }
-    void ChooseRandomTarget()
+
+    private void ChooseRandomTarget()
     {
-        if (Random.value <= chanceToTargetEgg)
-            currentTarget = TargetType.Egg;
-        else
-            currentTarget = TargetType.Player;
+        currentTarget = (Random.value <= chanceToTargetEgg) ? TargetType.Egg : TargetType.Player;
     }
-    void HandleEggTarget()
+
+    private void HandleEggTarget()
     {
-        FindClosestEgg();
+        if (frogEgg == null) FindClosestEgg();
 
         if (frogEgg == null)
         {
@@ -93,17 +73,13 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
         }
 
         float dist = Vector3.Distance(transform.position, frogEgg.transform.position);
-
         if (dist <= detectionRange)
-        {
             ChaseEgg();
-        }
         else
-        {
             DefaultMove();
-        }
     }
-    void HandlePlayerTarget()
+
+    private void HandlePlayerTarget()
     {
         if (player == null)
         {
@@ -119,22 +95,23 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
 
         transform.position += transform.forward * currentSpeed * 1.2f * Time.deltaTime;
     }
-    void DefaultMove()
+
+    private void DefaultMove()
     {
         transform.position += Vector3.left * currentSpeed * Time.deltaTime;
         transform.rotation = Quaternion.Euler(0f, -90f, 0f);
     }
 
-
-    // -------------------- COLLISIONS -------------------- //
+    // ---------------- COLLISIONS ----------------
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hook"))
         {
-            isHooked = true;
+            ResetEnemy();
             EnemyPool.Instance.ReturnToPool("Enemy3", gameObject);
         }
     }
+
     private void OnCollisionStay(Collision collision)
     {
         if (isAttacking) return;
@@ -152,6 +129,7 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
             PlayerController.instance.TakeDamage(10f);
         }
     }
+
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("FrogEgg") || collision.gameObject.CompareTag("Player"))
@@ -160,14 +138,15 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
             targetEgg = null;
         }
     }
-    // -------------------- FIND CLOSEST EGG --------------------
-    void FindClosestEgg()
+
+    // ---------------- EGGS ----------------
+    private void FindClosestEgg()
     {
         GameObject[] eggs = GameObject.FindGameObjectsWithTag("FrogEgg");
-        if (eggs.Length == 0) return;
+        if (eggs.Length == 0) { frogEgg = null; return; }
 
-        GameObject closest = null;
         float minDist = Mathf.Infinity;
+        GameObject closest = null;
 
         foreach (GameObject egg in eggs)
         {
@@ -182,43 +161,39 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
         frogEgg = closest;
     }
 
-    // -------------------- CHASE + ROTATE --------------------
-    void ChaseEgg()
+    private void ChaseEgg()
     {
         if (frogEgg == null) return;
 
-        Vector3 direction = frogEgg.transform.position - transform.position;
+        Vector3 direction = (frogEgg.transform.position - transform.position).normalized;
         direction.y = 0f;
 
         if (direction != Vector3.zero)
         {
             Quaternion targetRot = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRot,
-                6f * Time.deltaTime // smooth turning
-            );
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 6f * Time.deltaTime);
         }
 
         transform.position += direction * currentSpeed * Time.deltaTime;
     }
+
     public void GiantBugDamage()
     {
-        if (targetEgg != null)
-            targetEgg.TakeDamage(damage);
+        targetEgg?.TakeDamage(damage);
     }
+
     public void EndAttack()
     {
         isAttacking = false;
     }
-    // -------------------- SLOW -------------------- //
+
+    // ---------------- SLOW ----------------
     public void SlowEffect(float slowSpeed, float duration)
     {
         if (isSlow) return;
 
         isSlow = true;
         currentSpeed = slowSpeed;
-
         StartCoroutine(ResetSlow(duration));
     }
 
@@ -229,7 +204,7 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
         currentSpeed = baseSpeed;
     }
 
-    // -------------------- STUN -------------------- //
+    // ---------------- STUN ----------------
     public void Stun(float duration)
     {
         StartCoroutine(StunCoroutine(duration));
@@ -238,14 +213,23 @@ public class EnemyBug : MonoBehaviour, IStunnable, ISlowable
     private IEnumerator StunCoroutine(float duration)
     {
         isStunned = true;
-
         float oldSpeed = currentSpeed;
         currentSpeed = 0;
 
         yield return new WaitForSeconds(duration);
 
         isStunned = false;
-
         currentSpeed = isSlow ? baseSpeed * 0.5f : baseSpeed;
+    }
+
+    // ---------------- RESET ----------------
+    private void ResetEnemy()
+    {
+        isHooked = false;
+        isSlow = false;
+        isStunned = false;
+        isAttacking = false;
+        currentSpeed = baseSpeed;
+        targetEgg = null;
     }
 }
