@@ -188,9 +188,8 @@ public class SpawnerEnemy : MonoBehaviour
         if (currentWave == 1) hopperPanel.SetActive(true);
         if (currentWave == 2) flyPanel.SetActive(true);
         if (currentWave == 3) bugPanel.SetActive(true);
-        if (currentWave == 4) beePanel.SetActive(true);
 
-        if (currentWave <= 4) Time.timeScale = 0f;
+        if (currentWave <= 3) Time.timeScale = 0f;
     }
 
     public void InsectContinueOne()
@@ -198,7 +197,6 @@ public class SpawnerEnemy : MonoBehaviour
         hopperPanel.SetActive(false);
         flyPanel.SetActive(false);
         bugPanel.SetActive(false);
-        beePanel.SetActive(false);
 
         Time.timeScale = 1f;
     }

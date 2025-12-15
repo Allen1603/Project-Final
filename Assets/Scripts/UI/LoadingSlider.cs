@@ -29,7 +29,12 @@ public class LoadingSlider : MonoBehaviour
     IEnumerator LoadSceneSlow()
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync("MapPicking");
-        AudioManager.Instance.PlayBGM("BGM");
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayBGM("BGM");
+        }
+               
+
         operation.allowSceneActivation = false;
 
         float fakeProgress = 0f;

@@ -3,6 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class MapPicking : MonoBehaviour
 {
+    private void Start()
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayBGM("PickingAudio");
+    }
     public void SelectPond(int pondIndex)
     {
         // Save selected pond
@@ -11,6 +16,8 @@ public class MapPicking : MonoBehaviour
         // Always go to character picking after pond selection
         SceneManager.LoadScene("PickingCharacter");
     }
+
+
 
     public void Pond1() => SelectPond(1);
     public void Pond2() => SelectPond(2);
