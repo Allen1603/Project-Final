@@ -95,8 +95,11 @@ public class SpawnerEnemy : MonoBehaviour
         string enemyTag = enemyTags[0];
 
         if (currentWave >= 2) enemyTag = enemyTags[1];
+        if (currentWave >= 3) enemyTag = enemyTags[2];
+        if (currentWave >= 4)
+            enemyTag = enemyTags[Random.Range(0, enemyTags.Length)];
 
-        GameObject enemy = EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
+        EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
     }
 
     public void RegisterEnemy()
@@ -137,8 +140,8 @@ public class SpawnerEnemy : MonoBehaviour
     }
     private IEnumerator LevelClearDelay()
     {
-        levelClearPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
+        levelClearPanel.SetActive(true);
         Time.timeScale = 0f;
     }
 

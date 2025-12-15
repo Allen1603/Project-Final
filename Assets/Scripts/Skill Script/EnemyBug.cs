@@ -35,7 +35,14 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
     protected override void OnEnable()
     {
         base.OnEnable();
-        ResetEnemy();
+        // Reset state
+        isHooked = false;
+        isSlow = false;
+        isStunned = false;
+        isAttacking = false;
+
+        baseSpeed = speed;
+        currentSpeed = baseSpeed;
 
         player = GameObject.FindGameObjectWithTag("Player");
         FindClosestEgg();
@@ -64,7 +71,8 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
 
     private void HandleEggTarget()
     {
-        if (frogEgg == null) FindClosestEgg();
+        // Find closest egg every frame (flat XZ distance)
+        FindClosestEgg();
 
         if (frogEgg == null)
         {
@@ -72,7 +80,11 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
             return;
         }
 
-        float dist = Vector3.Distance(transform.position, frogEgg.transform.position);
+        // Check distance on XZ plane
+        Vector3 flatEnemyPos = new Vector3(transform.position.x, 0f, transform.position.z);
+        Vector3 flatEggPos = new Vector3(frogEgg.transform.position.x, 0f, frogEgg.transform.position.z);
+        float dist = Vector3.Distance(flatEnemyPos, flatEggPos);
+
         if (dist <= detectionRange)
             ChaseEgg();
         else
@@ -161,12 +173,12 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
         frogEgg = closest;
     }
 
-    private void ChaseEgg()
+    void ChaseEgg()
     {
         if (frogEgg == null) return;
 
-        Vector3 direction = (frogEgg.transform.position - transform.position).normalized;
-        direction.y = 0f;
+        Vector3 direction = frogEgg.transform.position - transform.position;
+        direction.y = 0f; // ignore vertical distance
 
         if (direction != Vector3.zero)
         {
@@ -174,7 +186,7 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 6f * Time.deltaTime);
         }
 
-        transform.position += direction * currentSpeed * Time.deltaTime;
+        transform.position += transform.forward * currentSpeed * Time.deltaTime;
     }
 
     public void GiantBugDamage()
@@ -229,7 +241,6 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
         isSlow = false;
         isStunned = false;
         isAttacking = false;
-        currentSpeed = baseSpeed;
         targetEgg = null;
     }
 }

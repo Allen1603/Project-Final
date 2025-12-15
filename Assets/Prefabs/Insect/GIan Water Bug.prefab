@@ -1215,13 +1215,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077d66b43de87a0479b527e9c117d141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3
   detectionRange: 5
-  isHooked: 0
   damage: 20
   anim: {fileID: 800572448717272848}
   currentTarget: 0
   chanceToTargetEgg: 0.5
+  isHooked: 0
 --- !u!65 &6945808420334689099
 BoxCollider:
   m_ObjectHideFlags: 0

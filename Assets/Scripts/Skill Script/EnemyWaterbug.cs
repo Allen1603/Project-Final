@@ -70,19 +70,24 @@ public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
 
     private void HandleEggTarget()
     {
+        // Find closest egg every frame (flat XZ distance)
+        FindClosestEgg();
+
         if (frogEgg == null)
         {
-            FindClosestEgg();
-            if (frogEgg == null)
-            {
-                DefaultMove();
-                return;
-            }
+            DefaultMove();
+            return;
         }
 
-        float dist = Vector3.Distance(transform.position, frogEgg.transform.position);
-        if (dist <= detectionRange) ChaseEgg();
-        else DefaultMove();
+        // Check distance on XZ plane
+        Vector3 flatEnemyPos = new Vector3(transform.position.x, 0f, transform.position.z);
+        Vector3 flatEggPos = new Vector3(frogEgg.transform.position.x, 0f, frogEgg.transform.position.z);
+        float dist = Vector3.Distance(flatEnemyPos, flatEggPos);
+
+        if (dist <= detectionRange)
+            ChaseEgg();
+        else
+            DefaultMove();
     }
 
     private void HandlePlayerTarget()
@@ -146,38 +151,50 @@ public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
         }
     }
 
-    void FindClosestEgg() 
-    { 
-        GameObject[] eggs = GameObject.FindGameObjectsWithTag("FrogEgg"); 
-        if (eggs.Length == 0) return; 
-        GameObject closest = null; 
+    void FindClosestEgg()
+    {
+        GameObject[] eggs = GameObject.FindGameObjectsWithTag("FrogEgg");
+        if (eggs.Length == 0)
+        {
+            frogEgg = null;
+            return;
+        }
 
-        float minDist = Mathf.Infinity; 
-        foreach (GameObject egg in eggs) 
-        { 
-            float dist = Vector3.Distance(transform.position, egg.transform.position);
-            if (dist < minDist) 
-            { 
-                minDist = dist; 
-                closest = egg; 
-            } 
-        } 
-        frogEgg = closest; 
-    } 
+        GameObject closest = null;
+        float minDist = Mathf.Infinity;
+
+        Vector3 flatEnemyPos = new Vector3(transform.position.x, 0f, transform.position.z);
+
+        foreach (GameObject egg in eggs)
+        {
+            Vector3 flatEggPos = new Vector3(egg.transform.position.x, 0f, egg.transform.position.z);
+            float dist = Vector3.Distance(flatEnemyPos, flatEggPos);
+
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closest = egg;
+            }
+        }
+
+        frogEgg = closest;
+    }
+
     // -------------------- CHASE + ROTATE --------------------
-    void ChaseEgg() 
-    { 
-        if (frogEgg == null) return; 
+    void ChaseEgg()
+    {
+        if (frogEgg == null) return;
 
-        Vector3 direction = frogEgg.transform.position - transform.position; 
-        direction.y = 0f; 
+        Vector3 direction = frogEgg.transform.position - transform.position;
+        direction.y = 0f; // ignore vertical distance
 
-        if (direction != Vector3.zero) 
-        { 
+        if (direction != Vector3.zero)
+        {
             Quaternion targetRot = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 6f * Time.deltaTime); 
-        } 
-        transform.position += transform.forward * currentSpeed * Time.deltaTime; 
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, 6f * Time.deltaTime);
+        }
+
+        transform.position += transform.forward * currentSpeed * Time.deltaTime;
     }
 
 

@@ -161,10 +161,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f878b424196bd946821589b89785bb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 2.5
   damage: 10
   isHooked: 0
   anim: {fileID: 279436763769375161}
+  currentTarget: 0
+  chanceToTargetEgg: 0.6
 --- !u!1 &1100637634477446834
 GameObject:
   m_ObjectHideFlags: 0

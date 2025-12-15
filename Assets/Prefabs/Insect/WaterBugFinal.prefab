@@ -682,7 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  detectionRange: 10
+  detectionRange: 7
   damage: 20
   anim: {fileID: 4080686119831253932}
   currentTarget: 0
