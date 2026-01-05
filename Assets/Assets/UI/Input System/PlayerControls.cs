@@ -131,6 +131,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""e5041c83-fd14-403d-a741-4d773ec4bf9e"",
+                    ""path"": ""<Touchscreen>/primaryTouch/position"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""8779f3bd-bb5e-40c3-bfc3-cab12981d999"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
