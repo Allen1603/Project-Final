@@ -5,35 +5,35 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/OBB.unity
     guid: 423a893bdf495dd4f9dae4dfe117f005
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 69189984ddeada144a0ef647bde66325
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Loading Scene.unity
     guid: 84c6c88bc4d8c424c93ee2c3726965ea
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MapPicking.unity
     guid: 8161dddfae859c14599842eeec2f154b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/PickingCharacter.unity
     guid: 644f098b05e4c894791d58bce8f18103
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Map1.unity
     guid: efd3bf417e0b45444a0b8affc49cf41a
   - enabled: 0
-    path: Assets/Scenes/Map2.unity
+    path: Assets/Scenes/Map2(dati).unity
     guid: 5219bb685003f8042a111086806ab275
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 45586d85472fa6647921e9e43b86b1c3
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Almanac.unity
     guid: 3ec328c630f572b48b244680423359ed
   - enabled: 1
-    path: Assets/Scenes/TapAim.unity
+    path: Assets/Scenes/Map2.unity
     guid: dfe0a24948c9ef14ba192db407f065ff
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 05a193bcbf9f46b4b831212e59afd662, type: 2}
