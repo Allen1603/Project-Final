@@ -4,26 +4,28 @@ using UnityEngine.EventSystems;
 
 public class TapAimAttack : MonoBehaviour
 {
-    [Header("-----Hook-----")]
+    [Header("----- Hook -----")]
     public Transform tongueOrigin;
     public int hookPrefabIndex = 3;
 
-    [Header("-----Aiming-----")]
+    [Header("----- Aiming -----")]
     public LayerMask groundLayer;
     public float rotationSpeed = 15f;
     public GameObject aimAttack;
 
-    [Header("-----Cooldown-----")]
+    [Header("----- Cooldown -----")]
     public float attackCooldown = 0.4f;
 
-    [Header("-----Animation-----")]
+    [Header("----- Animation -----")]
     public Animator anim;
 
     private Camera cam;
     private bool isAiming;
-    private bool hasFiredThisTouch;
+    private bool hasFired;
     private float lastAttackTime;
     private Vector3 aimWorldPoint;
+
+    // Touch
     private int activeTouchId = -1;
 
     private void Awake()
@@ -31,27 +33,31 @@ public class TapAimAttack : MonoBehaviour
         cam = Camera.main;
         if (anim == null)
             anim = GetComponent<Animator>();
+
+        if (aimAttack != null)
+            aimAttack.SetActive(false);
     }
 
     private void Update()
     {
         HandleTouch();
+        HandleMouse();
 
         if (isAiming)
         {
             RotateTowards(aimWorldPoint);
-            if (!aimAttack.activeSelf)
+
+            if (aimAttack != null && !aimAttack.activeSelf)
                 aimAttack.SetActive(true);
         }
         else
         {
-            if (aimAttack.activeSelf)
+            if (aimAttack != null && aimAttack.activeSelf)
                 aimAttack.SetActive(false);
         }
-            
     }
 
-    // ---------------- TOUCH INPUT ----------------
+    // ================= TOUCH INPUT =================
 
     private void HandleTouch()
     {
@@ -64,40 +70,68 @@ public class TapAimAttack : MonoBehaviour
             // TOUCH START
             if (touch.press.wasPressedThisFrame)
             {
-                // Ignore UI touches
                 if (EventSystem.current != null &&
                     EventSystem.current.IsPointerOverGameObject(id))
                     continue;
 
                 activeTouchId = id;
                 isAiming = true;
-                hasFiredThisTouch = false;
+                hasFired = false;
             }
 
-            // TOUCH HOLD (only our active finger)
+            // TOUCH HOLD
             if (isAiming && id == activeTouchId && touch.press.isPressed)
             {
                 UpdateAimPoint(touch.position.ReadValue());
             }
 
-            // TOUCH RELEASE ( FIRE ONCE )
+            // TOUCH RELEASE
             if (isAiming && id == activeTouchId &&
-                touch.press.wasReleasedThisFrame && !hasFiredThisTouch)
+                touch.press.wasReleasedThisFrame && !hasFired)
             {
-                hasFiredThisTouch = true;   // LOCK FIRST
+                hasFired = true;
                 FireAttack();
 
                 activeTouchId = -1;
                 isAiming = false;
-                return; // IMPORTANT: stop processing this frame
-                
-
+                return;
             }
         }
     }
 
+    // ================= MOUSE INPUT =================
 
-    // ---------------- AIM ----------------
+    private void HandleMouse()
+    {
+        if (Mouse.current == null) return;
+
+        // MOUSE DOWN
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            if (EventSystem.current != null &&
+                EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            isAiming = true;
+            hasFired = false;
+        }
+
+        // MOUSE HOLD
+        if (isAiming && Mouse.current.leftButton.isPressed)
+        {
+            UpdateAimPoint(Mouse.current.position.ReadValue());
+        }
+
+        // MOUSE RELEASE
+        if (isAiming && Mouse.current.leftButton.wasReleasedThisFrame && !hasFired)
+        {
+            hasFired = true;
+            FireAttack();
+            isAiming = false;
+        }
+    }
+
+    // ================= AIM =================
 
     private void UpdateAimPoint(Vector2 screenPos)
     {
@@ -124,17 +158,15 @@ public class TapAimAttack : MonoBehaviour
         );
     }
 
-    // ---------------- ATTACK ----------------
+    // ================= ATTACK =================
 
     private void FireAttack()
     {
-        if (!isAiming) return;
-        isAiming = false;
-
         if (Time.time - lastAttackTime < attackCooldown) return;
         lastAttackTime = Time.time;
 
-        anim.SetTrigger("FrogAttack");
+        if (anim != null)
+            anim.SetTrigger("FrogAttack");
 
         HookMechanism hook = HookPool.Instance.GetHook(hookPrefabIndex);
         hook.SetUpHook(tongueOrigin);
