@@ -3523,7 +3523,6 @@ GameObject:
   - component: {fileID: 389785083}
   - component: {fileID: 389785082}
   - component: {fileID: 389785081}
-  - component: {fileID: 389785080}
   - component: {fileID: 389785079}
   - component: {fileID: 389785086}
   m_Layer: 0
@@ -3622,24 +3621,6 @@ MonoBehaviour:
   gameOverPanel: {fileID: 515530162}
   anim: {fileID: 389785082}
   tapMoveAmount: 5
---- !u!114 &389785080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389785078}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c16ee215e120d449b0d7e42f2f88c04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tongueHook: {fileID: 2037222033}
-  hookPrefabIndex: 1
-  aimAttack: {fileID: 1035188695}
-  rotationSpeed: 100
-  anim: {fileID: 389785082}
-  hookCooldown: 0.4
 --- !u!114 &389785081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5676,7 +5657,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &579528709
 Transform:
   m_ObjectHideFlags: 0
@@ -11826,7 +11807,6 @@ GameObject:
   - component: {fileID: 1421321448}
   - component: {fileID: 1421321447}
   - component: {fileID: 1421321446}
-  - component: {fileID: 1421321445}
   - component: {fileID: 1421321444}
   - component: {fileID: 1421321451}
   m_Layer: 0
@@ -11925,24 +11905,6 @@ MonoBehaviour:
   gameOverPanel: {fileID: 515530162}
   anim: {fileID: 1421321447}
   tapMoveAmount: 5
---- !u!114 &1421321445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421321443}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c16ee215e120d449b0d7e42f2f88c04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tongueHook: {fileID: 1424743170}
-  hookPrefabIndex: 2
-  aimAttack: {fileID: 1551058130}
-  rotationSpeed: 100
-  anim: {fileID: 1421321447}
-  hookCooldown: 0.4
 --- !u!114 &1421321446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21957,7 +21919,6 @@ GameObject:
   - component: {fileID: 2042803825}
   - component: {fileID: 2042803824}
   - component: {fileID: 2042803823}
-  - component: {fileID: 2042803822}
   - component: {fileID: 2042803821}
   - component: {fileID: 2042803828}
   m_Layer: 0
@@ -21966,7 +21927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2042803821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22056,24 +22017,6 @@ MonoBehaviour:
   gameOverPanel: {fileID: 515530162}
   anim: {fileID: 2042803824}
   tapMoveAmount: 5
---- !u!114 &2042803822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2042803820}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c16ee215e120d449b0d7e42f2f88c04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tongueHook: {fileID: 822662585}
-  hookPrefabIndex: 0
-  aimAttack: {fileID: 1544841809}
-  rotationSpeed: 100
-  anim: {fileID: 2042803824}
-  hookCooldown: 0.4
 --- !u!114 &2042803823
 MonoBehaviour:
   m_ObjectHideFlags: 0

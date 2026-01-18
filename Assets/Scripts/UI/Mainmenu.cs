@@ -49,13 +49,13 @@ public class Mainmenu : MonoBehaviour
             AudioManager.Instance.PlaySFX("froggy");
 
         // Load Almanac Scene
-        SceneManager.LoadSceneAsync(8);
+        SceneManager.LoadSceneAsync(6);
         Time.timeScale = 1f;
     }
 
     public void Tutorial()
     {
-        SceneManager.LoadSceneAsync(7);
+        SceneManager.LoadSceneAsync(5);
         Time.timeScale = 1f;
     }
 
