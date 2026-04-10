@@ -29,22 +29,47 @@ public class EnemyNymphs : EnemyBase, IStunnable, ISlowable
     private float baseSpeed;
 
     // -------------------- UNITY EVENTS -------------------- //
+
+    private bool isDead = false;
     protected override void OnEnable()
     {
         base.OnEnable();
         baseSpeed = speed;
+        isDead = false;
         ResetStatus();
 
         player = GameObject.FindGameObjectWithTag("Player");
         FindClosestEgg();
 
-        ChooseRandomTarget();
+        SetTargetBasedOnWave();
         FaceCurrentTarget();
+    }
+    
+    private void OnDisable()
+    {
+        // PREVENT DOUBLE COUNT
+        if (isDead) return;
+
+        isDead = true;
+
+        if (NewSpawnerEnemy.Instance != null)
+            NewSpawnerEnemy.Instance.UnregisterEnemy();
     }
 
     private void Update()
     {
         if (isHooked || isStunned || isAttacking) return;
+
+        int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
+
+        // Only in higher waves → dynamic targeting
+        if (wave >= 3)
+        {
+            if (Random.value < 0.005f) // small chance to switch
+            {
+                ChooseRandomTarget();
+            }
+        }
 
         switch (currentTarget)
         {
@@ -126,6 +151,24 @@ public class EnemyNymphs : EnemyBase, IStunnable, ISlowable
         if (direction != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(direction);
     }
+
+
+    void SetTargetBasedOnWave()
+    {
+        int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
+
+        // Early waves → egg only
+        if (wave <= 2)
+        {
+            currentTarget = TargetType.Egg;
+        }
+        // Later waves → random
+        else
+        {
+            ChooseRandomTarget();
+        }
+    }
+
 
     private void ChooseRandomTarget()
     {

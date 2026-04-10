@@ -31,9 +31,12 @@ public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
     private GameObject frogEgg;
     private EggHealth targetEgg;
 
+
+    private bool isDead = false;
     protected override void OnEnable()
     {
         base.OnEnable();
+        isDead = false;
         // Reset state
         isHooked = false;
         isSlow = false;
@@ -45,12 +48,34 @@ public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
 
         player = GameObject.FindGameObjectWithTag("Player");
         FindClosestEgg();
-        ChooseRandomTarget();
+        SetTargetBasedOnWave();
     }
 
+    
+    private void OnDisable()
+    {
+        // PREVENT DOUBLE COUNT
+        if (isDead) return;
+
+        isDead = true;
+
+        if (NewSpawnerEnemy.Instance != null)
+            NewSpawnerEnemy.Instance.UnregisterEnemy();
+    }
     private void Update()
     {
         if (isHooked || isStunned || isAttacking) return;
+
+        // Re-evaluate target ONLY in higher waves
+        int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
+        if (wave >= 3)
+        {
+            // small chance to switch target
+            if (Random.value < 0.005f)
+            {
+                ChooseRandomTarget();
+            }
+        }
 
         switch (currentTarget)
         {
@@ -60,6 +85,22 @@ public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
             case TargetType.Player:
                 HandlePlayerTarget();
                 break;
+        }
+    }
+
+    void SetTargetBasedOnWave()
+    {
+        int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
+
+        // Wave 1–2 → always egg
+        if (wave <= 2)
+        {
+            currentTarget = TargetType.Egg;
+        }
+        // Wave 3+ → random target
+        else
+        {
+            ChooseRandomTarget();
         }
     }
 

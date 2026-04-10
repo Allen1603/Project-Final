@@ -24,15 +24,22 @@ public class EnemyFly : EnemyBase, IStunnable, ISlowable
     private Transform targetPoint;
     public float rotateSpeed = 5f;
 
+    //  ADD THIS
+    private bool isDead = false;
+
     // -------------------- UNITY EVENTS -------------------- //
     protected override void OnEnable()
     {
-        base.OnEnable(); // call base class OnEnable if any
+        base.OnEnable();
+
+        isDead = false; // RESET FOR POOL
 
         isHooked = false;
         zigzagTimer = 0f;
         currentTimer = layingEggTimer;
         isLayingEgg = false;
+
+        ApplyWaveDifficulty(); // NEW
 
         PickNewRondaPoint();
     }
@@ -44,6 +51,24 @@ public class EnemyFly : EnemyBase, IStunnable, ISlowable
         MoveFly();
         ZigzagMovement();
         LayingEgg();
+    }
+
+    // -------------------- WAVE DIFFICULTY -------------------- //
+    void ApplyWaveDifficulty()
+    {
+        int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
+
+        //  Early waves → normal
+        if (wave <= 2)
+        {
+            layingEggTimer = 3f;
+        }
+        //  Later waves → aggressive
+        else
+        {
+            layingEggTimer = 1.2f; // faster egg laying
+            speed *= 1.2f;         // slightly faster
+        }
     }
 
     // -------------------- MOVEMENT -------------------- //
@@ -112,6 +137,17 @@ public class EnemyFly : EnemyBase, IStunnable, ISlowable
             isHooked = true;
             EnemyPool.Instance.ReturnToPool("Enemy2", gameObject);
         }
+    }
+
+    // -------------------- IMPORTANT FIX -------------------- //
+    private void OnDisable()
+    {
+        if (isDead) return;
+
+        isDead = true;
+
+        if (NewSpawnerEnemy.Instance != null)
+            NewSpawnerEnemy.Instance.UnregisterEnemy();
     }
 
     // -------------------- SLOW -------------------- //

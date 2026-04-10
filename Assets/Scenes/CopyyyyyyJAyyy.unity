@@ -20542,20 +20542,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - waveName: 
-    enemyTags: []
-    enemyCount: 0
-    spawnRate: 0
-  spawner: []
-  wavePanel: {fileID: 0}
-  levelClearPanel: {fileID: 0}
-  waveTXT: {fileID: 0}
+  - waveName: Wave1
+    enemyTags:
+    - Enemy1
+    - Enemy1
+    - Enemy1
+    enemyCount: 10
+    spawnRate: 5
+  - waveName: Wave2
+    enemyTags:
+    - Enemy2
+    - Enemy2
+    - Enemy2
+    enemyCount: 10
+    spawnRate: 5
+  spawner:
+  - {fileID: 667071191}
+  - {fileID: 2037862744}
+  - {fileID: 647018905}
+  wavePanel: {fileID: 1941341763}
+  levelClearPanel: {fileID: 1296498290}
+  waveTXT: {fileID: 722438383}
   waveTextDisplayTime: 3
-  hopperPanel: {fileID: 0}
-  flyPanel: {fileID: 0}
-  bugPanel: {fileID: 0}
-  beePanel: {fileID: 0}
-  fadeCanvasGroup: {fileID: 0}
+  hopperPanel: {fileID: 1463106272}
+  flyPanel: {fileID: 1438209403}
+  bugPanel: {fileID: 1077331271}
+  beePanel: {fileID: 904568896}
+  fadeCanvasGroup: {fileID: 2133270533}
   pickingSceneName: MapPicking
   fadeDuration: 1
 --- !u!1001 &1920556683
