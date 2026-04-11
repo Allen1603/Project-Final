@@ -7308,6 +7308,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 797136251}
   m_CullTransparentMesh: 1
+--- !u!1 &797718645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 797718646}
+  m_Layer: 0
+  m_Name: EnemySpawner (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &797718646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797718645}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.739998, y: 1, z: 7.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1910447919}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &799761253
 GameObject:
   m_ObjectHideFlags: 0
@@ -20984,6 +21014,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1910447919}
   - component: {fileID: 1910447918}
+  - component: {fileID: 1910447920}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -20998,7 +21029,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910447917}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fb0e918cbc17054c8a278abc5529213, type: 3}
   m_Name: 
@@ -21042,8 +21073,110 @@ Transform:
   - {fileID: 667071191}
   - {fileID: 2037862744}
   - {fileID: 647018905}
+  - {fileID: 797718646}
+  - {fileID: 1914700038}
   m_Father: {fileID: 0}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1910447920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910447917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a842d09a8689f42802e1e19a023827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - waveName: WAVE 1
+    enemyTags:
+    - Enemy1
+    enemyCount: 15
+    spawnRate: 1.5
+  - waveName: WAVE 2
+    enemyTags:
+    - Enemy1
+    enemyCount: 20
+    spawnRate: 1.8
+  - waveName: WAVE 3
+    enemyTags:
+    - Enemy2
+    enemyCount: 15
+    spawnRate: 2
+  - waveName: WAVE 4
+    enemyTags:
+    - Enemy2
+    - Enemy1
+    enemyCount: 20
+    spawnRate: 2
+  - waveName: WAVE 5
+    enemyTags:
+    - Enemy3
+    enemyCount: 15
+    spawnRate: 2
+  - waveName: WAVE 6
+    enemyTags:
+    - Enemy1
+    - Enemy2
+    - Enemy3
+    enemyCount: 20
+    spawnRate: 2
+  - waveName: FINAL WAVE
+    enemyTags:
+    - Enemy1
+    - Enemy2
+    - Enemy3
+    enemyCount: 30
+    spawnRate: 2
+  spawner:
+  - {fileID: 667071191}
+  - {fileID: 2037862744}
+  - {fileID: 647018905}
+  - {fileID: 797718646}
+  - {fileID: 1914700038}
+  wavePanel: {fileID: 1941341763}
+  levelClearPanel: {fileID: 1011964571}
+  waveTXT: {fileID: 722438383}
+  waveTextDisplayTime: 3
+  hopperPanel: {fileID: 1463106272}
+  flyPanel: {fileID: 1438209403}
+  bugPanel: {fileID: 1077331271}
+  beePanel: {fileID: 904568896}
+  fadeCanvasGroup: {fileID: 285784431}
+  pickingSceneName: MapPicking
+  fadeDuration: 1
+--- !u!1 &1914700037
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1914700038}
+  m_Layer: 0
+  m_Name: EnemySpawner (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1914700038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914700037}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.739998, y: 1, z: 2.59}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1910447919}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1920556683
 PrefabInstance:

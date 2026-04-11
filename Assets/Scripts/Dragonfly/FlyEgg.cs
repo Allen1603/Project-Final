@@ -20,23 +20,23 @@ public class FlyEgg : MonoBehaviour
     {
         float hatchTime = Random.Range(5f, 10f);
 
-        // 🔥 IMPORTANT: use realtime (so it works even if paused)
+        //  IMPORTANT: use realtime (so it works even if paused)
         yield return new WaitForSecondsRealtime(hatchTime);
 
-        // 🔥 SPAWN NYMPH
+        // SPAWN NYMPH
         GameObject nymph = EnemyPool.Instance.SpawnFromPool(
             "Enemy4", // nymph tag
             transform.position,
             Quaternion.identity
         );
 
-        // ✅ REGISTER THIS ENEMY (ENTRY COUNT FIX)
+        //  REGISTER THIS ENEMY (ENTRY COUNT FIX)
         if (NewSpawnerEnemy.Instance != null)
         {
             NewSpawnerEnemy.Instance.RegisterEnemy();
         }
 
-        // 🥚 REMOVE EGG (NOT COUNTED AS ENEMY)
+        //  REMOVE EGG (NOT COUNTED AS ENEMY)
         EnemyPool.Instance.ReturnToPool("Egg", gameObject);
     }
 }
