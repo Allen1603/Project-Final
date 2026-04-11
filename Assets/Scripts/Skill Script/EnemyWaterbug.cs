@@ -68,7 +68,7 @@ public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
 
         // Re-evaluate target ONLY in higher waves
         int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
-        if (wave >= 3)
+        if (wave >= 2)
         {
             // small chance to switch target
             if (Random.value < 0.005f)

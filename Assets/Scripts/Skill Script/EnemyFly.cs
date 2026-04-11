@@ -59,15 +59,15 @@ public class EnemyFly : EnemyBase, IStunnable, ISlowable
         int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
 
         //  Early waves → normal
-        if (wave <= 2)
+        if (wave <= 3)
         {
-            layingEggTimer = 3f;
+            layingEggTimer = 15f;
         }
         //  Later waves → aggressive
         else
         {
-            layingEggTimer = 1.2f; // faster egg laying
-            speed *= 1.2f;         // slightly faster
+            layingEggTimer -= 2f; // faster egg laying
+            speed += 1f;         // slightly faster
         }
     }
 

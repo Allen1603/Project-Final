@@ -68,7 +68,7 @@ public class NewSpawnerEnemy : MonoBehaviour
     {
         waveSpawningFinished = false;
 
-        // 🔥 RESET COUNTS (IMPORTANT)
+        //  RESET COUNTS
         aliveEnemies = 0;
         enemiesSpawnedThisWave = 0;
 
@@ -90,7 +90,9 @@ public class NewSpawnerEnemy : MonoBehaviour
         {
             SpawnEnemy();
             enemiesSpawnedThisWave++;
-            yield return new WaitForSeconds(wave.spawnRate);
+
+            //  FIX: works even when paused
+            yield return new WaitForSecondsRealtime(wave.spawnRate);
         }
 
         waveSpawningFinished = true;
@@ -107,9 +109,9 @@ public class NewSpawnerEnemy : MonoBehaviour
         Transform spawnPoint = spawner[Random.Range(0, spawner.Length)];
         string enemyTag = wave.enemyTags[Random.Range(0, wave.enemyTags.Length)];
 
-        GameObject enemy = EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
+        EnemyPool.Instance.SpawnFromPool(enemyTag, spawnPoint.position, Quaternion.identity);
 
-        // ✅ ALWAYS REGISTER HERE
+        //  REGISTER
         RegisterEnemy();
     }
 
@@ -146,7 +148,9 @@ public class NewSpawnerEnemy : MonoBehaviour
 
     private IEnumerator NextWaveDelay()
     {
-        yield return new WaitForSeconds(3f);
+        //  FIX: works even when paused
+        yield return new WaitForSecondsRealtime(3f);
+
         currentWaveIndex++;
         StartWave();
     }
@@ -160,7 +164,7 @@ public class NewSpawnerEnemy : MonoBehaviour
     {
         levelClearPanel.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
         yield return StartCoroutine(FadeToBlack());
 
         SceneManager.LoadScene(pickingSceneName);
@@ -185,20 +189,40 @@ public class NewSpawnerEnemy : MonoBehaviour
         wavePanel.SetActive(true);
         waveTXT.text = waveName;
 
-        yield return new WaitForSeconds(waveTextDisplayTime);
+        //  FIX: works even when paused
+        yield return new WaitForSecondsRealtime(waveTextDisplayTime);
+
         wavePanel.SetActive(false);
     }
 
     private IEnumerator InsectPanel()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);
 
-        if (currentWaveIndex == 0) hopperPanel.SetActive(true);
-        if (currentWaveIndex == 1) flyPanel.SetActive(true);
-        if (currentWaveIndex == 2) bugPanel.SetActive(true);
-        if (currentWaveIndex == 3) beePanel.SetActive(true);
+        if (currentWaveIndex == 0)
+        {
+            Time.timeScale = 0f;
+            hopperPanel.SetActive(true);
+        }
+            
+        if (currentWaveIndex == 2)
+        {
+            Time.timeScale = 0f;
+            flyPanel.SetActive(true);
+        }
+            
+        if (currentWaveIndex == 4)
+        {
+            Time.timeScale = 0f;
+            bugPanel.SetActive(true);
+        }
+            
+        // if (currentWaveIndex == 6) 
+           // beePanel.SetActive(true);
 
-        if (currentWaveIndex <= 2) Time.timeScale = 0f;
+        //  Pause game BUT coroutines still work
+        //if (currentWaveIndex <= 2)
+          //  Time.timeScale = 0f;
     }
 
     public void InsectContinueOne()
@@ -213,6 +237,6 @@ public class NewSpawnerEnemy : MonoBehaviour
 
     public int GetCurrentWave()
     {
-        return currentWaveIndex + 1;
+        return currentWaveIndex + 1; //  FIXED
     }
 }

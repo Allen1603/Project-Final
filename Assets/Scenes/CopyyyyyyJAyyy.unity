@@ -11345,6 +11345,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 56.923546, y: 3.7, z: 56.923546}
   m_Center: {x: 0, y: -1.0081849, z: 0}
+--- !u!1 &1405745976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1405745977}
+  m_Layer: 0
+  m_Name: EnemySpawner (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1405745977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405745976}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.739998, y: 1, z: 2.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1910447919}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1406372869
 GameObject:
   m_ObjectHideFlags: 0
@@ -20526,6 +20556,8 @@ Transform:
   - {fileID: 667071191}
   - {fileID: 2037862744}
   - {fileID: 647018905}
+  - {fileID: 1925985270}
+  - {fileID: 1405745977}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20542,24 +20574,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - waveName: Wave1
+  - waveName: WAVE 1
     enemyTags:
     - Enemy1
+    enemyCount: 15
+    spawnRate: 3
+  - waveName: WAVE 2
+    enemyTags:
     - Enemy1
-    - Enemy1
-    enemyCount: 10
-    spawnRate: 5
-  - waveName: Wave2
+    enemyCount: 20
+    spawnRate: 3
+  - waveName: WAVE 3
     enemyTags:
     - Enemy2
+    enemyCount: 15
+    spawnRate: 3
+  - waveName: WAVE 4
+    enemyTags:
     - Enemy2
+    - Enemy1
+    enemyCount: 20
+    spawnRate: 3
+  - waveName: WAVE 5
+    enemyTags:
+    - Enemy3
+    enemyCount: 1
+    spawnRate: 2
+  - waveName: WAVE 6
+    enemyTags:
+    - Enemy1
     - Enemy2
-    enemyCount: 10
+    - Enemy3
+    enemyCount: 1
     spawnRate: 5
+  - waveName: FINAL WAVE
+    enemyTags:
+    - Enemy1
+    - Enemy2
+    - Enemy3
+    enemyCount: 1
+    spawnRate: 4
   spawner:
   - {fileID: 667071191}
   - {fileID: 2037862744}
   - {fileID: 647018905}
+  - {fileID: 1925985270}
+  - {fileID: 1405745977}
   wavePanel: {fileID: 1941341763}
   levelClearPanel: {fileID: 1296498290}
   waveTXT: {fileID: 722438383}
@@ -20633,6 +20693,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5609195885173522214, guid: 967980688b95aa64e83b968dcf6217da, type: 3}
   m_PrefabInstance: {fileID: 1920556683}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1925985269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1925985270}
+  m_Layer: 0
+  m_Name: EnemySpawner (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1925985270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925985269}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 15.739998, y: 1, z: 7.78}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1910447919}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1926386312
 GameObject:
   m_ObjectHideFlags: 0

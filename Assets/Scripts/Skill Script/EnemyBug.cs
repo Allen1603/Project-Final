@@ -32,10 +32,16 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
     private GameObject frogEgg;
     private EggHealth targetEgg;
 
+    // IMPORTANT (for wave system)
+    private bool isDead = false;
+
     protected override void OnEnable()
     {
         base.OnEnable();
-        // Reset state
+
+        //  RESET pooling state
+        isDead = false;
+
         isHooked = false;
         isSlow = false;
         isStunned = false;
@@ -46,12 +52,21 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
 
         player = GameObject.FindGameObjectWithTag("Player");
         FindClosestEgg();
-        ChooseRandomTarget();
+
+        // WAVE-BASED TARGETING
+        SetTargetBasedOnWave();
     }
 
     private void Update()
     {
         if (isHooked || isStunned || isAttacking) return;
+
+        // Dynamic switching in higher waves
+        int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
+        if (wave >= 3 && Random.value < 0.005f)
+        {
+            ChooseRandomTarget();
+        }
 
         switch (currentTarget)
         {
@@ -64,6 +79,21 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
         }
     }
 
+    // ---------------- TARGETING ----------------
+    void SetTargetBasedOnWave()
+    {
+        int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
+
+        if (wave <= 2)
+        {
+            currentTarget = TargetType.Egg; // early = egg only
+        }
+        else
+        {
+            ChooseRandomTarget(); // later = random
+        }
+    }
+
     private void ChooseRandomTarget()
     {
         currentTarget = (Random.value <= chanceToTargetEgg) ? TargetType.Egg : TargetType.Player;
@@ -71,7 +101,6 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
 
     private void HandleEggTarget()
     {
-        // Find closest egg every frame (flat XZ distance)
         FindClosestEgg();
 
         if (frogEgg == null)
@@ -80,7 +109,6 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
             return;
         }
 
-        // Check distance on XZ plane
         Vector3 flatEnemyPos = new Vector3(transform.position.x, 0f, transform.position.z);
         Vector3 flatEggPos = new Vector3(frogEgg.transform.position.x, 0f, frogEgg.transform.position.z);
         float dist = Vector3.Distance(flatEnemyPos, flatEggPos);
@@ -178,7 +206,7 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
         if (frogEgg == null) return;
 
         Vector3 direction = frogEgg.transform.position - transform.position;
-        direction.y = 0f; // ignore vertical distance
+        direction.y = 0f;
 
         if (direction != Vector3.zero)
         {
@@ -232,6 +260,17 @@ public class EnemyBug : EnemyBase, IStunnable, ISlowable
 
         isStunned = false;
         currentSpeed = isSlow ? baseSpeed * 0.5f : baseSpeed;
+    }
+
+    // ----------------  IMPORTANT FIX ----------------
+    private void OnDisable()
+    {
+        if (isDead) return;
+
+        isDead = true;
+
+        if (NewSpawnerEnemy.Instance != null)
+            NewSpawnerEnemy.Instance.UnregisterEnemy();
     }
 
     // ---------------- RESET ----------------
