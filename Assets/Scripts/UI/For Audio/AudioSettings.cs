@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,14 +13,12 @@ public class AudioSettings : MonoBehaviour
 
     void Start()
     {
+        // load saved values from PlayerPrefs directly
+        bgmSlider.value = PlayerPrefs.GetFloat("BGMVolume", 0.5f);
+        sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        bgmToggle.isOn = PlayerPrefs.GetInt("BGMMuted", 0) == 0; // isOn = NOT muted
+        sfxToggle.isOn = PlayerPrefs.GetInt("SFXMuted", 0) == 0;
 
-        // Set default UI values from AudioManager
-        bgmSlider.value = AudioManager.Instance.bgmVolume;
-        sfxSlider.value = AudioManager.Instance.sfxVolume;
-        bgmToggle.isOn = AudioManager.Instance.bgmSource.mute;
-        sfxToggle.isOn = AudioManager.Instance.sfxSource.mute;
-
-        // Add listeners
         bgmSlider.onValueChanged.AddListener(SetBGMVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
         bgmToggle.onValueChanged.AddListener(ToggleBGM);
@@ -41,11 +37,11 @@ public class AudioSettings : MonoBehaviour
 
     public void ToggleBGM(bool isOn)
     {
-        AudioManager.Instance.ToggleBGM(!isOn);
+        AudioManager.Instance.ToggleBGM(isOn);
     }
 
     public void ToggleSFX(bool isOn)
     {
-        AudioManager.Instance.ToggleSFX(!isOn);
+        AudioManager.Instance.ToggleSFX(isOn);
     }
 }
