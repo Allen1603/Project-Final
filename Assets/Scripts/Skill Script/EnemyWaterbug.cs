@@ -8,6 +8,7 @@ public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
     [Header("Movement")]
     public float speed = 2f;
     public float detectionRange = 5f;
+    public float tutorialSpeed = 1f;
 
     [Header("Combat")]
     public float damage = 20f;
@@ -43,12 +44,21 @@ public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
         isStunned = false;
         isAttacking = false;
 
-        baseSpeed = speed;
-        currentSpeed = baseSpeed;
+        if (GameModeManager.GameMode == GameMode.Actual)
+        {
+            baseSpeed = speed;
+            currentSpeed = baseSpeed;
+        }
+
+        if (GameModeManager.GameMode == GameMode.Tutorial)
+        {
+            currentSpeed = tutorialSpeed;
+            baseSpeed = tutorialSpeed;
+        }
 
         player = GameObject.FindGameObjectWithTag("Player");
         FindClosestEgg();
-        SetTargetBasedOnWave();
+        SetTargetMode();
     }
 
     
@@ -67,16 +77,19 @@ public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
         if (isHooked || isStunned || isAttacking) return;
 
         // Re-evaluate target ONLY in higher waves
-        int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
-        if (wave >= 2)
+        if (GameModeManager.GameMode == GameMode.Actual)
         {
-            // small chance to switch target
-            if (Random.value < 0.005f)
+            int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
+            if (wave >= 2)
             {
-                ChooseRandomTarget();
+                // small chance to switch target
+                if (Random.value < 0.005f)
+                {
+                    ChooseRandomTarget();
+                }
             }
         }
-
+         
         switch (currentTarget)
         {
             case TargetType.Egg:
@@ -87,7 +100,18 @@ public class EnemyWaterbug : EnemyBase, IStunnable, ISlowable
                 break;
         }
     }
-
+    void SetTargetMode()
+    {
+        if (GameModeManager.GameMode == GameMode.Tutorial)
+        {
+            currentTarget = TargetType.Egg;
+        }
+        else if (GameModeManager.GameMode == GameMode.Actual)
+        {
+            // In actual game, use wave-based targeting
+            SetTargetBasedOnWave();
+        }
+    }
     void SetTargetBasedOnWave()
     {
         int wave = NewSpawnerEnemy.Instance.GetCurrentWave();
