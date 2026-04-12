@@ -88,7 +88,13 @@ public class SpawnerTutorial : MonoBehaviour
 
         if (enemyHooked <= 0)
         {
+            StartCoroutine(DonePauseTutorial());
             exitPanel.SetActive(true);
         }
+    }
+    private IEnumerator DonePauseTutorial()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 0f;
     }
 }

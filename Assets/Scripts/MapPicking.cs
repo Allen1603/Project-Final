@@ -19,6 +19,14 @@ public class MapPicking : MonoBehaviour
 
 
 
-    public void Pond1() => SelectPond(1);
-    public void Pond2() => SelectPond(2);
+    public void Pond1()
+    {
+        SelectPond(1);
+        GameModeManager.SetMode(GameMode.Actual);
+    }
+    public void Pond2()
+    {
+        SelectPond(2);
+        GameModeManager.SetMode(GameMode.Actual);
+    }
 }

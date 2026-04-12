@@ -47,31 +47,54 @@ public class SkillUnlockManager : MonoBehaviour
 
     private void InitializeSkillSystem()
     {
-        // Add all skill buttons to list
         allSkillButtons.Add(stunSkillButton);
         allSkillButtons.Add(slowSkillButton);
         allSkillButtons.Add(healSkillButton);
         allSkillButtons.Add(cloneSkillButton);
 
-        // Lock all skills initially
-        LockAllSkills();
+        // unlock all in tutorial, lock all in actual
+        if (GameModeManager.GameMode == GameMode.Tutorial)
+        {
+            UnlockAllSkills();
+        }
+        else
+        {
+            LockAllSkills();
+        }
 
-        // Initialize bars
         UpdateSkillBar();
         UpdateExpBar();
 
-        // Hide plus button initially
         if (plusButton != null)
             plusButton.gameObject.SetActive(false);
 
-        // Hide upgrade panel initially
         if (skillUpgradePanel != null)
             skillUpgradePanel.SetActive(false);
 
-        // Set up button listeners
         SetupButtonListeners();
     }
 
+    private void UnlockAllSkills()
+    {
+        lockedSkillButtons.Clear();
+
+        foreach (Button button in allSkillButtons)
+        {
+            if (button != null)
+            {
+                button.interactable = true;
+
+                Image buttonImage = button.GetComponent<Image>();
+                if (buttonImage != null)
+                {
+                    buttonImage.color = Color.white; // show as unlocked
+                }
+            }
+        }
+
+        // set any skill as "current" so UseSkill() works
+        currentUnlockedSkill = allSkillButtons[0];
+    }
     private void SetupButtonListeners()
     {
         if (stunSkillButton != null)

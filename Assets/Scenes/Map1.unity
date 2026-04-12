@@ -8806,6 +8806,7 @@ GameObject:
   - component: {fileID: 963230081}
   - component: {fileID: 963230084}
   - component: {fileID: 963230083}
+  - component: {fileID: 963230082}
   m_Layer: 0
   m_Name: harang sa palaka
   m_TagString: Untagged
@@ -8827,6 +8828,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 2.62, z: 0}
+--- !u!65 &963230082
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963230080}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 17.129084, y: 2.4988382, z: 0.9805337}
+  m_Center: {x: -1.4409485, y: 0.7494192, z: -0.009755507}
 --- !u!65 &963230083
 BoxCollider:
   m_ObjectHideFlags: 0

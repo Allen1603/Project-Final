@@ -13,6 +13,7 @@ public class Mainmenu : MonoBehaviour
 
     public void Play()
     {
+        GameModeManager.SetMode(GameMode.Actual);
         SceneManager.LoadSceneAsync(2);
         Time.timeScale = 1f;
     }
@@ -55,6 +56,7 @@ public class Mainmenu : MonoBehaviour
 
     public void Tutorial()
     {
+        GameModeManager.SetMode(GameMode.Tutorial);
         SceneManager.LoadSceneAsync(5);
         Time.timeScale = 1f;
     }
